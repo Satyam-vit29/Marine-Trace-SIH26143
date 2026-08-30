@@ -1,0 +1,304 @@
+{
+  "incident_id": "DEMO-BOB-001",
+  "case_id": "CASE_A",
+  "region": "Bay of Bengal",
+  "filter_funnel": {
+    "total_regional_transponders_logged": 142,
+    "after_spatial_bounding_box_filter": 28,
+    "after_temporal_hindcast_window_filter": 9,
+    "high_relevance_candidates_scored": 6
+  },
+  "origin": {
+    "lat": 16.37880335209403,
+    "lon": 82.69660955579755
+  },
+  "vessels": [
+    {
+      "vessel": "MV Konkan Pride",
+      "mmsi": "419001234",
+      "imo": "9381201",
+      "score": 95.8,
+      "distance_km": 1.12,
+      "cpa": {
+        "lat": 16.383,
+        "lon": 82.62,
+        "time": "2026-08-28 12:30:00"
+      },
+      "vessel_type": "Crude Oil Tanker",
+      "flag": "India (IN)",
+      "length_m": 274,
+      "beam_m": 48,
+      "avg_speed_knots": 12.6,
+      "heading_deg": 42,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": true,
+        "explanation": "Passed within 1.12 km of probable origin corridor at 2026-08-28 12:30:00 UTC. Trajectory heading aligns with Godavari coastal fairway."
+      },
+      "track": [
+        {
+          "lat": 16.2,
+          "lon": 82.4,
+          "time": "2026-08-28 02:30:00"
+        },
+        {
+          "lat": 16.24,
+          "lon": 82.44,
+          "time": "2026-08-28 04:30:00"
+        },
+        {
+          "lat": 16.28,
+          "lon": 82.49,
+          "time": "2026-08-28 06:30:00"
+        },
+        {
+          "lat": 16.32,
+          "lon": 82.54,
+          "time": "2026-08-28 08:30:00"
+        },
+        {
+          "lat": 16.35,
+          "lon": 82.58,
+          "time": "2026-08-28 10:30:00"
+        },
+        {
+          "lat": 16.383,
+          "lon": 82.62,
+          "time": "2026-08-28 12:30:00"
+        },
+        {
+          "lat": 16.42,
+          "lon": 82.67,
+          "time": "2026-08-28 14:30:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MT Sagar Vihaan",
+      "mmsi": "419002345",
+      "imo": "9412034",
+      "score": 76.4,
+      "distance_km": 5.9,
+      "cpa": {
+        "lat": 16.425,
+        "lon": 82.645,
+        "time": "2026-08-28 10:45:00"
+      },
+      "vessel_type": "Product Tanker",
+      "flag": "India (IN)",
+      "length_m": 183,
+      "beam_m": 32,
+      "avg_speed_knots": 11.2,
+      "heading_deg": 46,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": true,
+        "explanation": "Traversed within 5.90 km of the hindcast origin during early morning temporal window."
+      },
+      "track": [
+        {
+          "lat": 16.25,
+          "lon": 82.42,
+          "time": "2026-08-28 02:30:00"
+        },
+        {
+          "lat": 16.31,
+          "lon": 82.5,
+          "time": "2026-08-28 05:30:00"
+        },
+        {
+          "lat": 16.37,
+          "lon": 82.58,
+          "time": "2026-08-28 08:30:00"
+        },
+        {
+          "lat": 16.425,
+          "lon": 82.645,
+          "time": "2026-08-28 10:45:00"
+        },
+        {
+          "lat": 16.48,
+          "lon": 82.72,
+          "time": "2026-08-28 14:30:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MV Andaman Star",
+      "mmsi": "419003456",
+      "imo": "9298712",
+      "score": 54.2,
+      "distance_km": 11.45,
+      "cpa": {
+        "lat": 16.46,
+        "lon": 82.685,
+        "time": "2026-08-28 08:15:00"
+      },
+      "vessel_type": "Bulk Carrier",
+      "flag": "Singapore (SG)",
+      "length_m": 225,
+      "beam_m": 32,
+      "avg_speed_knots": 13.1,
+      "heading_deg": 38,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Crossed outer perimeter of the 12h spatial bounding box (11.45 km CPA)."
+      },
+      "track": [
+        {
+          "lat": 16.3,
+          "lon": 82.48,
+          "time": "2026-08-28 02:30:00"
+        },
+        {
+          "lat": 16.38,
+          "lon": 82.58,
+          "time": "2026-08-28 05:30:00"
+        },
+        {
+          "lat": 16.46,
+          "lon": 82.685,
+          "time": "2026-08-28 08:15:00"
+        },
+        {
+          "lat": 16.54,
+          "lon": 82.79,
+          "time": "2026-08-28 12:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MT Coastal Endeavour",
+      "mmsi": "419004567",
+      "imo": "9510045",
+      "score": 38.7,
+      "distance_km": 15.32,
+      "cpa": {
+        "lat": 16.485,
+        "lon": 82.715,
+        "time": "2026-08-28 06:00:00"
+      },
+      "vessel_type": "Chemical Tanker",
+      "flag": "Marshall Islands (MH)",
+      "length_m": 144,
+      "beam_m": 23,
+      "avg_speed_knots": 10.5,
+      "heading_deg": 44,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Peripheral transit with CPA exceeding 15 km from computed plume origin."
+      },
+      "track": [
+        {
+          "lat": 16.35,
+          "lon": 82.55,
+          "time": "2026-08-28 02:30:00"
+        },
+        {
+          "lat": 16.485,
+          "lon": 82.715,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 16.58,
+          "lon": 82.84,
+          "time": "2026-08-28 11:30:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MV Bengal Navigator",
+      "mmsi": "419005678",
+      "imo": "9623190",
+      "score": 24.1,
+      "distance_km": 18.98,
+      "cpa": {
+        "lat": 16.51,
+        "lon": 82.745,
+        "time": "2026-08-28 04:30:00"
+      },
+      "vessel_type": "Container Ship",
+      "flag": "Panama (PA)",
+      "length_m": 260,
+      "beam_m": 32,
+      "avg_speed_knots": 16.4,
+      "heading_deg": 40,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": false,
+        "corridor_alignment_pass": false,
+        "explanation": "Fast deep-water offshore container transit with low origin proximity."
+      },
+      "track": [
+        {
+          "lat": 16.38,
+          "lon": 82.58,
+          "time": "2026-08-28 02:30:00"
+        },
+        {
+          "lat": 16.51,
+          "lon": 82.745,
+          "time": "2026-08-28 04:30:00"
+        },
+        {
+          "lat": 16.65,
+          "lon": 82.92,
+          "time": "2026-08-28 08:30:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MT Godavari Trader",
+      "mmsi": "419006789",
+      "imo": "9187340",
+      "score": 12.5,
+      "distance_km": 21.88,
+      "cpa": {
+        "lat": 16.53,
+        "lon": 82.77,
+        "time": "2026-08-28 03:00:00"
+      },
+      "vessel_type": "General Cargo",
+      "flag": "Liberia (LR)",
+      "length_m": 120,
+      "beam_m": 18,
+      "avg_speed_knots": 9.8,
+      "heading_deg": 50,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": false,
+        "corridor_alignment_pass": false,
+        "explanation": "Distal boundary cargo transit with minimal correlation."
+      },
+      "track": [
+        {
+          "lat": 16.42,
+          "lon": 82.63,
+          "time": "2026-08-28 02:30:00"
+        },
+        {
+          "lat": 16.53,
+          "lon": 82.77,
+          "time": "2026-08-28 03:00:00"
+        },
+        {
+          "lat": 16.68,
+          "lon": 82.96,
+          "time": "2026-08-28 07:30:00"
+        }
+      ]
+    }
+  ]
+}

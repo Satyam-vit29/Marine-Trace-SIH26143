@@ -1,0 +1,9 @@
+{
+  "spill_id": "DEMO001",
+  "probable_origin": {
+    "lat": 18.468626976013184,
+    "lon": 69.8812141418457
+  },
+  "method": "Backward OpenDrift trajectory median",
+  "particles_used": 300
+}

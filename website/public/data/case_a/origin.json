@@ -1,0 +1,14 @@
+{
+  "spill_id": "DEMO-BOB-001",
+  "case_id": "CASE_A",
+  "region_name": "Bay of Bengal (Eastern Coastline)",
+  "probable_origin": {
+    "lat": 16.37880335209403,
+    "lon": 82.69660955579755
+  },
+  "method": "Backward OpenDrift Lagrangian spatial median cluster",
+  "particles_used": 300,
+  "uncertainty_radius_km": 2.8,
+  "estimated_release_time": "2026-08-28 02:30:00 UTC",
+  "hindcast_duration_hours": 12.0
+}

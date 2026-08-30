@@ -1,0 +1,284 @@
+{
+  "incident_id": "DEMO-AS-002",
+  "case_id": "CASE_B",
+  "region": "Arabian Sea",
+  "filter_funnel": {
+    "total_regional_transponders_logged": 127,
+    "after_spatial_bounding_box_filter": 23,
+    "after_temporal_hindcast_window_filter": 8,
+    "high_relevance_candidates_scored": 6
+  },
+  "origin": {
+    "lat": 18.468316865607655,
+    "lon": 69.87658696442048
+  },
+  "vessels": [
+    {
+      "vessel": "MT Ratnagiri Voyager",
+      "mmsi": "419011122",
+      "imo": "9345678",
+      "score": 95.3,
+      "distance_km": 1.18,
+      "cpa": {
+        "lat": 18.468,
+        "lon": 69.87,
+        "time": "2026-08-28 16:00:00"
+      },
+      "vessel_type": "Crude Oil Tanker",
+      "flag": "India (IN)",
+      "length_m": 274,
+      "beam_m": 48,
+      "avg_speed_knots": 12.4,
+      "heading_deg": 48,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": true,
+        "explanation": "Passed within 1.18 km of probable origin at 2026-08-28 16:00:00 UTC. Heading aligns with backward dispersion plume corridor."
+      },
+      "track": [
+        {
+          "lat": 18.36,
+          "lon": 69.72,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.39,
+          "lon": 69.76,
+          "time": "2026-08-28 09:00:00"
+        },
+        {
+          "lat": 18.42,
+          "lon": 69.81,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.468,
+          "lon": 69.87,
+          "time": "2026-08-28 16:00:00"
+        },
+        {
+          "lat": 18.49,
+          "lon": 69.9,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MV Konkan Sentinel",
+      "mmsi": "419012233",
+      "imo": "9456789",
+      "score": 72.4,
+      "distance_km": 6.9,
+      "cpa": {
+        "lat": 18.442,
+        "lon": 69.81,
+        "time": "2026-08-28 14:30:00"
+      },
+      "vessel_type": "Product Tanker",
+      "flag": "India (IN)",
+      "length_m": 180,
+      "beam_m": 32,
+      "avg_speed_knots": 11.8,
+      "heading_deg": 45,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": true,
+        "explanation": "Traversed within 6.90 km of origin with matching temporal window."
+      },
+      "track": [
+        {
+          "lat": 18.3,
+          "lon": 69.6,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.37,
+          "lon": 69.7,
+          "time": "2026-08-28 10:00:00"
+        },
+        {
+          "lat": 18.442,
+          "lon": 69.81,
+          "time": "2026-08-28 14:30:00"
+        },
+        {
+          "lat": 18.5,
+          "lon": 69.9,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MT Gujarat Mariner",
+      "mmsi": "419013344",
+      "imo": "9234567",
+      "score": 48.2,
+      "distance_km": 12.95,
+      "cpa": {
+        "lat": 18.41,
+        "lon": 69.76,
+        "time": "2026-08-28 12:00:00"
+      },
+      "vessel_type": "Chemical Tanker",
+      "flag": "Singapore (SG)",
+      "length_m": 160,
+      "beam_m": 26,
+      "avg_speed_knots": 13.5,
+      "heading_deg": 52,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Moderate distance to origin; parallel transit along outer corridor."
+      },
+      "track": [
+        {
+          "lat": 18.25,
+          "lon": 69.52,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.41,
+          "lon": 69.76,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.52,
+          "lon": 69.92,
+          "time": "2026-08-28 16:30:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MV Arabian Crest",
+      "mmsi": "419014455",
+      "imo": "9567890",
+      "score": 32.8,
+      "distance_km": 16.8,
+      "cpa": {
+        "lat": 18.38,
+        "lon": 69.71,
+        "time": "2026-08-28 09:30:00"
+      },
+      "vessel_type": "Bulk Carrier",
+      "flag": "Marshall Islands (MH)",
+      "length_m": 225,
+      "beam_m": 32,
+      "avg_speed_knots": 12.0,
+      "heading_deg": 40,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Outer boundary crossing; limited temporal convergence."
+      },
+      "track": [
+        {
+          "lat": 18.3,
+          "lon": 69.58,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.38,
+          "lon": 69.71,
+          "time": "2026-08-28 09:30:00"
+        },
+        {
+          "lat": 18.54,
+          "lon": 69.95,
+          "time": "2026-08-28 15:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MT Saurashtra Pearl",
+      "mmsi": "419015566",
+      "imo": "9678901",
+      "score": 21.5,
+      "distance_km": 19.62,
+      "cpa": {
+        "lat": 18.35,
+        "lon": 69.66,
+        "time": "2026-08-28 07:45:00"
+      },
+      "vessel_type": "Container Ship",
+      "flag": "Panama (PA)",
+      "length_m": 294,
+      "beam_m": 32,
+      "avg_speed_knots": 17.2,
+      "heading_deg": 42,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": false,
+        "corridor_alignment_pass": false,
+        "explanation": "High-speed container transit on western traffic separation scheme."
+      },
+      "track": [
+        {
+          "lat": 18.28,
+          "lon": 69.55,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.35,
+          "lon": 69.66,
+          "time": "2026-08-28 07:45:00"
+        },
+        {
+          "lat": 18.58,
+          "lon": 70.02,
+          "time": "2026-08-28 12:30:00"
+        }
+      ]
+    },
+    {
+      "vessel": "MV Deccan Voyager",
+      "mmsi": "419016677",
+      "imo": "9123456",
+      "score": 11.0,
+      "distance_km": 22.25,
+      "cpa": {
+        "lat": 18.33,
+        "lon": 69.63,
+        "time": "2026-08-28 06:15:00"
+      },
+      "vessel_type": "General Cargo",
+      "flag": "Liberia (LR)",
+      "length_m": 118,
+      "beam_m": 18,
+      "avg_speed_knots": 9.5,
+      "heading_deg": 55,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": false,
+        "corridor_alignment_pass": false,
+        "explanation": "Distal peripheral track; minimal association with computed origin."
+      },
+      "track": [
+        {
+          "lat": 18.33,
+          "lon": 69.63,
+          "time": "2026-08-28 06:15:00"
+        },
+        {
+          "lat": 18.45,
+          "lon": 69.8,
+          "time": "2026-08-28 11:00:00"
+        },
+        {
+          "lat": 18.55,
+          "lon": 69.95,
+          "time": "2026-08-28 16:00:00"
+        }
+      ]
+    }
+  ]
+}

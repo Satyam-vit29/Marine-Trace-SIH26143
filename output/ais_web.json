@@ -1,0 +1,465 @@
+{
+  "incident_id": "DEMO001",
+  "filter_funnel": {
+    "total_regional_transponders_logged": 127,
+    "after_spatial_bounding_box_filter": 23,
+    "after_temporal_hindcast_window_filter": 8,
+    "high_relevance_candidates_scored": 5
+  },
+  "origin": {
+    "lat": 18.468626976013184,
+    "lon": 69.8812141418457
+  },
+  "vessels": [
+    {
+      "vessel": "Vessel Alpha",
+      "mmsi": "123456789",
+      "score": 95.3,
+      "distance_km": 1.18,
+      "cpa": {
+        "lat": 18.468333333333334,
+        "lon": 69.87,
+        "time": "2026-08-28 16:00:00"
+      },
+      "vessel_type": "Crude Oil Tanker",
+      "flag": "Panama (PA)",
+      "length_m": 274,
+      "beam_m": 48,
+      "avg_speed_knots": 12.4,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": true,
+        "explanation": "Passed within 1.18 km of probable origin at 2026-08-28 16:00:00 UTC. Heading aligns with backward dispersion plume corridor."
+      },
+      "track": [
+        {
+          "lat": 18.36,
+          "lon": 69.72,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.370833333333334,
+          "lon": 69.735,
+          "time": "2026-08-28 07:00:00"
+        },
+        {
+          "lat": 18.381666666666668,
+          "lon": 69.75,
+          "time": "2026-08-28 08:00:00"
+        },
+        {
+          "lat": 18.3925,
+          "lon": 69.765,
+          "time": "2026-08-28 09:00:00"
+        },
+        {
+          "lat": 18.40333333333333,
+          "lon": 69.78,
+          "time": "2026-08-28 10:00:00"
+        },
+        {
+          "lat": 18.414166666666667,
+          "lon": 69.795,
+          "time": "2026-08-28 11:00:00"
+        },
+        {
+          "lat": 18.425,
+          "lon": 69.81,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.43583333333333,
+          "lon": 69.825,
+          "time": "2026-08-28 13:00:00"
+        },
+        {
+          "lat": 18.446666666666665,
+          "lon": 69.84,
+          "time": "2026-08-28 14:00:00"
+        },
+        {
+          "lat": 18.4575,
+          "lon": 69.855,
+          "time": "2026-08-28 15:00:00"
+        },
+        {
+          "lat": 18.468333333333334,
+          "lon": 69.87,
+          "time": "2026-08-28 16:00:00"
+        },
+        {
+          "lat": 18.479166666666664,
+          "lon": 69.885,
+          "time": "2026-08-28 17:00:00"
+        },
+        {
+          "lat": 18.49,
+          "lon": 69.9,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "Vessel Bravo",
+      "mmsi": "234567890",
+      "score": 72.4,
+      "distance_km": 6.9,
+      "cpa": {
+        "lat": 18.43,
+        "lon": 69.83,
+        "time": "2026-08-28 18:00:00"
+      },
+      "vessel_type": "Chemical / Products Tanker",
+      "flag": "Liberia (LR)",
+      "length_m": 183,
+      "beam_m": 32,
+      "avg_speed_knots": 13.1,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": true,
+        "explanation": "Passed 6.90 km from probable origin. Traversed adjacent corridor."
+      },
+      "track": [
+        {
+          "lat": 18.3,
+          "lon": 69.7,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.31083333333333,
+          "lon": 69.71083333333334,
+          "time": "2026-08-28 07:00:00"
+        },
+        {
+          "lat": 18.321666666666665,
+          "lon": 69.72166666666666,
+          "time": "2026-08-28 08:00:00"
+        },
+        {
+          "lat": 18.3325,
+          "lon": 69.7325,
+          "time": "2026-08-28 09:00:00"
+        },
+        {
+          "lat": 18.343333333333334,
+          "lon": 69.74333333333334,
+          "time": "2026-08-28 10:00:00"
+        },
+        {
+          "lat": 18.354166666666668,
+          "lon": 69.75416666666666,
+          "time": "2026-08-28 11:00:00"
+        },
+        {
+          "lat": 18.365,
+          "lon": 69.765,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.375833333333333,
+          "lon": 69.77583333333334,
+          "time": "2026-08-28 13:00:00"
+        },
+        {
+          "lat": 18.386666666666667,
+          "lon": 69.78666666666666,
+          "time": "2026-08-28 14:00:00"
+        },
+        {
+          "lat": 18.3975,
+          "lon": 69.7975,
+          "time": "2026-08-28 15:00:00"
+        },
+        {
+          "lat": 18.40833333333333,
+          "lon": 69.80833333333334,
+          "time": "2026-08-28 16:00:00"
+        },
+        {
+          "lat": 18.419166666666666,
+          "lon": 69.81916666666666,
+          "time": "2026-08-28 17:00:00"
+        },
+        {
+          "lat": 18.43,
+          "lon": 69.83,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "Vessel Charlie",
+      "mmsi": "345678901",
+      "score": 13.9,
+      "distance_km": 21.52,
+      "cpa": {
+        "lat": 18.35,
+        "lon": 69.72,
+        "time": "2026-08-28 18:00:00"
+      },
+      "vessel_type": "Container Ship (Post-Panamax)",
+      "flag": "Singapore (SG)",
+      "length_m": 366,
+      "beam_m": 51,
+      "avg_speed_knots": 18.6,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": true,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Distance of 21.52 km is outside localized dispersion envelope."
+      },
+      "track": [
+        {
+          "lat": 18.2,
+          "lon": 69.6,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.2125,
+          "lon": 69.61,
+          "time": "2026-08-28 07:00:00"
+        },
+        {
+          "lat": 18.225,
+          "lon": 69.61999999999999,
+          "time": "2026-08-28 08:00:00"
+        },
+        {
+          "lat": 18.2375,
+          "lon": 69.63,
+          "time": "2026-08-28 09:00:00"
+        },
+        {
+          "lat": 18.25,
+          "lon": 69.64,
+          "time": "2026-08-28 10:00:00"
+        },
+        {
+          "lat": 18.2625,
+          "lon": 69.64999999999999,
+          "time": "2026-08-28 11:00:00"
+        },
+        {
+          "lat": 18.275,
+          "lon": 69.66,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.2875,
+          "lon": 69.67,
+          "time": "2026-08-28 13:00:00"
+        },
+        {
+          "lat": 18.3,
+          "lon": 69.67999999999999,
+          "time": "2026-08-28 14:00:00"
+        },
+        {
+          "lat": 18.3125,
+          "lon": 69.69,
+          "time": "2026-08-28 15:00:00"
+        },
+        {
+          "lat": 18.325000000000003,
+          "lon": 69.7,
+          "time": "2026-08-28 16:00:00"
+        },
+        {
+          "lat": 18.3375,
+          "lon": 69.71,
+          "time": "2026-08-28 17:00:00"
+        },
+        {
+          "lat": 18.35,
+          "lon": 69.72,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "Vessel Delta",
+      "mmsi": "456789012",
+      "score": 0.0,
+      "distance_km": 43.03,
+      "cpa": {
+        "lat": 18.73333333333333,
+        "lon": 69.58333333333333,
+        "time": "2026-08-28 14:00:00"
+      },
+      "vessel_type": "Bulk Carrier (Capesize)",
+      "flag": "Marshall Islands (MH)",
+      "length_m": 292,
+      "beam_m": 45,
+      "avg_speed_knots": 11.8,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Distance of 43.03 km is outside localized dispersion envelope."
+      },
+      "track": [
+        {
+          "lat": 18.7,
+          "lon": 69.55,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.704166666666666,
+          "lon": 69.55416666666666,
+          "time": "2026-08-28 07:00:00"
+        },
+        {
+          "lat": 18.70833333333333,
+          "lon": 69.55833333333334,
+          "time": "2026-08-28 08:00:00"
+        },
+        {
+          "lat": 18.7125,
+          "lon": 69.5625,
+          "time": "2026-08-28 09:00:00"
+        },
+        {
+          "lat": 18.716666666666665,
+          "lon": 69.56666666666666,
+          "time": "2026-08-28 10:00:00"
+        },
+        {
+          "lat": 18.72083333333333,
+          "lon": 69.57083333333333,
+          "time": "2026-08-28 11:00:00"
+        },
+        {
+          "lat": 18.725,
+          "lon": 69.57499999999999,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.729166666666668,
+          "lon": 69.57916666666667,
+          "time": "2026-08-28 13:00:00"
+        },
+        {
+          "lat": 18.73333333333333,
+          "lon": 69.58333333333333,
+          "time": "2026-08-28 14:00:00"
+        },
+        {
+          "lat": 18.7375,
+          "lon": 69.58749999999999,
+          "time": "2026-08-28 15:00:00"
+        },
+        {
+          "lat": 18.741666666666667,
+          "lon": 69.59166666666667,
+          "time": "2026-08-28 16:00:00"
+        },
+        {
+          "lat": 18.745833333333334,
+          "lon": 69.59583333333333,
+          "time": "2026-08-28 17:00:00"
+        },
+        {
+          "lat": 18.75,
+          "lon": 69.6,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    },
+    {
+      "vessel": "Vessel Echo",
+      "mmsi": "567890123",
+      "score": 0.0,
+      "distance_km": 52.63,
+      "cpa": {
+        "lat": 18.141666666666666,
+        "lon": 70.24166666666667,
+        "time": "2026-08-28 16:00:00"
+      },
+      "vessel_type": "General Cargo Ship",
+      "flag": "Malta (MT)",
+      "length_m": 140,
+      "beam_m": 22,
+      "avg_speed_knots": 10.5,
+      "nav_status": "Underway using Engine",
+      "criteria_breakdown": {
+        "spatial_proximity_pass": false,
+        "temporal_overlap_pass": true,
+        "corridor_alignment_pass": false,
+        "explanation": "Distance of 52.63 km is outside localized dispersion envelope."
+      },
+      "track": [
+        {
+          "lat": 18.1,
+          "lon": 70.2,
+          "time": "2026-08-28 06:00:00"
+        },
+        {
+          "lat": 18.104166666666668,
+          "lon": 70.20416666666667,
+          "time": "2026-08-28 07:00:00"
+        },
+        {
+          "lat": 18.10833333333333,
+          "lon": 70.20833333333334,
+          "time": "2026-08-28 08:00:00"
+        },
+        {
+          "lat": 18.1125,
+          "lon": 70.2125,
+          "time": "2026-08-28 09:00:00"
+        },
+        {
+          "lat": 18.116666666666667,
+          "lon": 70.21666666666667,
+          "time": "2026-08-28 10:00:00"
+        },
+        {
+          "lat": 18.120833333333334,
+          "lon": 70.22083333333333,
+          "time": "2026-08-28 11:00:00"
+        },
+        {
+          "lat": 18.125,
+          "lon": 70.225,
+          "time": "2026-08-28 12:00:00"
+        },
+        {
+          "lat": 18.129166666666663,
+          "lon": 70.22916666666667,
+          "time": "2026-08-28 13:00:00"
+        },
+        {
+          "lat": 18.133333333333333,
+          "lon": 70.23333333333333,
+          "time": "2026-08-28 14:00:00"
+        },
+        {
+          "lat": 18.1375,
+          "lon": 70.2375,
+          "time": "2026-08-28 15:00:00"
+        },
+        {
+          "lat": 18.141666666666666,
+          "lon": 70.24166666666667,
+          "time": "2026-08-28 16:00:00"
+        },
+        {
+          "lat": 18.14583333333333,
+          "lon": 70.24583333333334,
+          "time": "2026-08-28 17:00:00"
+        },
+        {
+          "lat": 18.15,
+          "lon": 70.25,
+          "time": "2026-08-28 18:00:00"
+        }
+      ]
+    }
+  ]
+}

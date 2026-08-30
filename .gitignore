@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+
+website/node_modules/
+website/dist/
+
+.env
+.env.*
+!.env.example

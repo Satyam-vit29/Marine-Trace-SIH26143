@@ -1,0 +1,83 @@
+{
+  "incident_id": "DEMO-AS-002",
+  "case_id": "CASE_B",
+  "satellite_metadata": {
+    "satellite_sensor": "Sentinel-1A C-SAR",
+    "acquisition_time": "2026-08-28 18:00:00 UTC",
+    "polarization": "VV + VH (Dual-Pol)",
+    "beam_mode": "IW Mode",
+    "pixel_spacing": "10 m x 10 m",
+    "incidence_angle_deg": 34.6,
+    "orbit_pass": "Descending (Relative Orbit 142)",
+    "backscatter_damping_db": -4.8,
+    "detection_confidence": 0.94,
+    "confidence_label": "HIGH CONFIDENCE (AUTOMATED SAR DETECTION)"
+  },
+  "sar_image_overlay": {
+    "url": "/sentinel1_sar_scene.png",
+    "bounds": [
+      [
+        18.35,
+        69.8
+      ],
+      [
+        18.65,
+        70.2
+      ]
+    ],
+    "center": [
+      18.5,
+      70.0
+    ],
+    "description": "Demonstration Sentinel-1 C-SAR Grayscale Radar Scene",
+    "format": "Grayscale Radar Backscatter (\u03c3\u2080)"
+  },
+  "slick_characterization": {
+    "centroid": {
+      "lat": 18.499893,
+      "lon": 69.999917
+    },
+    "area_km2": 10.38,
+    "perimeter_km": 13.91,
+    "length_major_axis_km": 6.22,
+    "width_minor_axis_km": 2.12,
+    "orientation_deg": 90.8,
+    "estimated_age_hours": 6.0,
+    "bounding_box": {
+      "min_lat": 18.487,
+      "max_lat": 18.515,
+      "min_lon": 69.951,
+      "max_lon": 70.058
+    },
+    "polygon_outline": [
+      [
+        18.524,
+        69.999
+      ],
+      [
+        18.52,
+        70.035
+      ],
+      [
+        18.498,
+        70.045
+      ],
+      [
+        18.476,
+        70.01
+      ],
+      [
+        18.48,
+        69.965
+      ],
+      [
+        18.505,
+        69.96
+      ],
+      [
+        18.524,
+        69.999
+      ]
+    ]
+  }
+}
