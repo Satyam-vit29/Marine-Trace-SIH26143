@@ -5,7 +5,8 @@ import {
   RotateCcw, 
   Clock,
   Compass,
-  CheckCircle2
+  CheckCircle2,
+  Zap
 } from 'lucide-react';
 
 export function SimulationTimeline({
@@ -100,9 +101,12 @@ export function SimulationTimeline({
     <div className="sci-timeline-hud">
       {/* Top Meta Bar */}
       <div className="sci-timeline-meta-bar">
-        <div className="sci-timeline-mode-toggle">
+        <div className="sci-timeline-mode-toggle" role="tablist" aria-label="Simulation Mode Selector">
           <button
-            className={`sci-mode-tab ${isForward ? 'active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={isForward}
+            className={`sci-mode-tab ${isForward ? 'active active-forward' : ''}`}
             onClick={() => {
               if (!isForward) {
                 onModeChange('forward');
@@ -116,7 +120,10 @@ export function SimulationTimeline({
             <span>FORWARD PREDICTION (+24H)</span>
           </button>
           <button
-            className={`sci-mode-tab ${!isForward ? 'active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={!isForward}
+            className={`sci-mode-tab ${!isForward ? 'active active-hindcast' : ''}`}
             onClick={() => {
               if (isForward) {
                 onModeChange('backward');
@@ -133,19 +140,21 @@ export function SimulationTimeline({
 
         <div className="sci-clock-badge">
           <Clock size={14} className={isForward ? 'text-blue-600' : 'text-orange-600'} />
-          <span className="font-mono font-bold text-slate-800 text-xs">{currentSimTime.isoTime}</span>
-          <span className="sci-offset-tag font-mono">{currentSimTime.relOffset}</span>
+          <span className="font-mono font-bold text-slate-800 text-xs tracking-tight">{currentSimTime.isoTime}</span>
+          <span className={`sci-offset-tag font-mono ${isForward ? 'tag-blue-offset' : 'tag-orange-offset'}`}>
+            {currentSimTime.relOffset}
+          </span>
         </div>
 
         <div className="sci-step-counter font-mono text-xs text-slate-600">
-          <span>STEP <strong>{String(timeIndex).padStart(3, '0')}</strong></span>
+          <span>STEP <strong className="text-slate-900">{String(timeIndex).padStart(3, '0')}</strong></span>
           <span className="text-slate-400"> / {String(maxSteps).padStart(3, '0')}</span>
         </div>
       </div>
 
       {/* Scrubber & Slider Track */}
       <div className="sci-timeline-scrubber-row">
-        <span className="font-mono text-xs text-slate-500 font-semibold whitespace-nowrap">
+        <span className="font-mono text-[11px] text-slate-500 font-semibold whitespace-nowrap min-w-[130px]">
           {isForward ? '12:00 UTC (T+0)' : '18:00 UTC (T-0: Spill)'}
         </span>
 
@@ -165,7 +174,7 @@ export function SimulationTimeline({
           />
         </div>
 
-        <span className="font-mono text-xs text-slate-500 font-semibold whitespace-nowrap">
+        <span className="font-mono text-[11px] text-slate-500 font-semibold whitespace-nowrap min-w-[130px] text-right">
           {isForward ? '12:00 UTC (+24h)' : '06:00 UTC (-12h: Origin)'}
         </span>
       </div>
@@ -175,7 +184,8 @@ export function SimulationTimeline({
         <div className="sci-actions-button-group">
           {/* RUN FORECAST ACTION */}
           <button
-            className={`sci-play-btn btn-blue`}
+            type="button"
+            className={`sci-play-btn btn-blue ${isForward && isPlaying ? 'playing' : ''}`}
             onClick={handleRunForecast}
             title="Simulate forward Lagrangian drift forecast (+24H)"
           >
@@ -185,7 +195,8 @@ export function SimulationTimeline({
 
           {/* RUN BACKTRACK ACTION */}
           <button
-            className={`sci-play-btn btn-orange`}
+            type="button"
+            className={`sci-play-btn btn-orange ${!isForward && isPlaying ? 'playing' : ''}`}
             onClick={handleRunBacktrack}
             title="Simulate backward hindcast to probable origin (-12H)"
           >
@@ -195,17 +206,19 @@ export function SimulationTimeline({
 
           {/* RESET BUTTON */}
           <button 
+            type="button"
             className="sci-ctrl-btn" 
             onClick={onReset} 
             title="Reset to Step 0"
+            aria-label="Reset simulation to step 0"
           >
             <RotateCcw size={14} />
           </button>
 
           {/* ORIGIN ESTIMATED COMPLETION PILL */}
           {!isForward && isComplete && originCoords && (
-            <div className="sci-origin-estimated-pill">
-              <CheckCircle2 size={14} className="text-emerald-600" />
+            <div className="sci-origin-estimated-pill animate-fadeInScale">
+              <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0" />
               <span className="font-bold text-emerald-950 text-xs">✓ ORIGIN ESTIMATED:</span>
               <span className="font-mono font-extrabold text-slate-900 text-xs">
                 {originCoords.lat?.toFixed(4)}° N, {originCoords.lon?.toFixed(4)}° E (±2.80 km)
@@ -216,12 +229,17 @@ export function SimulationTimeline({
 
         {/* Speed Selector */}
         <div className="sci-speed-selector-group">
-          <span className="sci-speed-label font-mono">SPEED:</span>
+          <span className="sci-speed-label font-mono flex items-center gap-1">
+            <Zap size={11} className="text-slate-400" />
+            <span>SPEED:</span>
+          </span>
           {[1, 2, 5, 10].map((spd) => (
             <button
+              type="button"
               key={spd}
               className={`sci-speed-chip ${playbackSpeed === spd ? 'active' : ''}`}
               onClick={() => onSpeedChange(spd)}
+              title={`Set playback speed to ${spd}x`}
             >
               {spd}x
             </button>
@@ -231,3 +249,4 @@ export function SimulationTimeline({
     </div>
   );
 }
+
