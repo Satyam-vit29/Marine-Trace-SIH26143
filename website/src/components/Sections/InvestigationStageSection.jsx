@@ -93,38 +93,6 @@ export function InvestigationStageSection({
             <p className="sci-section-subtitle">{stage.description}</p>
           </div>
         </div>
-
-        {/* Lightweight Stage Progress Breadcrumbs */}
-        <div className="hidden md:flex" style={{ alignItems: 'center', gap: '6px', background: '#f8fafc', padding: '6px 10px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-          {stages.map((s, idx) => {
-            const isActive = currentStageId === s.id;
-            return (
-              <div key={s.id} style={{ display: 'flex', alignItems: 'center' }}>
-                <button
-                  type="button"
-                  onClick={() => onSelectStage(s.id)}
-                  style={{
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-mono)',
-                    fontWeight: 700,
-                    border: 'none',
-                    cursor: 'pointer',
-                    background: isActive ? '#0284c7' : 'transparent',
-                    color: isActive ? '#ffffff' : '#64748b'
-                  }}
-                  title={`Jump to Stage ${s.number}: ${s.title}`}
-                >
-                  {s.number || String(idx + 1).padStart(2, '0')} {s.title}
-                </button>
-                {idx < stages.length - 1 && (
-                  <span style={{ color: '#cbd5e1', margin: '0 4px', fontSize: '11px' }}>→</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
       </div>
 
       {/* 2. Detailed Content for the ONE active stage */}
