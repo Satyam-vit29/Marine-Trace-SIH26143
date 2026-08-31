@@ -239,8 +239,9 @@ export function App() {
 
   // Reset view to default AOI of active case
   const handleResetView = useCallback(() => {
-    setMapCenter(activeCase.defaultCenter);
+    setMapCenter([...activeCase.defaultCenter]);
     setMapZoom(activeCase.defaultZoom);
+    setSelectedVesselName(null);
   }, [activeCase]);
 
   // Selected vessel object
