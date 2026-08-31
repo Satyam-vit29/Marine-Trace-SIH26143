@@ -172,7 +172,7 @@ export function SimulationTimeline({
 
       {/* Control Buttons & Playback Speed Bar */}
       <div className="sci-timeline-controls-row">
-        <div className="flex items-center gap-2.5 flex-wrap">
+        <div className="sci-actions-button-group">
           {/* RUN FORECAST ACTION */}
           <button
             className={`sci-play-btn btn-blue`}
@@ -215,8 +215,8 @@ export function SimulationTimeline({
         </div>
 
         {/* Speed Selector */}
-        <div className="flex items-center gap-1.5 ml-auto">
-          <span className="text-xs font-mono font-bold text-slate-500 mr-1">SPEED:</span>
+        <div className="sci-speed-selector-group">
+          <span className="sci-speed-label font-mono">SPEED:</span>
           {[1, 2, 5, 10].map((spd) => (
             <button
               key={spd}
