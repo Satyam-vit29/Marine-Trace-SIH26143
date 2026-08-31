@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { 
   Satellite, 
-  Waves, 
-  Wind, 
+  Waves,
+  Wind,
   RotateCcw, 
   Award,
-  ChevronRight,
-  ChevronLeft,
-  ChevronDown,
-  ChevronUp,
+  ChevronRight, 
+  ChevronLeft, 
+  ChevronDown, 
+  ChevronUp, 
   CheckCircle2,
-  Filter,
-  ExternalLink
+  Filter, 
+  ExternalLink 
 } from 'lucide-react';
 import { getVesselColor, getVesselAssessment } from '../../utils/geoUtils';
 
@@ -71,19 +71,19 @@ export function InvestigationStageSection({
 
   return (
     <section id="investigation-stages" className="sci-scroll-section sci-investigation-stage-section">
-      {/* 1. Section Header & Stage Title */}
-      <div className="sci-section-header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+      {/* 1. Section Header & Stage Title with Quick Previous/Next Action Buttons */}
+      <div className="sci-section-header flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
           <div className="sci-section-icon-circle blue">
-            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '15px' }}>
+            <span className="font-mono font-extrabold text-base text-blue-600">
               {stage.number || String(stageIndex + 1).padStart(2, '0')}
             </span>
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="sci-section-tag">INVESTIGATION STAGES</span>
-              <span style={{ color: '#cbd5e1' }}>•</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '11px', color: '#0284c7' }}>
+            <div className="flex items-center gap-2">
+              <span className="sci-section-tag">INVESTIGATION PIPELINE</span>
+              <span className="text-slate-300">•</span>
+              <span className="font-mono font-extrabold text-[11px] text-blue-600">
                 STAGE {stageIndex + 1} OF {stages.length}
               </span>
             </div>
@@ -95,104 +95,106 @@ export function InvestigationStageSection({
         </div>
       </div>
 
-      {/* 2. Detailed Content for the ONE active stage */}
-      <div style={{ padding: '8px 0' }}>
+      {/* 2. Detailed Content for the ONE active stage with smooth slide-fade transition */}
+      <div className="stage-content-transition-container" key={currentStageId}>
         {/* =========================================================================
             STAGE 01: DETECT (Sentinel-1 SAR Observation)
             ========================================================================= */}
         {currentStageId === 'SATELLITE' && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 42%) minmax(0, 58%)', gap: '20px' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-3">
             {/* Left: SAR Image Preview */}
-            <div>
+            <div className="lg:col-span-5">
               <div 
-                className="sar-preview-container cursor-pointer"
+                className="sar-preview-container cursor-pointer group"
                 onClick={onOpenSarModal}
                 title="Click to View Full-Screen High Resolution Radar Scene"
               >
                 <div className="sar-preview-header">
-                  <span style={{ fontWeight: 800, fontSize: '12px', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Satellite size={14} className="text-blue-600" />
+                  <span className="font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
+                    <Satellite size={14} className="text-blue-600 group-hover:rotate-12 transition-transform" />
                     <span>SENTINEL-1 C-SAR RADAR OBSERVATION</span>
                   </span>
-                  <span className="sci-tag tag-cyan">SAR SCENE</span>
+                  <span className="sci-tag tag-cyan font-mono text-[9px] font-bold">SAR SCENE</span>
                 </div>
-                <div className="sar-preview-img-wrap">
+                <div className="sar-preview-img-wrap relative">
                   <img 
                     src={satelliteData?.sar_image_overlay?.url || "/sentinel1_sar_scene.png"} 
                     alt="Sentinel-1 SAR Radar Scene" 
-                    className="sar-preview-img"
+                    className="sar-preview-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="sar-preview-mask-overlay">
-                    <svg viewBox="0 0 400 250" style={{ width: '100%', height: '100%' }}>
+                    <svg viewBox="0 0 400 250" className="w-full h-full">
                       <ellipse cx="200" cy="125" rx="75" ry="28" fill="rgba(234, 88, 12, 0.35)" stroke="#ea580c" strokeWidth="2.2" />
                       <circle cx="200" cy="125" r="3.5" fill="#ffffff" />
                     </svg>
                   </div>
-                  <div className="sar-preview-badge">
-                    <span>CLICK TO VIEW FULL-SCREEN SAR SCENE ↗</span>
+                  <div className="sar-preview-badge font-mono text-[10px]">
+                    <span>CLICK FOR FULL-SCREEN RADAR SCENE ↗</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right: Detailed SAR Metrics */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ padding: '12px 14px', background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <CheckCircle2 size={20} style={{ color: '#059669', flexShrink: 0 }} />
+            <div className="lg:col-span-7 flex flex-col gap-3.5">
+              <div className="p-3.5 bg-emerald-50/80 border border-emerald-200/80 rounded-lg flex items-center justify-between shadow-xs">
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 size={20} className="text-emerald-600 flex-shrink-0" />
                   <div>
-                    <span style={{ fontSize: '12px', fontWeight: 800, color: '#064e3b', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block' }}>
+                    <span className="text-xs font-extrabold text-emerald-950 uppercase tracking-wide block">
                       OIL SPILL DETECTED & SEGMENTED
                     </span>
-                    <span style={{ fontSize: '11.5px', color: '#047857', fontWeight: 500 }}>
+                    <span className="text-[11.5px] text-emerald-800 font-medium">
                       C-Band SAR Backscatter Damping Anomaly Confirmed
                     </span>
                   </div>
                 </div>
-                <span className="sci-tag tag-verified">CONFIRMED</span>
+                <span className="sci-tag tag-verified font-mono font-bold">CONFIRMED</span>
               </div>
 
-              <div className="stage-metric-grid-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div className="stage-metric-card">
                   <span className="sci-metric-label">Slick Area</span>
-                  <span className="sci-metric-val-lg">{satChar.area_km2 || '12.45'} km²</span>
+                  <span className="sci-metric-val-lg font-mono font-extrabold text-slate-900">{satChar.area_km2 || '12.45'} <span className="text-xs font-normal text-slate-500">km²</span></span>
                 </div>
 
                 <div className="stage-metric-card">
                   <span className="sci-metric-label">Backscatter Anomaly</span>
-                  <span className="sci-metric-val-lg" style={{ color: '#e11d48' }}>-4.8 dB</span>
+                  <span className="sci-metric-val-lg font-mono font-extrabold text-rose-600">-4.8 dB</span>
                 </div>
 
                 <div className="stage-metric-card">
                   <span className="sci-metric-label">Radar Sensor</span>
-                  <span className="sci-metric-val-md">Sentinel-1A C-SAR</span>
+                  <span className="sci-metric-val-md font-bold text-slate-800 text-xs">Sentinel-1A C-SAR</span>
                 </div>
 
                 <div className="stage-metric-card">
                   <span className="sci-metric-label">Acquisition Time</span>
-                  <span className="sci-metric-val-md" style={{ fontSize: '11px' }}>{satMeta.acquisition_time || '2026-08-28 14:30 UTC'}</span>
+                  <span className="sci-metric-val-md font-mono text-slate-800 text-[11px]">{satMeta.acquisition_time || '2026-08-28 14:30 UTC'}</span>
                 </div>
               </div>
 
               {/* Sensor Technical Specifications */}
               <div className="stage-evidence-card">
-                <div className="stage-evidence-title">Sentinel-1 Satellite Sensor Parameters</div>
-                <div className="stage-metric-grid-4">
+                <div className="stage-evidence-title text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-2">
+                  Sentinel-1 Satellite Sensor Parameters
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div>
                     <span className="sci-metric-label">Polarization</span>
-                    <strong className="sci-metric-val-md" style={{ display: 'block', marginTop: '2px' }}>Dual-Pol (VV + VH)</strong>
+                    <strong className="sci-metric-val-md block text-xs font-bold text-slate-800 mt-0.5">Dual-Pol (VV + VH)</strong>
                   </div>
                   <div>
                     <span className="sci-metric-label">Frequency</span>
-                    <strong className="sci-metric-val-md" style={{ display: 'block', marginTop: '2px' }}>5.405 GHz (C-Band)</strong>
+                    <strong className="sci-metric-val-md block text-xs font-bold text-slate-800 mt-0.5">5.405 GHz (C-Band)</strong>
                   </div>
                   <div>
                     <span className="sci-metric-label">Resolution</span>
-                    <strong className="sci-metric-val-md" style={{ display: 'block', marginTop: '2px' }}>10 m / Pixel</strong>
+                    <strong className="sci-metric-val-md block text-xs font-bold text-slate-800 mt-0.5">10 m / Pixel</strong>
                   </div>
                   <div>
                     <span className="sci-metric-label">Orbit Track</span>
-                    <strong className="sci-metric-val-md" style={{ display: 'block', marginTop: '2px' }}>Descending (Pass 122)</strong>
+                    <strong className="sci-metric-val-md block text-xs font-bold text-slate-800 mt-0.5">Descending (Pass 122)</strong>
                   </div>
                 </div>
               </div>
@@ -204,40 +206,40 @@ export function InvestigationStageSection({
             STAGE 02: CHARACTERIZE (Slick Geometry)
             ========================================================================= */}
         {currentStageId === 'CHARACTERIZE' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ padding: '12px 14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '4px' }}>
-                AUTOMATED MORPHOMETRIC SEGMENTATION
+          <div className="flex flex-col gap-4 mt-3">
+            <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-lg shadow-xs">
+              <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wide block mb-1">
+                AUTOMATED MORPHOMETRIC SEGMENTATION & INERTIA PRINCIPAL AXES
               </span>
-              <p style={{ fontSize: '12px', color: '#475569', margin: 0, lineHeight: 1.5 }}>
+              <p className="text-xs text-slate-600 m-0 leading-relaxed">
                 Image processing algorithms compute geometry, perimeter, and PCA principal inertia axes along regional drift alignment to estimate spill volume and age.
               </p>
             </div>
 
-            <div className="stage-metric-grid-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               <div className="stage-metric-card">
                 <span className="sci-metric-label">Surface Area</span>
-                <span className="sci-metric-val-lg">{satChar.area_km2 || '12.45'} km²</span>
+                <span className="sci-metric-val-lg font-mono font-extrabold text-slate-900">{satChar.area_km2 || '12.45'} <span className="text-xs font-normal text-slate-500">km²</span></span>
               </div>
 
               <div className="stage-metric-card">
                 <span className="sci-metric-label">Major Axis Length</span>
-                <span className="sci-metric-val-lg" style={{ color: '#0f172a' }}>{satChar.major_axis_km || '6.80'} km</span>
+                <span className="sci-metric-val-lg font-mono font-extrabold text-slate-900">{satChar.major_axis_km || '6.80'} <span className="text-xs font-normal text-slate-500">km</span></span>
               </div>
 
               <div className="stage-metric-card">
                 <span className="sci-metric-label">Minor Axis Width</span>
-                <span className="sci-metric-val-lg" style={{ color: '#0f172a' }}>{satChar.minor_axis_km || '2.33'} km</span>
+                <span className="sci-metric-val-lg font-mono font-extrabold text-slate-900">{satChar.minor_axis_km || '2.33'} <span className="text-xs font-normal text-slate-500">km</span></span>
               </div>
 
               <div className="stage-metric-card">
                 <span className="sci-metric-label">Principal Orientation</span>
-                <span className="sci-metric-val-lg" style={{ color: '#4f46e5' }}>{satChar.orientation_deg || '045.0'}° NE</span>
+                <span className="sci-metric-val-lg font-mono font-extrabold text-indigo-700">{satChar.orientation_deg || '045.0'}° NE</span>
               </div>
 
               <div className="stage-metric-card highlight-blue">
-                <span className="sci-metric-label" style={{ color: '#0369a1' }}>Estimated Slick Age</span>
-                <span className="sci-metric-val-lg" style={{ color: '#0c4a6e' }}>~6.0 Hours</span>
+                <span className="sci-metric-label text-blue-800">Estimated Slick Age</span>
+                <span className="sci-metric-val-lg font-mono font-extrabold text-blue-950">~6.0 Hours</span>
               </div>
             </div>
           </div>
@@ -247,64 +249,64 @@ export function InvestigationStageSection({
             STAGE 03: ENVIRONMENT (ERA5 + CMEMS)
             ========================================================================= */}
         {currentStageId === 'ENVIRONMENT' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div className="sci-formula-container" style={{ margin: 0 }}>
+          <div className="flex flex-col gap-4 mt-3">
+            <div className="sci-formula-container m-0">
               <span className="sci-formula-badge-label">HYDRODYNAMIC DRIFT COUPLING FORMULA</span>
-              <div className="sci-formula-math-box">
+              <div className="sci-formula-math-box font-mono font-bold text-slate-900 text-base sm:text-lg">
                 V_drift = U_current + 0.03 × U_wind
               </div>
-              <p className="sci-formula-explanation" style={{ margin: 0 }}>
-                Coupled advection velocity: <strong style={{ color: '#0f172a', fontFamily: 'var(--font-mono)' }}>{coupling.net_drift_speed_ms?.toFixed(2) || '0.40'} m/s @ {coupling.net_drift_bearing_deg?.toFixed(1) || '40.8'}° {coupling.net_cardinal || 'NE'}</strong>
+              <p className="sci-formula-explanation m-0 text-xs text-slate-600">
+                Coupled advection velocity: <strong className="text-slate-900 font-mono">{coupling.net_drift_speed_ms?.toFixed(2) || '0.40'} m/s @ {coupling.net_drift_bearing_deg?.toFixed(1) || '40.8'}° {coupling.net_cardinal || 'NE'}</strong>
               </p>
             </div>
 
-            <div className="stage-metric-grid-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* ERA5 Wind */}
               <div className="stage-evidence-card">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid #f1f5f9' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2">
+                  <div className="flex items-center gap-2">
                     <Wind size={18} className="text-blue-600" />
-                    <span style={{ fontWeight: 800, fontSize: '13px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                    <span className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
                       ERA5 10M SURFACE WIND
                     </span>
                   </div>
-                  <span className="sci-tag tag-verified">COPERNICUS CDS</span>
+                  <span className="sci-tag tag-verified font-mono text-[9px]">COPERNICUS CDS</span>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginTop: '4px' }}>
+                <div className="grid grid-cols-2 gap-3 mt-1">
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Wind Speed</span>
-                    <span className="sci-metric-val-lg">{atmo.speed_mean_ms?.toFixed(2) || '4.12'} m/s</span>
-                    <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'var(--font-mono)' }}>({atmo.speed_knots?.toFixed(1) || '8.0'} kts)</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-slate-900">{atmo.speed_mean_ms?.toFixed(2) || '4.12'} m/s</span>
+                    <span className="text-[11px] text-slate-500 font-mono">({atmo.speed_knots?.toFixed(1) || '8.0'} kts)</span>
                   </div>
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Wind Direction</span>
-                    <span className="sci-metric-val-lg" style={{ color: '#0f172a' }}>{atmo.direction_deg?.toFixed(1) || '42.5'}°</span>
-                    <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>({atmo.cardinal_direction || 'NE'})</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-slate-900">{atmo.direction_deg?.toFixed(1) || '42.5'}°</span>
+                    <span className="text-[11px] text-slate-600 font-mono font-bold">({atmo.cardinal_direction || 'NE'})</span>
                   </div>
                 </div>
               </div>
 
               {/* CMEMS Current */}
               <div className="stage-evidence-card">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid #f1f5f9' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2">
+                  <div className="flex items-center gap-2">
                     <Waves size={18} className="text-teal-600" />
-                    <span style={{ fontWeight: 800, fontSize: '13px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                    <span className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
                       CMEMS OCEAN SURFACE CURRENT
                     </span>
                   </div>
-                  <span className="sci-tag tag-verified">COPERNICUS MARINE</span>
+                  <span className="sci-tag tag-verified font-mono text-[9px]">COPERNICUS MARINE</span>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginTop: '4px' }}>
+                <div className="grid grid-cols-2 gap-3 mt-1">
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Current Speed</span>
-                    <span className="sci-metric-val-lg" style={{ color: '#0d9488' }}>{hydro.speed_mean_ms?.toFixed(2) || '0.28'} m/s</span>
-                    <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'var(--font-mono)' }}>({hydro.speed_knots?.toFixed(1) || '0.5'} kts)</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-teal-700">{hydro.speed_mean_ms?.toFixed(2) || '0.28'} m/s</span>
+                    <span className="text-[11px] text-slate-500 font-mono">({hydro.speed_knots?.toFixed(1) || '0.5'} kts)</span>
                   </div>
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Current Direction</span>
-                    <span className="sci-metric-val-lg" style={{ color: '#0f172a' }}>{hydro.direction_deg?.toFixed(1) || '38.0'}°</span>
-                    <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>({hydro.cardinal_direction || 'NE'})</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-slate-900">{hydro.direction_deg?.toFixed(1) || '38.0'}°</span>
+                    <span className="text-[11px] text-slate-600 font-mono font-bold">({hydro.cardinal_direction || 'NE'})</span>
                   </div>
                 </div>
               </div>
@@ -316,61 +318,61 @@ export function InvestigationStageSection({
             STAGE 04: DRIFT (Forward Forecast & Backward Hindcast)
             ========================================================================= */}
         {currentStageId === 'FORECAST' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ padding: '12px 14px', background: '#ecfeff', border: '1px solid #a5f3fc', borderRadius: '8px' }}>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#083344', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '4px' }}>
-                OPENOIL 24-HOUR FORWARD DRIFT SIMULATION
+          <div className="flex flex-col gap-4 mt-3">
+            <div className="p-3.5 bg-cyan-50/80 border border-cyan-200/80 rounded-lg shadow-xs">
+              <span className="text-xs font-extrabold text-cyan-950 uppercase tracking-wide block mb-1">
+                OPENOIL 24-HOUR FORWARD DRIFT & DISPERSION SIMULATION
               </span>
-              <p style={{ fontSize: '12px', color: '#155e75', margin: 0, lineHeight: 1.5 }}>
+              <p className="text-xs text-cyan-900 m-0 leading-relaxed">
                 Lagrangian particle advection simulates forward trajectory and dispersion of 300 oil particles under ERA5 winds and CMEMS currents.
               </p>
             </div>
 
-            <div className="stage-metric-grid-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Forward Forecast Card */}
               <div className="stage-evidence-card">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid #f1f5f9' }}>
-                  <span style={{ fontWeight: 800, fontSize: '13px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2">
+                  <span className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
                     FORWARD FORECAST
                   </span>
-                  <span className="sci-tag tag-blue">+24H ADVECTION</span>
+                  <span className="sci-tag tag-blue font-mono text-[9px]">+24H ADVECTION</span>
                 </div>
-                <div className="stage-metric-grid-3">
+                <div className="grid grid-cols-3 gap-2">
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Time Horizon</span>
-                    <span className="sci-metric-val-lg">+24.0 Hours</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-slate-900">+24.0h</span>
                   </div>
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Particles</span>
-                    <span className="sci-metric-val-lg" style={{ color: '#0f172a' }}>300 Points</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-slate-900">300 pts</span>
                   </div>
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Engine</span>
-                    <span className="sci-metric-val-md" style={{ color: '#059669', fontSize: '15px' }}>OpenOil</span>
+                    <span className="sci-metric-val-md font-bold text-emerald-700 text-sm">OpenOil</span>
                   </div>
                 </div>
               </div>
 
               {/* Backward Hindcast Card */}
               <div className="stage-evidence-card">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid #f1f5f9' }}>
-                  <span style={{ fontWeight: 800, fontSize: '13px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2">
+                  <span className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
                     BACKWARD HINDCAST
                   </span>
-                  <span className="sci-tag tag-demo">-12H REVERSE</span>
+                  <span className="sci-tag tag-demo font-mono text-[9px]">-12H REVERSE</span>
                 </div>
-                <div className="stage-metric-grid-3">
+                <div className="grid grid-cols-3 gap-2">
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Time Horizon</span>
-                    <span className="sci-metric-val-lg" style={{ color: '#ea580c' }}>-12.0 Hours</span>
+                    <span className="sci-metric-val-lg font-mono font-bold text-orange-700">-12.0h</span>
                   </div>
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Convergence</span>
-                    <span className="sci-metric-val-md" style={{ color: '#0f172a' }}>Median Cluster</span>
+                    <span className="sci-metric-val-md font-bold text-slate-900 text-xs">Median Cluster</span>
                   </div>
                   <div className="sci-metric-block">
                     <span className="sci-metric-label">Engine</span>
-                    <span className="sci-metric-val-md" style={{ color: '#059669', fontSize: '15px' }}>OpenDrift</span>
+                    <span className="sci-metric-val-md font-bold text-emerald-700 text-sm">OpenDrift</span>
                   </div>
                 </div>
               </div>
@@ -382,44 +384,44 @@ export function InvestigationStageSection({
             STAGE 05: ORIGIN (Backward Hindcast Origin)
             ========================================================================= */}
         {currentStageId === 'HINDCAST' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ padding: '12px 14px', background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: '8px' }}>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#7c2d12', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '4px' }}>
+          <div className="flex flex-col gap-4 mt-3">
+            <div className="p-3.5 bg-orange-50/80 border border-orange-200/80 rounded-lg shadow-xs">
+              <span className="text-xs font-extrabold text-orange-950 uppercase tracking-wide block mb-1">
                 OPENDRIFT REVERSE HINDCAST ORIGIN ESTIMATION
               </span>
-              <p style={{ fontSize: '12px', color: '#9a3412', margin: 0, lineHeight: 1.5 }}>
+              <p className="text-xs text-orange-900 m-0 leading-relaxed">
                 Hydrodynamic transport equations are reversed 12 hours backward from detection time to determine release origin and spatial uncertainty envelope.
               </p>
             </div>
 
-            <div className="stage-metric-grid-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="stage-metric-card">
                 <span className="sci-metric-label">Origin Location</span>
-                <span className="sci-metric-val-lg" style={{ color: '#0f172a' }}>
+                <span className="sci-metric-val-lg font-mono font-bold text-slate-900">
                   {originLat.toFixed(4)}° N, {originLon.toFixed(4)}° E
                 </span>
-                <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
+                <span className="text-[11px] text-slate-500 font-mono mt-0.5 block">
                   Geodetic WGS-84 Datum
                 </span>
               </div>
 
               <div className="stage-metric-card highlight-orange">
-                <span className="sci-metric-label" style={{ color: '#9a3412' }}>Uncertainty (95% CI)</span>
-                <span className="sci-metric-val-lg" style={{ color: '#c2410c' }}>
+                <span className="sci-metric-label text-orange-900">Uncertainty (95% CI)</span>
+                <span className="sci-metric-val-lg font-mono font-extrabold text-orange-950">
                   ±2.80 km Radius
                 </span>
-                <span style={{ fontSize: '11px', color: '#9a3412', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
-                  Monte Carlo Dispersion
+                <span className="text-[11px] text-orange-800 font-mono mt-0.5 block">
+                  Monte Carlo Dispersion Plume
                 </span>
               </div>
 
               <div className="stage-metric-card">
                 <span className="sci-metric-label">Estimated Release Time</span>
-                <span className="sci-metric-val-lg" style={{ color: '#0f172a', fontSize: '16px' }}>
+                <span className="sci-metric-val-lg font-mono font-bold text-slate-900 text-sm sm:text-base">
                   2026-08-28 02:30 UTC
                 </span>
-                <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
-                  -12.0 Hours Window
+                <span className="text-[11px] text-slate-500 font-mono mt-0.5 block">
+                  -12.0 Hours Hindcast Window
                 </span>
               </div>
             </div>
@@ -430,48 +432,48 @@ export function InvestigationStageSection({
             STAGE 06: AIS (Historic Traffic Filtering)
             ========================================================================= */}
         {currentStageId === 'CORRELATE' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ padding: '12px 14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+          <div className="flex flex-col gap-4 mt-3">
+            <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-lg shadow-xs">
+              <div className="flex items-center gap-2 mb-2.5">
                 <Filter size={15} className="text-slate-700" />
-                <span style={{ fontWeight: 800, fontSize: '12px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <span className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
                   HISTORICAL AIS TRAFFIC SPATIO-TEMPORAL FILTERING FUNNEL
                 </span>
               </div>
 
-              <div className="stage-metric-grid-4">
-                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px 10px', textAlign: 'center' }}>
-                  <span className="sci-metric-label" style={{ display: 'block', marginBottom: '2px' }}>Total Logged</span>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '16px', color: '#334155' }}>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <div className="bg-white border border-slate-200 rounded-lg p-2.5 text-center shadow-xs">
+                  <span className="sci-metric-label block mb-0.5 text-[10.5px]">Total Logged</span>
+                  <div className="font-mono font-extrabold text-lg text-slate-800">
                     {funnel.total_regional_transponders_logged || 142}
                   </div>
                 </div>
-                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px 10px', textAlign: 'center' }}>
-                  <span className="sci-metric-label" style={{ display: 'block', marginBottom: '2px' }}>Spatial AOI</span>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '16px', color: '#0284c7' }}>
+                <div className="bg-white border border-slate-200 rounded-lg p-2.5 text-center shadow-xs">
+                  <span className="sci-metric-label block mb-0.5 text-[10.5px]">Spatial AOI</span>
+                  <div className="font-mono font-extrabold text-lg text-blue-600">
                     {funnel.after_spatial_bounding_box_filter || 28}
                   </div>
                 </div>
-                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px 10px', textAlign: 'center' }}>
-                  <span className="sci-metric-label" style={{ display: 'block', marginBottom: '2px' }}>Temporal Window</span>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '16px', color: '#4f46e5' }}>
+                <div className="bg-white border border-slate-200 rounded-lg p-2.5 text-center shadow-xs">
+                  <span className="sci-metric-label block mb-0.5 text-[10.5px]">Temporal Window</span>
+                  <div className="font-mono font-extrabold text-lg text-indigo-600">
                     {funnel.after_temporal_hindcast_window_filter || 9}
                   </div>
                 </div>
-                <div style={{ background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: '6px', padding: '8px 10px', textAlign: 'center' }}>
-                  <span className="sci-metric-label" style={{ display: 'block', marginBottom: '2px', color: '#9f1239' }}>Ranked Candidates</span>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '16px', color: '#e11d48' }}>
+                <div className="bg-rose-50 border border-rose-200 rounded-lg p-2.5 text-center shadow-xs">
+                  <span className="sci-metric-label block mb-0.5 text-[10.5px] text-rose-900">Ranked Candidates</span>
+                  <div className="font-mono font-extrabold text-lg text-rose-600">
                     {vessels.length || 6}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={{ fontWeight: 800, fontSize: '12px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <div className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
               CORRELATED CANDIDATES OVERVIEW ({vessels.length})
             </div>
 
-            <div className="stage-metric-grid-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {vessels.map((v, idx) => {
                 const score = v.score ?? 0;
                 const color = getVesselColor(score);
@@ -480,20 +482,20 @@ export function InvestigationStageSection({
                 return (
                   <div
                     key={v.mmsi || idx}
-                    className={`vessel-candidate-row ${isSelected ? 'selected' : ''}`}
+                    className={`vessel-candidate-row cursor-pointer transition-all duration-200 ${isSelected ? 'selected ring-2 ring-rose-500' : ''}`}
                     onClick={() => onSelectVessel(v.vessel)}
                   >
                     <div className="vessel-row-main">
                       <div className="vessel-identity-group">
-                        <span className="vessel-rank-tag">#{idx + 1}</span>
+                        <span className="vessel-rank-tag font-mono">#{idx + 1}</span>
                         <div>
-                          <h4 className="vessel-name-title">{v.vessel}</h4>
-                          <span className="vessel-meta-sub">
+                          <h4 className="vessel-name-title font-bold text-xs text-slate-900">{v.vessel}</h4>
+                          <span className="vessel-meta-sub text-[11px] text-slate-500 font-mono">
                             CPA {v.cpa?.distance_km?.toFixed(2) || '1.12'} km
                           </span>
                         </div>
                       </div>
-                      <span className="vessel-score-number" style={{ color }}>{score.toFixed(1)}%</span>
+                      <span className="vessel-score-number font-mono font-extrabold text-xs" style={{ color }}>{score.toFixed(1)}%</span>
                     </div>
                   </div>
                 );
@@ -506,35 +508,38 @@ export function InvestigationStageSection({
             STAGE 07: ATTRIBUTE (Attribution Ranking & Evidence Decomposition)
             ========================================================================= */}
         {currentStageId === 'ATTRIBUTE' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="flex flex-col gap-4 mt-3">
             {/* Top Vessel Highlight Banner */}
-            <div style={{ padding: '16px 20px', background: 'linear-gradient(to bottom, #fff1f2, #ffffff)', border: '1.5px solid #fecdd3', borderRadius: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <Award size={24} style={{ color: '#e11d48', flexShrink: 0 }} />
+            <div className="p-4 sm:p-5 bg-gradient-to-b from-rose-50 to-white border-1.5 border-rose-200 rounded-xl shadow-xs">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Award size={26} className="text-rose-600 flex-shrink-0" />
                   <div>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#881337', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block' }}>
-                      POTENTIALLY ASSOCIATED VESSEL
+                    <span className="text-[11px] font-extrabold text-rose-900 uppercase tracking-wider block">
+                      POTENTIALLY ASSOCIATED CANDIDATE VESSEL
                     </span>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '2px 0 0' }}>
+                    <h3 className="text-lg font-extrabold text-slate-900 m-0">
                       {vessels[0]?.vessel || 'MV Konkan Pride'}
                     </h3>
+                    <span className="text-xs text-slate-500 font-mono">
+                      MMSI: {vessels[0]?.mmsi || '419001234'} • {vessels[0]?.vessel_type || 'Crude Oil Tanker'}
+                    </span>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 900, fontSize: '22px', color: '#e11d48', display: 'block', lineHeight: 1.1 }}>
-                    {(vessels[0]?.score ?? 96.7).toFixed(1)} / 100
+                <div className="text-right flex-shrink-0">
+                  <span className="font-mono font-black text-2xl text-rose-600 block leading-tight">
+                    {(vessels[0]?.score ?? 96.7).toFixed(1)}%
                   </span>
-                  <span className="sci-tag tag-rose" style={{ marginTop: '4px' }}>HIGH ASSOCIATION</span>
+                  <span className="sci-tag tag-rose font-mono text-[9px] font-bold mt-1">HIGH ASSOCIATION</span>
                 </div>
               </div>
             </div>
 
-            <div style={{ fontWeight: 800, fontSize: '12px', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              ALL 6 CANDIDATE VESSELS (CLICK TO EXPAND EVIDENCE)
+            <div className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">
+              ALL 6 CANDIDATE VESSELS (CLICK TO EXPAND EVIDENCE DECOMPOSITION)
             </div>
 
-            <div className="stage-metric-grid-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
               {vessels.map((v, idx) => {
                 const score = v.score ?? 0;
                 const color = getVesselColor(score);
@@ -547,24 +552,24 @@ export function InvestigationStageSection({
                 return (
                   <div
                     key={v.mmsi || idx}
-                    className={`vessel-candidate-row ${isSelected ? 'selected' : ''}`}
+                    className={`vessel-candidate-row cursor-pointer transition-all duration-200 ${isSelected ? 'selected' : ''}`}
                     onClick={() => toggleExpandVessel(v.vessel)}
                   >
                     <div className="vessel-row-main">
                       <div className="vessel-identity-group">
-                        <span className="vessel-rank-tag">#{idx + 1}</span>
+                        <span className="vessel-rank-tag font-mono">#{idx + 1}</span>
                         <div>
-                          <h4 className="vessel-name-title">{v.vessel}</h4>
-                          <span className="vessel-meta-sub">
-                            {v.vessel_type || 'Tanker'} · CPA {cpaDist} km
+                          <h4 className="vessel-name-title font-bold text-xs text-slate-900">{v.vessel}</h4>
+                          <span className="vessel-meta-sub text-[11px] text-slate-500">
+                            {v.vessel_type || 'Tanker'} · CPA <strong>{cpaDist} km</strong>
                           </span>
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div className="vessel-score-display">
-                          <span className="vessel-score-number" style={{ color }}>{score.toFixed(1)}%</span>
-                          <span className="vessel-assessment-badge" style={{ color, backgroundColor: `${color}18` }}>
+                      <div className="flex items-center gap-2">
+                        <div className="vessel-score-display text-right">
+                          <span className="vessel-score-number font-mono font-extrabold text-xs block" style={{ color }}>{score.toFixed(1)}%</span>
+                          <span className="vessel-assessment-badge font-mono text-[9px]" style={{ color, backgroundColor: `${color}18` }}>
                             {assessment.label}
                           </span>
                         </div>
@@ -573,44 +578,43 @@ export function InvestigationStageSection({
                     </div>
 
                     {isExpanded && (
-                      <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '11.5px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)' }}>
-                          <div><span style={{ fontWeight: 700, color: '#64748b' }}>MMSI:</span> <strong>{v.mmsi}</strong></div>
-                          <div><span style={{ fontWeight: 700, color: '#64748b' }}>CPA Time:</span> <strong>{cpaTime}Z</strong></div>
+                      <div className="mt-2.5 pt-2.5 border-t border-slate-100 text-xs flex flex-col gap-2 animate-slideInUp">
+                        <div className="flex justify-between font-mono text-[11px]">
+                          <div><span className="font-bold text-slate-500">MMSI:</span> <strong>{v.mmsi}</strong></div>
+                          <div><span className="font-bold text-slate-500">CPA Time:</span> <strong>{cpaTime}Z</strong></div>
                         </div>
 
                         {v.score_breakdown && (
-                          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                            <div style={{ fontWeight: 800, color: '#0f172a', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.04em', marginBottom: '2px' }}>
+                          <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 flex flex-col gap-1.5 shadow-xs">
+                            <div className="font-extrabold text-slate-800 uppercase text-[10px] tracking-wider mb-0.5">
                               5-Factor Mathematical Breakdown:
                             </div>
                             <div className="stage-evidence-row">
                               <span className="stage-evidence-label">Spatial CPA Proximity:</span>
-                              <strong className="stage-evidence-value">{v.score_breakdown.spatial_proximity ?? 95}%</strong>
+                              <strong className="stage-evidence-value font-mono">{v.score_breakdown.spatial_proximity ?? 95}%</strong>
                             </div>
                             <div className="stage-evidence-row">
                               <span className="stage-evidence-label">Temporal Window Overlap:</span>
-                              <strong className="stage-evidence-value">{v.score_breakdown.temporal_overlap ?? 92}%</strong>
+                              <strong className="stage-evidence-value font-mono">{v.score_breakdown.temporal_overlap ?? 92}%</strong>
                             </div>
                             <div className="stage-evidence-row">
                               <span className="stage-evidence-label">Trajectory Alignment:</span>
-                              <strong className="stage-evidence-value">{v.score_breakdown.trajectory_consistency ?? 90}%</strong>
+                              <strong className="stage-evidence-value font-mono">{v.score_breakdown.trajectory_consistency ?? 90}%</strong>
                             </div>
                             <div className="stage-evidence-row">
                               <span className="stage-evidence-label">Heading & Course Compatibility:</span>
-                              <strong className="stage-evidence-value">{v.score_breakdown.heading_compatibility ?? 88}%</strong>
+                              <strong className="stage-evidence-value font-mono">{v.score_breakdown.heading_compatibility ?? 88}%</strong>
                             </div>
                             <div className="stage-evidence-row">
                               <span className="stage-evidence-label">Speed & Behavioral Profile:</span>
-                              <strong className="stage-evidence-value">{v.score_breakdown.speed_profile ?? 85}%</strong>
+                              <strong className="stage-evidence-value font-mono">{v.score_breakdown.speed_profile ?? 85}%</strong>
                             </div>
                           </div>
                         )}
 
                         <button
                           type="button"
-                          className="sci-btn btn-sm btn-primary"
-                          style={{ width: '100%', marginTop: '4px', fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                          className="sci-btn btn-sm btn-primary w-full mt-1 text-xs flex items-center justify-center gap-1.5"
                           onClick={(e) => {
                             e.stopPropagation();
                             if (onOpenDossier) onOpenDossier(v);
@@ -629,41 +633,54 @@ export function InvestigationStageSection({
         )}
       </div>
 
-      {/* 3. Stage Navigation Footer (Back / Next) */}
-      <div className="sci-stage-footer-nav">
+      {/* 3. Stage Navigation Footer (Previous / Next) */}
+      <div className="sci-stage-footer-nav flex items-center justify-between mt-6 pt-4 border-t border-slate-200">
         <button
           type="button"
-          className="sci-btn btn-outline"
+          className="sci-btn btn-outline flex items-center gap-2"
           onClick={handleBack}
           disabled={stageIndex === 0}
           title="Go to Previous Stage"
         >
-          <ChevronLeft size={15} />
-          <span>BACK</span>
+          <ChevronLeft size={16} />
+          <span>PREVIOUS STAGE</span>
         </button>
 
-        <div style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#64748b' }}>
-          STAGE {stageIndex + 1} / {stages.length}
+        <div className="flex items-center gap-2">
+          {stages.map((stg, idx) => (
+            <span
+              key={stg.id}
+              className={`inline-block rounded-full transition-all duration-300 ${
+                idx === stageIndex 
+                  ? 'bg-blue-600 w-7 h-2.5 shadow-xs' 
+                  : (idx < stageIndex ? 'bg-emerald-500 w-2.5 h-2.5' : 'bg-slate-300 w-2.5 h-2.5')
+              }`}
+              title={`Stage ${idx + 1}: ${stg.title}`}
+            />
+          ))}
+          <span className="text-xs font-mono font-extrabold text-slate-500 ml-2">
+            STAGE {stageIndex + 1} / {stages.length}
+          </span>
         </div>
 
         {stageIndex < stages.length - 1 ? (
           <button
             type="button"
-            className="sci-btn btn-primary"
+            className="sci-btn btn-primary flex items-center gap-2"
             onClick={handleNext}
             title={`Proceed to Stage ${stageIndex + 2}`}
           >
             <span>NEXT → {stages[stageIndex + 1].title}</span>
-            <ChevronRight size={15} />
+            <ChevronRight size={16} />
           </button>
         ) : (
           <button
             type="button"
-            className="sci-btn btn-primary"
+            className="sci-btn btn-primary flex items-center gap-2"
             onClick={() => onSelectStage(stages[0].id)}
             title="Restart Investigation from Stage 01"
           >
-            <RotateCcw size={14} />
+            <RotateCcw size={15} />
             <span>RESTART INVESTIGATION</span>
           </button>
         )}
@@ -671,3 +688,4 @@ export function InvestigationStageSection({
     </section>
   );
 }
+
