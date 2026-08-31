@@ -16,6 +16,7 @@ export function IncidentOverviewPanel({
   onSelectVessel,
   onOpenSarModal,
 }) {
+  const incidentId = satelliteData?.incident_id || satelliteData?.satellite_metadata?.incident_id || aisData?.incident_id || 'DEMO-BOB-001';
   const satMeta = satelliteData?.satellite_metadata || {};
   const satChar = satelliteData?.slick_characterization || {};
   const atmo = forcingData?.atmospheric_forcing || {};
@@ -34,7 +35,7 @@ export function IncidentOverviewPanel({
           <span className="sci-tag tag-verified font-mono text-[9px] font-bold">LIVE TELEMETRY</span>
         </div>
         <span className="text-[11px] font-mono text-slate-600 font-bold">
-          {satMeta.incident_id || 'DEMO-BOB-001'}
+          {incidentId}
         </span>
       </div>
 
