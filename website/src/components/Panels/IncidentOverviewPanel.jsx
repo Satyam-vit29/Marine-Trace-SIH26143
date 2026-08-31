@@ -2,7 +2,8 @@ import {
   Satellite, 
   Wind, 
   Target, 
-  Ship
+  Ship,
+  ArrowUpRight
 } from 'lucide-react';
 import { getVesselColor, getVesselAssessment } from '../../utils/geoUtils';
 
@@ -34,7 +35,7 @@ export function IncidentOverviewPanel({
           <span className="overview-panel-title">INCIDENT OVERVIEW</span>
           <span className="sci-tag tag-verified font-mono text-[9px] font-bold">LIVE TELEMETRY</span>
         </div>
-        <span className="text-[11px] font-mono text-slate-600 font-bold">
+        <span className="text-[11px] font-mono text-slate-600 font-bold tracking-tight">
           {incidentId}
         </span>
       </div>
@@ -51,29 +52,34 @@ export function IncidentOverviewPanel({
             <span className="sci-tag tag-blue text-[9px] font-bold">SENTINEL-1 C-SAR</span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', marginTop: '8px' }}>
+          <div className="grid grid-cols-2 gap-2 mt-2">
             <div className="sci-metric-block">
               <span className="sci-metric-label">Slick Area</span>
-              <span className="sci-metric-val-lg">{satChar.area_km2 || '12.45'} km²</span>
+              <span className="sci-metric-val-lg text-slate-900 font-bold font-mono">
+                {satChar.area_km2 || '12.45'} <span className="text-xs font-normal text-slate-500">km²</span>
+              </span>
             </div>
             <div className="sci-metric-block">
               <span className="sci-metric-label">Acquisition Time</span>
-              <span className="sci-metric-val-md">{satMeta.acquisition_time || '2026-08-28 14:30 UTC'}</span>
+              <span className="sci-metric-val-md font-mono text-slate-800 text-xs font-semibold">
+                {satMeta.acquisition_time || '2026-08-28 14:30 UTC'}
+              </span>
             </div>
           </div>
 
-          <div style={{ marginTop: '8px', paddingTop: '6px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11.5px' }}>
-            <div>
-              <span style={{ fontWeight: 700, color: '#64748b', marginRight: '6px' }}>Anomaly:</span>
-              <span className="sci-metric-val-danger">-4.8 dB Damping</span>
+          <div className="overview-metric-footer">
+            <div className="flex items-center gap-1.5 text-xs">
+              <span className="text-slate-500 font-semibold">Anomaly:</span>
+              <span className="sci-metric-val-danger font-mono font-bold">-4.8 dB Damping</span>
             </div>
             {onOpenSarModal && (
               <button 
                 type="button" 
-                style={{ color: '#0284c7', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer', fontSize: '11.5px' }}
+                className="overview-quick-link flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-bold"
                 onClick={onOpenSarModal}
               >
-                View SAR Scene ↗
+                <span>View SAR Scene</span>
+                <ArrowUpRight size={12} />
               </button>
             )}
           </div>
@@ -89,40 +95,40 @@ export function IncidentOverviewPanel({
             <span className="sci-tag tag-cyan text-[9px] font-bold">ERA5 + CMEMS</span>
           </div>
 
-          <div className="drift-datasets-grid">
+          <div className="drift-datasets-grid mt-2">
             {/* ERA5 Wind */}
             <div className="drift-dataset-card">
-              <div className="drift-dataset-title">ERA5 10m Surface Wind</div>
+              <div className="drift-dataset-title text-[11px] font-bold text-slate-700">ERA5 10m Surface Wind</div>
               <div className="drift-data-row">
                 <span className="drift-data-label">Speed:</span>
-                <span className="drift-data-value">{atmo.speed_mean_ms?.toFixed(2) || '4.12'} m/s</span>
+                <span className="drift-data-value font-mono font-bold">{atmo.speed_mean_ms?.toFixed(2) || '4.12'} m/s</span>
               </div>
               <div className="drift-data-row">
                 <span className="drift-data-label">Direction:</span>
-                <span className="drift-data-value">{atmo.direction_deg?.toFixed(1) || '42.5'}° {atmo.cardinal_direction || 'NE'}</span>
+                <span className="drift-data-value font-mono">{atmo.direction_deg?.toFixed(1) || '42.5'}° {atmo.cardinal_direction || 'NE'}</span>
               </div>
             </div>
 
             {/* CMEMS Current */}
             <div className="drift-dataset-card">
-              <div className="drift-dataset-title">CMEMS Ocean Current</div>
+              <div className="drift-dataset-title text-[11px] font-bold text-slate-700">CMEMS Ocean Current</div>
               <div className="drift-data-row">
                 <span className="drift-data-label">Speed:</span>
-                <span className="drift-data-value">{hydro.speed_mean_ms?.toFixed(2) || '0.28'} m/s</span>
+                <span className="drift-data-value font-mono font-bold text-teal-700">{hydro.speed_mean_ms?.toFixed(2) || '0.28'} m/s</span>
               </div>
               <div className="drift-data-row">
                 <span className="drift-data-label">Direction:</span>
-                <span className="drift-data-value">{hydro.direction_deg?.toFixed(1) || '38.0'}° {hydro.cardinal_direction || 'NE'}</span>
+                <span className="drift-data-value font-mono">{hydro.direction_deg?.toFixed(1) || '38.0'}° {hydro.cardinal_direction || 'NE'}</span>
               </div>
             </div>
           </div>
 
-          <div style={{ marginTop: '8px', paddingTop: '6px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px' }}>
-            <div>
-              <span style={{ fontWeight: 700, color: '#64748b', marginRight: '6px' }}>Model:</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#1e293b' }}>OpenOil / OpenDrift</span>
+          <div className="overview-metric-footer">
+            <div className="flex items-center gap-1.5 text-xs">
+              <span className="text-slate-500 font-semibold">Model:</span>
+              <span className="font-mono font-bold text-slate-800">OpenOil / OpenDrift</span>
             </div>
-            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#0284c7' }}>
+            <span className={`font-mono text-xs font-bold ${simulationMode === 'forward' ? 'text-blue-700' : 'text-orange-700'}`}>
               {simulationMode === 'forward' ? 'Forward (+24h)' : 'Hindcast (-12h)'}
             </span>
           </div>
@@ -138,29 +144,29 @@ export function IncidentOverviewPanel({
             <span className="sci-tag tag-demo text-[9px] font-bold">-12H HINDCAST</span>
           </div>
 
-          <div className="origin-data-table">
+          <div className="origin-data-table mt-2">
             <div className="origin-data-row">
               <span className="origin-data-label">Location:</span>
-              <span className="origin-data-value">
+              <span className="origin-data-value font-mono font-bold text-slate-900">
                 {origin.lat?.toFixed(4)}° N, {origin.lon?.toFixed(4)}° E
               </span>
             </div>
             <div className="origin-data-row">
               <span className="origin-data-label">Uncertainty:</span>
-              <span className="origin-data-value highlight">
+              <span className="origin-data-value highlight font-mono font-bold text-orange-700">
                 ±2.80 km (95% CI)
               </span>
             </div>
             <div className="origin-data-row">
               <span className="origin-data-label">Estimated Release:</span>
-              <span className="origin-data-value" style={{ fontSize: '11px' }}>
+              <span className="origin-data-value font-mono text-xs text-slate-700">
                 2026-08-28 02:30:00 UTC
               </span>
             </div>
           </div>
         </div>
 
-        {/* Block 4: Candidate Vessels (All 6 Candidates) */}
+        {/* Block 4: Candidate Vessels (All 6 Candidates with Progress Bars) */}
         <div className="overview-section-box">
           <div className="overview-section-title-row">
             <div className="flex items-center gap-1.5">
@@ -170,7 +176,7 @@ export function IncidentOverviewPanel({
             <span className="sci-tag tag-rose text-[9px] font-bold">AIS ATTRIBUTION</span>
           </div>
 
-          <div className="overview-vessel-list">
+          <div className="overview-vessel-list mt-2">
             {vessels.map((v, idx) => {
               const score = typeof v.score === 'number' 
                 ? v.score 
@@ -188,25 +194,36 @@ export function IncidentOverviewPanel({
                   key={v.mmsi || v.vessel || idx}
                   className={`overview-vessel-item ${isSelected ? 'selected' : ''}`}
                   onClick={() => onSelectVessel && onSelectVessel(v.vessel)}
+                  title={`Click to focus map camera on ${v.vessel}`}
                 >
                   <div className="overview-vessel-top-row">
                     <div className="overview-vessel-id-wrap">
                       <span className="overview-vessel-rank">#{idx + 1}</span>
                       <h4 className="overview-vessel-name">{v.vessel}</h4>
                     </div>
-                    <span className="overview-vessel-score" style={{ color }}>
-                      {score.toFixed(1)} / 100
+                    <span className="overview-vessel-score font-mono font-extrabold text-xs" style={{ color }}>
+                      {score.toFixed(1)}%
                     </span>
                   </div>
 
-                  <div className="overview-vessel-mid-row">
-                    {vesselType} · CPA {cpaDist}
+                  {/* Association Score Track Bar */}
+                  <div className="overview-vessel-bar-track">
+                    <div 
+                      className="overview-vessel-bar-fill"
+                      style={{ width: `${Math.min(100, Math.max(5, score))}%`, backgroundColor: color }}
+                    />
+                  </div>
+
+                  <div className="overview-vessel-mid-row text-[11px] text-slate-500">
+                    <span>{vesselType}</span>
+                    <span>•</span>
+                    <span>CPA <strong>{cpaDist}</strong></span>
                   </div>
 
                   <div className="overview-vessel-bot-row">
                     <span
                       className="overview-vessel-badge"
-                      style={{ color, backgroundColor: `${color}15`, border: `1px solid ${color}35` }}
+                      style={{ color, backgroundColor: `${color}14`, borderColor: `${color}35` }}
                     >
                       {assessment}
                     </span>
@@ -220,3 +237,4 @@ export function IncidentOverviewPanel({
     </div>
   );
 }
+
