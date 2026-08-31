@@ -21,6 +21,8 @@ export function VesselDossierModal({
   const score = vessel.score ?? 0;
   const color = getVesselColor(score);
   const assessment = getVesselAssessment(score);
+  const cpaDistance = vessel.cpa?.distance_km ?? vessel.distance_km ?? vessel.minimum_distance_km ?? cpaInfo?.distanceKm;
+  const cpaDistanceFormatted = typeof cpaDistance === 'number' ? cpaDistance.toFixed(2) : (cpaDistance || '0.22');
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -63,7 +65,7 @@ export function VesselDossierModal({
             <div className="dossier-stat-box">
               <span className="stat-lbl">MIN CPA DISTANCE</span>
               <div className="flex items-baseline gap-1">
-                <span className="stat-num font-mono text-slate-900">{vessel.cpa?.distance_km?.toFixed(2) ?? vessel.distance_km?.toFixed(2) ?? vessel.minimum_distance_km?.toFixed(2) ?? '1.12'} km</span>
+                <span className="stat-num font-mono text-slate-900">{cpaDistanceFormatted} km</span>
               </div>
               <span className="stat-sub">To Probable Hindcast Origin</span>
             </div>
@@ -71,7 +73,7 @@ export function VesselDossierModal({
             <div className="dossier-stat-box">
               <span className="stat-lbl">CPA TIMESTAMP</span>
               <div className="flex items-baseline gap-1">
-                <span className="stat-num font-mono text-sm text-slate-800">{cpaInfo?.point?.time || '2026-08-28 14:00:00 UTC'}</span>
+                <span className="stat-num font-mono text-sm text-slate-800">{vessel.cpa?.time || cpaInfo?.point?.time || '2026-08-28 14:00:00 UTC'}</span>
               </div>
               <span className="stat-sub">Inside 12h Hindcast Window</span>
             </div>
@@ -100,11 +102,11 @@ export function VesselDossierModal({
                   <h4 className="font-bold text-xs text-slate-900">1. Spatial Proximity to Hindcast Origin</h4>
                   <p className="text-xs text-slate-600 mt-0.5">
                     {score >= 80 ? (
-                      <>Vessel passed within <strong>{vessel.distance_km?.toFixed(2)} km</strong> of the estimated spill origin (<code>{originLat.toFixed(4)}° N, {originLon.toFixed(4)}° E</code>), located inside the 95% confidence uncertainty zone (±2.8 km).</>
+                      <>Vessel passed within <strong>{cpaDistanceFormatted} km</strong> of the estimated spill origin (<code>{originLat.toFixed(4)}° N, {originLon.toFixed(4)}° E</code>), located inside the 95% confidence uncertainty zone (±2.8 km).</>
                     ) : score >= 50 ? (
-                      <>Vessel passed within <strong>{vessel.distance_km?.toFixed(2)} km</strong> of the probable origin, transiting an adjacent shipping corridor.</>
+                      <>Vessel passed within <strong>{cpaDistanceFormatted} km</strong> of the probable origin, transiting an adjacent shipping corridor.</>
                     ) : (
-                      <>Vessel maintained a separation distance of <strong>{vessel.distance_km?.toFixed(2)} km</strong>, outside the localized dispersion zone.</>
+                      <>Vessel maintained a separation distance of <strong>{cpaDistanceFormatted} km</strong>, outside the localized dispersion zone.</>
                     )}
                   </p>
                 </div>
@@ -140,7 +142,7 @@ export function VesselDossierModal({
           <div className="p-3 bg-slate-50 rounded border border-slate-200">
             <h4 className="text-xs font-bold text-slate-700 mb-1">PROXIMITY SCORING FORMULA</h4>
             <div className="font-mono text-xs text-blue-700 bg-white p-2 rounded border border-slate-200 mb-1">
-              Association Score = max(0, 100 - 4 × d_min) = max(0, 100 - 4 × {vessel.distance_km?.toFixed(2) || '1.18'}) = {score.toFixed(1)}%
+              Association Score = max(0, 100 - 4 × d_min) = max(0, 100 - 4 × {cpaDistanceFormatted}) = {score.toFixed(1)}%
             </div>
             <p className="text-xs text-slate-500">
               * Linear inverse-distance model evaluating Closest Point of Approach (CPA) from candidate AIS waypoints to the OpenDrift median hindcast origin.
