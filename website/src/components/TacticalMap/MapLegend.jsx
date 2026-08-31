@@ -1,46 +1,57 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Layers } from 'lucide-react';
 
 export function MapLegend() {
   const [isOpen, setIsOpen] = useState(false);
 
   const legendItems = [
     { label: 'Spill', symbol: '●', color: '#ea580c' },
-    { label: 'Forward Drift', symbol: '―', color: '#00d4ff' },
-    { label: 'Backward Drift', symbol: '―', color: '#ff7a00' },
-    { label: 'Origin (±2.8km)', symbol: '◎', color: '#ea580c' },
-    { label: 'Wind (ERA5)', symbol: '→', color: '#2563eb' },
-    { label: 'Current (CMEMS)', symbol: '→', color: '#0d9488' },
-    { label: 'AIS Candidate', symbol: '●', color: '#e11d48' },
+    { label: 'Forecast', symbol: '―', color: '#00d4ff' },
+    { label: 'Hindcast', symbol: '―', color: '#ff7a00' },
+    { label: 'Origin', symbol: '◎', color: '#ea580c' },
+    { label: 'Wind', symbol: '→', color: '#2563eb' },
+    { label: 'Current', symbol: '→', color: '#0d9488' },
+    { label: 'AIS Vessel', symbol: '●', color: '#e11d48' },
   ];
 
   return (
-    <div className="map-floating-legend-container" aria-label="Map Symbology Legend">
-      <button
-        type="button"
-        className={`legend-toggle-btn ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
-        title="Toggle Map Symbology Legend"
-      >
-        <Info size={13} className="text-slate-600" />
-        <span className="font-bold text-xs text-slate-800">SYMBOLOGY</span>
-        {isOpen ? <ChevronDown size={13} className="text-slate-500" /> : <ChevronUp size={13} className="text-slate-500" />}
-      </button>
+    <div className="map-bottom-left-symbology" aria-label="Map Symbology Legend">
+      <div className={`symbology-dock ${isOpen ? 'is-expanded' : 'is-collapsed'}`}>
+        {/* Toggle Button */}
+        <button
+          type="button"
+          className="symbology-toggle-pill"
+          onClick={() => setIsOpen(!isOpen)}
+          title={isOpen ? 'Collapse Symbology' : 'Expand Symbology'}
+        >
+          <Layers size={11} className="text-slate-700 flex-shrink-0" />
+          <span className="symbology-pill-label">SYMBOLOGY</span>
+          {isOpen ? (
+            <ChevronLeft size={11} className="text-slate-500 flex-shrink-0" />
+          ) : (
+            <ChevronRight size={11} className="text-slate-500 flex-shrink-0" />
+          )}
+        </button>
 
-      {isOpen && (
-        <div className="legend-popover-body">
-          <div className="legend-items-grid">
-            {legendItems.map((item) => (
-              <div key={item.label} className="legend-item-pill">
-                <span className="legend-symbol font-mono font-bold" style={{ color: item.color }}>
-                  {item.symbol}
-                </span>
-                <span className="legend-label">{item.label}</span>
-              </div>
-            ))}
-          </div>
+        {/* Horizontal Legend Items Strip */}
+        <div className="symbology-items-strip">
+          {legendItems.map((item) => (
+            <div key={item.label} className="symbology-item-chip">
+              <span 
+                className="symbology-chip-dot" 
+                style={{ 
+                  color: item.color,
+                  backgroundColor: `${item.color}18`,
+                  borderColor: `${item.color}55` 
+                }}
+              >
+                {item.symbol}
+              </span>
+              <span className="symbology-chip-name">{item.label}</span>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }

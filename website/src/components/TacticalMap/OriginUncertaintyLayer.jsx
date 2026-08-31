@@ -28,9 +28,15 @@ export function OriginUncertaintyLayer({
   const lat = originData.probable_origin.lat;
   const lon = originData.probable_origin.lon;
 
-  // Uncertainty radii
-  const innerRadiusMeters = 1400; // 1-sigma ~1.4 km
-  const outerRadiusMeters = 2800; // 2-sigma ~2.8 km (95% CI)
+  if (lat == null || lon == null || isNaN(lat) || isNaN(lon)) return null;
+
+  // Uncertainty radii from data or standard defaults
+  const outerRadiusMeters = (originData.uncertainty?.containment_radius_95_km 
+    ? originData.uncertainty.containment_radius_95_km * 1000 
+    : 2800);
+  const innerRadiusMeters = (originData.uncertainty?.semi_minor_km 
+    ? originData.uncertainty.semi_minor_km * 1000 
+    : Math.round(outerRadiusMeters * 0.5));
 
   return (
     <>

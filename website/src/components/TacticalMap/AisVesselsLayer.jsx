@@ -167,7 +167,10 @@ export function AisVesselsLayer({
       })}
 
       {/* When a vessel is selected: Draw CPA connection vector to Probable Origin */}
-      {selectedVessel && selectedCpaInfo && selectedCpaInfo.point && (
+      {selectedVessel && selectedCpaInfo?.point && 
+       selectedCpaInfo.point.lat != null && selectedCpaInfo.point.lon != null && 
+       originLat != null && originLon != null && 
+       !isNaN(selectedCpaInfo.point.lat) && !isNaN(originLat) && (
         <>
           {/* Dashed line connecting Vessel CPA coordinate directly to Probable Origin */}
           <Polyline

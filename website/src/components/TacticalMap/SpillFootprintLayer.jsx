@@ -26,8 +26,10 @@ const createSpillIcon = () => {
 export function SpillFootprintLayer({ spillLocation, isVisible = true }) {
   if (!isVisible || !spillLocation) return null;
 
-  const lat = spillLocation.lat || spillLocation[0];
-  const lon = spillLocation.lon || spillLocation[1];
+  const lat = spillLocation.lat ?? spillLocation[0];
+  const lon = spillLocation.lon ?? spillLocation[1];
+
+  if (lat == null || lon == null || isNaN(lat) || isNaN(lon)) return null;
 
   return (
     <>

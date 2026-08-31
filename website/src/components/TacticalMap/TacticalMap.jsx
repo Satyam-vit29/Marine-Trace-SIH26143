@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -17,13 +17,25 @@ import { Crosshair } from 'lucide-react';
 function MapViewController({ center, zoom }) {
   const map = useMap();
   useEffect(() => {
-    if (center && zoom) {
+    if (center && zoom && map) {
       map.flyTo(center, zoom, {
         animate: true,
         duration: 1.2,
+        easeLinearity: 0.25,
       });
     }
   }, [center, zoom, map]);
+  return null;
+}
+
+// Map instance capturer component
+function MapInstanceCapturer({ onMapReady }) {
+  const map = useMap();
+  useEffect(() => {
+    if (map && onMapReady) {
+      onMapReady(map);
+    }
+  }, [map, onMapReady]);
   return null;
 }
 
@@ -44,6 +56,9 @@ export function TacticalMap({
   mapZoom,
   onResetView,
 }) {
+  const [mapInstance, setMapInstance] = useState(null);
+  const [isRecentering, setIsRecentering] = useState(false);
+
   const defaultCenter = [18.48, 69.95];
   const defaultZoom = 9.5;
 
@@ -51,6 +66,22 @@ export function TacticalMap({
   const currentZoom = mapZoom || defaultZoom;
 
   const spillLocation = forwardData?.start_location || { lat: 18.50, lon: 70.00 };
+
+  const handleRecenter = useCallback(() => {
+    setIsRecentering(true);
+    setTimeout(() => setIsRecentering(false), 800);
+
+    if (mapInstance && currentCenter && currentZoom) {
+      mapInstance.flyTo(currentCenter, currentZoom, {
+        animate: true,
+        duration: 1.2,
+        easeLinearity: 0.25,
+      });
+    }
+    if (onResetView) {
+      onResetView();
+    }
+  }, [mapInstance, currentCenter, currentZoom, onResetView]);
 
   return (
     <div className="tactical-map-wrapper-light">
@@ -135,6 +166,9 @@ export function TacticalMap({
           isVisible={layers.vessels}
         />
 
+        {/* Map instance capturer for direct imperative control */}
+        <MapInstanceCapturer onMapReady={setMapInstance} />
+
         {/* Geodetic Telemetry Cursor HUD */}
         <MapCrosshairHUD />
       </MapContainer>
@@ -150,11 +184,12 @@ export function TacticalMap({
 
       {/* Floating Action: Recenter AOI */}
       <button
-        className="map-center-btn-light"
-        onClick={onResetView}
-        title="Reset Map to Operational Center"
+        type="button"
+        className={`map-center-btn-light ${isRecentering ? 'is-spinning' : ''}`}
+        onClick={handleRecenter}
+        title="Reset Map Camera to Operational AOI Center"
       >
-        <Crosshair size={14} />
+        <Crosshair size={14} className={isRecentering ? 'animate-spin' : ''} />
         <span>RECENTER AOI</span>
       </button>
     </div>
