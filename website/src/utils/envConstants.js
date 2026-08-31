@@ -44,25 +44,6 @@ export const DEMO_CASES = {
     topVessel: 'MT Ratnagiri Voyager',
     dataPath: '/data/case_b',
   },
-  CASE_C: {
-    id: 'CASE_C',
-    key: 'CASE_C',
-    badgeText: 'CASE C — DECOY TEST',
-    name: 'Decoy Test Scenario',
-    regionShort: 'Offshore Goa',
-    regionFull: 'Arabian Sea (Offshore Goa Fairway)',
-    coastline: 'Western Coastline of India',
-    incidentId: 'DEMO-GOA-003',
-    detectionTime: '2026-08-28 18:00:00 UTC',
-    estimatedReleaseTime: '2026-08-28 06:00:00 UTC',
-    satelliteSensor: 'Sentinel-1A C-SAR',
-    defaultCenter: [15.36, 73.14],
-    defaultZoom: 10.2,
-    spillCenter: { lat: 15.4000, lon: 73.2000 },
-    originCenter: { lat: 15.2950, lon: 73.0850 },
-    topVessel: 'MT Sagar Ratna',
-    dataPath: '/data/case_c',
-  },
 };
 
 // Function to generate 7-Stage Workflow Pipeline tailored for active case

@@ -46,7 +46,7 @@ export function TopNav({
         </div>
       </div>
 
-      {/* 2. Case Selector Tabs (BAY OF BENGAL vs ARABIAN SEA vs DECOY) */}
+      {/* 2. Case Selector Tabs (BAY OF BENGAL vs ARABIAN SEA) */}
       <div className="sci-case-selector-group" role="tablist" aria-label="Demonstration Cases">
         <button
           role="tab"
@@ -69,19 +69,6 @@ export function TopNav({
           <MapPin size={13} className={activeCaseKey === 'CASE_B' ? 'text-blue-600' : 'text-slate-400'} />
           <span>CASE B — ARABIAN SEA</span>
         </button>
-
-        {DEMO_CASES.CASE_C && (
-          <button
-            role="tab"
-            aria-selected={activeCaseKey === 'CASE_C'}
-            className={`sci-case-tab-btn ${activeCaseKey === 'CASE_C' ? 'active' : ''}`}
-            onClick={() => onSelectCase('CASE_C')}
-            title="Switch to Case C: Decoy Test Scenario"
-          >
-            <MapPin size={13} className={activeCaseKey === 'CASE_C' ? 'text-blue-600' : 'text-slate-400'} />
-            <span>CASE C — DECOY TEST</span>
-          </button>
-        )}
       </div>
 
       {/* 3. Incident Telemetry & Mode Controls */}
