@@ -1,14 +1,21 @@
 {
-  "spill_id": "DEMO-AS-002",
-  "case_id": "CASE_B",
-  "region_name": "Arabian Sea (Western Coastline)",
+  "incident_id": "DEMO-AS-002",
+  "data_mode": "SIMULATED AIS / DEMONSTRATION DATA",
   "probable_origin": {
-    "lat": 18.468316865607655,
-    "lon": 69.87658696442048
+    "lat": 18.466298,
+    "lon": 69.878086
   },
-  "method": "Backward OpenDrift Lagrangian spatial median cluster",
-  "particles_used": 300,
-  "uncertainty_radius_km": 2.8,
+  "uncertainty": {
+    "containment_radius_95_km": 1.61,
+    "semi_major_km": 1.68,
+    "semi_minor_km": 1.54,
+    "orientation_deg": 158.4,
+    "particles_used": 500,
+    "method": "OpenDrift 500-particle Lagrangian backward ensemble (empirical 95% covariance containment)",
+    "diffusivity_m2s": 1.0,
+    "windage_factor": 0.03,
+    "current_factor": 1.0
+  },
   "estimated_release_time": "2026-08-28 06:00:00 UTC",
-  "hindcast_duration_hours": 12.0
+  "hindcast_window_hours": 12.0
 }

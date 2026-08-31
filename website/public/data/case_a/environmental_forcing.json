@@ -1,11 +1,11 @@
 {
   "incident_id": "DEMO-BOB-001",
-  "case_id": "CASE_A",
-  "region": "Bay of Bengal (Offshore Kakinada / Godavari)",
+  "data_mode": "SIMULATED AIS / DEMONSTRATION DATA",
+  "region": "Bay of Bengal (Offshore Godavari / Kakinada)",
   "timestamp": "2026-08-28 14:30:00 UTC",
   "atmospheric_forcing": {
     "source": "Copernicus CDS ERA5 Hourly Single Levels",
-    "grid_resolution": "0.25\u00b0 x 0.25\u00b0 Global Reanalysis",
+    "grid_resolution": "0.25\u00b0 x 0.25\u00b0 Reanalysis",
     "speed_mean_ms": 4.12,
     "speed_knots": 8.01,
     "direction_deg": 42.5,
@@ -14,7 +14,7 @@
     "v10_mean_ms": 3.04
   },
   "hydrodynamic_forcing": {
-    "source": "Copernicus Marine Service (CMEMS) Global Ocean Analysis",
+    "source": "Copernicus Marine Service (CMEMS) Global Physics",
     "grid_resolution": "0.083\u00b0 x 0.083\u00b0 (~9 km resolution)",
     "speed_mean_ms": 0.28,
     "speed_knots": 0.54,
@@ -24,10 +24,13 @@
     "v_mean_ms": 0.221
   },
   "drift_coupling": {
-    "formula": "V_drift = U_current + 0.03 * U_wind",
+    "formula": "V_drift = 1.00 * U_current + 0.03 * U_wind",
+    "current_advection_factor": 1.0,
+    "windage_drag_factor": 0.03,
+    "turbulent_diffusivity_m2s": 1.0,
     "net_drift_speed_ms": 0.4,
     "net_drift_knots": 0.78,
-    "net_drift_bearing_deg": 40.8,
+    "net_drift_bearing_deg": 39.4,
     "net_cardinal": "NE"
   }
 }

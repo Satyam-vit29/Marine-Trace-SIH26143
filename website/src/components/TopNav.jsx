@@ -1,4 +1,5 @@
 import { 
+  Menu,
   Radar, 
   Satellite, 
   MapPin
@@ -9,6 +10,7 @@ export function TopNav({
   activeCaseKey = 'CASE_A',
   onSelectCase,
   onOpenSarModal,
+  onOpenDrawer,
   simulationMode,
   onToggleMode
 }) {
@@ -16,8 +18,20 @@ export function TopNav({
 
   return (
     <header className="sci-top-nav">
-      {/* Brand & Tagline */}
+      {/* 1. Hamburger + Brand & Tagline */}
       <div className="sci-brand-section">
+        {onOpenDrawer && (
+          <button
+            type="button"
+            className="sci-hamburger-btn"
+            onClick={onOpenDrawer}
+            title="Open Investigation Workflow Stages Drawer"
+            aria-label="Open Navigation Drawer"
+          >
+            <Menu size={18} className="text-slate-800" />
+          </button>
+        )}
+
         <div className="sci-brand-group">
           <div className="sci-logo-circle">
             <Radar className="text-blue-600" size={24} />
@@ -32,7 +46,7 @@ export function TopNav({
         </div>
       </div>
 
-      {/* Case Selector Tabs (BAY OF BENGAL vs ARABIAN SEA) */}
+      {/* 2. Case Selector Tabs (BAY OF BENGAL vs ARABIAN SEA vs DECOY) */}
       <div className="sci-case-selector-group" role="tablist" aria-label="Demonstration Cases">
         <button
           role="tab"
@@ -55,13 +69,26 @@ export function TopNav({
           <MapPin size={13} className={activeCaseKey === 'CASE_B' ? 'text-blue-600' : 'text-slate-400'} />
           <span>CASE B — ARABIAN SEA</span>
         </button>
+
+        {DEMO_CASES.CASE_C && (
+          <button
+            role="tab"
+            aria-selected={activeCaseKey === 'CASE_C'}
+            className={`sci-case-tab-btn ${activeCaseKey === 'CASE_C' ? 'active' : ''}`}
+            onClick={() => onSelectCase('CASE_C')}
+            title="Switch to Case C: Decoy Test Scenario"
+          >
+            <MapPin size={13} className={activeCaseKey === 'CASE_C' ? 'text-blue-600' : 'text-slate-400'} />
+            <span>CASE C — DECOY TEST</span>
+          </button>
+        )}
       </div>
 
-      {/* Incident Telemetry & Mode Controls */}
+      {/* 3. Incident Telemetry & Mode Controls */}
       <div className="sci-telemetry-row">
         <div className="sci-badge-pill incident-pill">
           <span className="sci-pill-lbl">INCIDENT:</span>
-          <span className="sci-pill-val font-mono text-blue-700 font-bold">{activeCase.incidentId}</span>
+          <span className="sci-pill-val font-mono text-blue-700 font-bold">{activeCase.incidentId || 'DEMO-BOB-001'}</span>
         </div>
 
         <div className="sci-badge-pill status-pill">
@@ -73,6 +100,7 @@ export function TopNav({
         </div>
 
         <button 
+          type="button"
           className="sci-badge-pill mode-toggle-pill"
           onClick={onToggleMode}
           title="Click to Switch Simulation Mode (Forward vs Hindcast)"
@@ -84,9 +112,10 @@ export function TopNav({
         </button>
       </div>
 
-      {/* Action Controls - SAR Scene only */}
+      {/* 4. Action Controls */}
       <div className="sci-nav-actions">
         <button 
+          type="button"
           className="sci-btn btn-satellite"
           onClick={onOpenSarModal}
           title="Inspect Sentinel-1 SAR Radar Scene"

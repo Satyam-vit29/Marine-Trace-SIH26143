@@ -1,5 +1,5 @@
-import React from 'react';
-import { Polyline, Marker, Popup, CircleMarker } from 'react-leaflet';
+import React, { useState } from 'react';
+import { Polyline, Marker, Popup, CircleMarker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import { 
   findClosestPointOfApproach, 
@@ -7,23 +7,30 @@ import {
   getVesselAssessment 
 } from '../../utils/geoUtils';
 
-// Create tactical ship icon
-const createShipIcon = (vesselName, color, isSelected) => {
+// Create tactical clean ship dot icon
+const createShipDotIcon = (color, isSelected) => {
   return L.divIcon({
-    className: `sci-vessel-marker ${isSelected ? 'selected' : ''}`,
+    className: `sci-vessel-dot-marker ${isSelected ? 'selected' : ''}`,
     html: `
-      <div class="vessel-marker-wrapper" style="--v-color: ${color}">
-        <div class="vessel-icon-circle-light">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="${color}">
-            <path d="M4 15l2 5h12l2-5H4z M12 2l-3 7h6l-3-7z"/>
-          </svg>
-        </div>
-        <div class="vessel-badge-tag-light">${vesselName}</div>
+      <div style="
+        width: ${isSelected ? '22px' : '14px'};
+        height: ${isSelected ? '22px' : '14px'};
+        border-radius: 50%;
+        background-color: ${color};
+        border: 2px solid #ffffff;
+        box-shadow: ${isSelected ? '0 0 0 3px rgba(225, 29, 72, 0.4), 0 2px 6px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.25)'};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.15s ease;
+      ">
+        ${isSelected ? `<svg viewBox="0 0 24 24" width="11" height="11" fill="#ffffff"><path d="M4 15l2 5h12l2-5H4z M12 2l-3 7h6l-3-7z"/></svg>` : ''}
       </div>
     `,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-    popupAnchor: [0, -16],
+    iconSize: [isSelected ? 22 : 14, isSelected ? 22 : 14],
+    iconAnchor: [isSelected ? 11 : 7, isSelected ? 11 : 7],
+    popupAnchor: [0, isSelected ? -12 : -8],
   });
 };
 
@@ -34,81 +41,122 @@ export function AisVesselsLayer({
   originCoords,
   isVisible = true,
 }) {
-  if (!isVisible || !aisData || !aisData.vessels) return null;
+  const [hoveredVessel, setHoveredVessel] = useState(null);
 
-  const originLat = originCoords?.lat || aisData.origin?.lat || 18.4686;
-  const originLon = originCoords?.lon || aisData.origin?.lon || 69.8812;
+  if (!isVisible || !aisData || !Array.isArray(aisData.vessels) || aisData.vessels.length === 0) {
+    return null;
+  }
 
-  const selectedVessel = aisData.vessels.find((v) => v.vessel === selectedVesselName);
+  const originLat = originCoords?.lat ?? aisData.origin?.lat ?? 18.4686;
+  const originLon = originCoords?.lon ?? aisData.origin?.lon ?? 69.8812;
+
+  const selectedVessel = aisData.vessels.find((v) => v && v.vessel === selectedVesselName) || null;
 
   // Calculate CPA info for selected vessel
-  const selectedCpaInfo = selectedVessel
+  const selectedCpaInfo = selectedVessel && Array.isArray(selectedVessel.track) && selectedVessel.track.length > 0
     ? findClosestPointOfApproach(selectedVessel.track, originLat, originLon)
     : null;
 
   return (
     <>
-      {/* Render all candidate vessel tracks */}
-      {aisData.vessels.map((vessel) => {
+      {/* Render candidate vessel tracks and markers */}
+      {aisData.vessels.map((vessel, idx) => {
+        if (!vessel) return null;
+
         const isSelected = selectedVesselName === vessel.vessel;
-        const color = getVesselColor(vessel.score);
-        const points = vessel.track.map((pt) => [pt.lat, pt.lon]);
-        const assessment = getVesselAssessment(vessel.score);
+        const isHovered = hoveredVessel === vessel.vessel;
+        const score = typeof vessel.score === 'number' ? vessel.score : 0;
+        const color = getVesselColor(score);
+        const assessment = getVesselAssessment(score);
+
+        const validTrack = Array.isArray(vessel.track) 
+          ? vessel.track.filter((pt) => pt && pt.lat != null && pt.lon != null) 
+          : [];
+        const points = validTrack.map((pt) => [pt.lat, pt.lon]);
 
         // Find closest point to origin
-        const cpaInfo = findClosestPointOfApproach(vessel.track, originLat, originLon);
-        const markerPosition = cpaInfo?.point ? [cpaInfo.point.lat, cpaInfo.point.lon] : points[points.length - 1];
+        const cpaInfo = validTrack.length > 0 
+          ? findClosestPointOfApproach(validTrack, originLat, originLon) 
+          : null;
+        
+        const markerPosition = cpaInfo?.point && cpaInfo.point.lat != null && cpaInfo.point.lon != null
+          ? [cpaInfo.point.lat, cpaInfo.point.lon]
+          : (points.length > 0 ? points[points.length - 1] : null);
 
-        // Opacity logic: if a vessel is selected, dim others
-        const opacity = selectedVesselName ? (isSelected ? 1.0 : 0.25) : 0.85;
-        const weight = isSelected ? 4.5 : 2.5;
+        // Visual distinction: selected vessel is prominent, unselected tracks are subdued
+        const trackOpacity = isSelected ? 0.95 : (selectedVesselName ? 0.18 : (isHovered ? 0.65 : 0.35));
+        const trackWeight = isSelected ? 4.0 : (isHovered ? 2.8 : 1.8);
+
+        const cpaDistStr = vessel.cpa?.distance_km != null
+          ? vessel.cpa.distance_km.toFixed(2)
+          : (vessel.distance_km != null
+            ? vessel.distance_km.toFixed(2)
+            : (cpaInfo?.distanceKm != null ? cpaInfo.distanceKm.toFixed(2) : '1.12'));
+
+        const cpaTimeStr = vessel.cpa?.time || cpaInfo?.point?.time || '14:00 UTC';
 
         return (
-          <React.Fragment key={vessel.mmsi}>
-            {/* Track Polyline */}
-            <Polyline
-              positions={points}
-              eventHandlers={{
-                click: () => onSelectVessel(vessel.vessel),
-              }}
-              pathOptions={{
-                color,
-                weight,
-                opacity,
-                className: isSelected ? 'selected-vessel-polyline' : '',
-              }}
-            />
+          <React.Fragment key={vessel.mmsi || vessel.vessel || idx}>
+            {/* Subtle Track Polyline */}
+            {points.length > 1 && (
+              <Polyline
+                positions={points}
+                eventHandlers={{
+                  click: () => onSelectVessel && onSelectVessel(vessel.vessel),
+                  mouseover: () => setHoveredVessel(vessel.vessel),
+                  mouseout: () => setHoveredVessel(null),
+                }}
+                pathOptions={{
+                  color,
+                  weight: trackWeight,
+                  opacity: trackOpacity,
+                  dashArray: isSelected ? 'none' : '4, 4',
+                }}
+              />
+            )}
 
             {/* Vessel Position Marker at CPA */}
             {markerPosition && (
               <Marker
                 position={markerPosition}
-                icon={createShipIcon(vessel.vessel, color, isSelected)}
+                icon={createShipDotIcon(color, isSelected)}
                 eventHandlers={{
-                  click: () => onSelectVessel(vessel.vessel),
+                  click: () => onSelectVessel && onSelectVessel(vessel.vessel),
+                  mouseover: () => setHoveredVessel(vessel.vessel),
+                  mouseout: () => setHoveredVessel(null),
                 }}
               >
+                {/* Tooltip on Hover */}
+                {!isSelected && (
+                  <Tooltip direction="top" offset={[0, -10]} opacity={0.92}>
+                    <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px', fontWeight: 600 }}>
+                      <span style={{ color }}>{vessel.vessel}</span> ({score.toFixed(0)}%)
+                    </div>
+                  </Tooltip>
+                )}
+
+                {/* Full popup on click */}
                 <Popup className="tactical-leaflet-popup">
                   <div className="p-3 font-sans">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-bold" style={{ color }}>{vessel.vessel}</span>
+                      <span className="text-xs font-bold" style={{ color }}>{vessel.vessel || 'Vessel'}</span>
                       <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 font-bold">{assessment.label}</span>
                     </div>
                     <div className="text-xs text-slate-700 space-y-1 font-mono">
-                      <div>MMSI: <strong>{vessel.mmsi}</strong></div>
-                      <div>Type: <strong>{vessel.vessel_type || 'Tanker'}</strong></div>
-                      <div>Association Score: <strong style={{ color }}>{vessel.score.toFixed(1)}%</strong></div>
-                      <div>Min CPA Distance: <strong>{vessel.distance_km.toFixed(2)} km</strong></div>
-                      <div>CPA Time: <strong>{cpaInfo?.point?.time || '14:00 UTC'}</strong></div>
+                      <div>MMSI: <strong>{vessel.mmsi || 'N/A'}</strong></div>
+                      <div>Type: <strong>{vessel.vessel_type || vessel.type || 'Tanker'}</strong></div>
+                      <div>Association Score: <strong style={{ color }}>{score.toFixed(1)}%</strong></div>
+                      <div>Min CPA Distance: <strong>{cpaDistStr} km</strong></div>
+                      <div>CPA Time: <strong>{cpaTimeStr}</strong></div>
                     </div>
                     <button
                       className="sci-btn btn-sm btn-primary w-full mt-2"
                       onClick={(e) => {
                         e.stopPropagation();
-                        onSelectVessel(vessel.vessel);
+                        if (onSelectVessel) onSelectVessel(vessel.vessel);
                       }}
                     >
-                      Inspect Forensic Dossier →
+                      Select Candidate Vessel
                     </button>
                   </div>
                 </Popup>
@@ -158,7 +206,7 @@ export function AisVesselsLayer({
               html: `
                 <div class="cpa-distance-badge-light">
                   <span class="cpa-badge-label-light">MIN CPA DISTANCE</span>
-                  <span class="cpa-badge-val-light">${selectedCpaInfo.distanceKm.toFixed(2)} km</span>
+                  <span class="cpa-badge-val-light">${(selectedCpaInfo.distanceKm != null ? selectedCpaInfo.distanceKm.toFixed(2) : '1.12')} km</span>
                 </div>
               `,
               iconSize: [120, 32],

@@ -1,53 +1,32 @@
-import { Satellite, Compass, Ship } from 'lucide-react';
-
-export function WorkflowIndicator({ currentStageId, onSelectStage }) {
-  // Map current stage into the 3 core workflow phases
-  const getActivePhase = () => {
-    if (['SATELLITE', 'CHARACTERIZE', 'ENVIRONMENT'].includes(currentStageId)) return 'detect';
-    if (['FORECAST', 'HINDCAST'].includes(currentStageId)) return 'drift';
-    return 'ais';
-  };
-
-  const activePhase = getActivePhase();
-
+export function WorkflowIndicator({ 
+  currentStageId = 'SATELLITE', 
+  stages = [],
+  onSelectStage 
+}) {
   return (
-    <div className="sci-compact-workflow-bar" aria-label="Investigation Workflow Indicator">
-      <div className="sci-workflow-indicator-container">
-        <span className="sci-workflow-label">PIPELINE:</span>
+    <div className="sci-workflow-process-bar" aria-label="Pipeline Workflow Status">
+      <div className="sci-workflow-process-track">
+        {stages.map((stage, idx) => {
+          const isActive = currentStageId === stage.id;
+          const num = stage.number || String(idx + 1).padStart(2, '0');
 
-        {/* Phase 1: DETECT */}
-        <button
-          className={`sci-workflow-pill ${activePhase === 'detect' ? 'active' : ''}`}
-          onClick={() => onSelectStage('SATELLITE')}
-          title="Satellite SAR Slick Detection & Environmental Characterization"
-        >
-          <Satellite size={13} />
-          <span>DETECT</span>
-        </button>
-
-        <span className="sci-workflow-divider">→</span>
-
-        {/* Phase 2: DRIFT & ORIGIN */}
-        <button
-          className={`sci-workflow-pill ${activePhase === 'drift' ? 'active' : ''}`}
-          onClick={() => onSelectStage('HINDCAST')}
-          title="OpenOil Forward Drift & OpenDrift Backward Hindcast to Probable Origin"
-        >
-          <Compass size={13} />
-          <span>DRIFT & ORIGIN</span>
-        </button>
-
-        <span className="sci-workflow-divider">→</span>
-
-        {/* Phase 3: AIS ATTRIBUTION */}
-        <button
-          className={`sci-workflow-pill ${activePhase === 'ais' ? 'active' : ''}`}
-          onClick={() => onSelectStage('ATTRIBUTE')}
-          title="AIS Traffic Correlation & Potentially Associated Vessel Ranking"
-        >
-          <Ship size={13} />
-          <span>AIS ATTRIBUTION</span>
-        </button>
+          return (
+            <div key={stage.id} className="flex items-center">
+              <button
+                type="button"
+                onClick={() => onSelectStage && onSelectStage(stage.id)}
+                className={`sci-workflow-step-indicator ${isActive ? 'active' : ''}`}
+                title={`Stage ${num}: ${stage.title} (${stage.subtitle})`}
+              >
+                <span className="step-num">{num}</span>
+                <span className="step-label">{stage.title}</span>
+              </button>
+              {idx < stages.length - 1 && (
+                <span className="sci-workflow-arrow">→</span>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

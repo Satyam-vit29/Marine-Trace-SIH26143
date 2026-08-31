@@ -1,73 +1,43 @@
 import { useState } from 'react';
-import { Layers, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Info } from 'lucide-react';
 
 export function MapLegend() {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const legendItems = [
+    { label: 'Spill', symbol: '●', color: '#ea580c' },
+    { label: 'Forward Drift', symbol: '―', color: '#00d4ff' },
+    { label: 'Backward Drift', symbol: '―', color: '#ff7a00' },
+    { label: 'Origin (±2.8km)', symbol: '◎', color: '#ea580c' },
+    { label: 'Wind (ERA5)', symbol: '→', color: '#2563eb' },
+    { label: 'Current (CMEMS)', symbol: '→', color: '#0d9488' },
+    { label: 'AIS Candidate', symbol: '●', color: '#e11d48' },
+  ];
 
   return (
-    <div className={`map-floating-legend-light ${isExpanded ? 'expanded' : 'collapsed'}`}>
-      <button 
-        className="legend-header-toggle-light"
-        onClick={() => setIsExpanded(!isExpanded)}
+    <div className="map-floating-legend-container" aria-label="Map Symbology Legend">
+      <button
+        type="button"
+        className={`legend-toggle-btn ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
         title="Toggle Map Symbology Legend"
       >
-        <div className="flex items-center gap-2 font-bold text-xs text-slate-800">
-          <Layers size={15} className="text-blue-600" />
-          <span>MAP SYMBOLOGY</span>
-        </div>
-        {isExpanded ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
+        <Info size={13} className="text-slate-600" />
+        <span className="font-bold text-xs text-slate-800">SYMBOLOGY</span>
+        {isOpen ? <ChevronDown size={13} className="text-slate-500" /> : <ChevronUp size={13} className="text-slate-500" />}
       </button>
 
-      {isExpanded && (
-        <div className="legend-body-light">
-          <div className="legend-item-light">
-            <span className="legend-glyph-light glyph-sar-box"></span>
-            <span>Sentinel-1 SAR Radar Scene (10m)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light glyph-slick-core"></span>
-            <span>Detected Oil Slick Mask (10.38 km²)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-teal-600 font-extrabold text-sm">→</span>
-            <span>CMEMS Ocean Current (0.21 m/s @ 076°)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-blue-600 font-extrabold text-sm">→</span>
-            <span>ERA5 10m Wind (3.29 m/s @ 072°)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-cyan-500 font-bold">━</span>
-            <span>Forward Drift (Cyan Particles &amp; Streamlines)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-orange-500 font-bold">━</span>
-            <span>Backward Hindcast (Orange Reverse Particles)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-orange-600 font-bold">◎</span>
-            <span>Probable Origin (Median Hindcast)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-orange-400 font-bold">◌</span>
-            <span>Origin Uncertainty Zone (±2.8 km)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-rose-600 font-bold">━</span>
-            <span>Candidate AIS Track (Score &gt;80%)</span>
-          </div>
-
-          <div className="legend-item-light">
-            <span className="legend-glyph-light text-rose-600 font-mono font-bold">---</span>
-            <span>Closest Point of Approach (CPA)</span>
+      {isOpen && (
+        <div className="legend-popover-body">
+          <div className="legend-items-grid">
+            {legendItems.map((item) => (
+              <div key={item.label} className="legend-item-pill">
+                <span className="legend-symbol font-mono font-bold" style={{ color: item.color }}>
+                  {item.symbol}
+                </span>
+                <span className="legend-label">{item.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}

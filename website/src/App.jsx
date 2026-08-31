@@ -1,32 +1,17 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { TopNav } from './components/TopNav';
-import { StageWorkflowBar } from './components/StageWorkflowBar';
+import { NavigationDrawer } from './components/NavigationDrawer';
 import { TacticalMap } from './components/TacticalMap/TacticalMap';
 import { SimulationTimeline } from './components/Timeline/SimulationTimeline';
-import { SatelliteAnalysisPanel } from './components/Panels/SatelliteAnalysisPanel';
-import { EnvironmentalHUD } from './components/Panels/EnvironmentalHUD';
-import { OriginAnalysisPanel } from './components/Panels/OriginAnalysisPanel';
-import { VesselRankingPanel } from './components/Panels/VesselRankingPanel';
+import { IncidentOverviewPanel } from './components/Panels/IncidentOverviewPanel';
+import { InvestigationStageSection } from './components/Sections/InvestigationStageSection';
+import { DataProvenanceSection } from './components/Sections/DataProvenanceSection';
 import { VesselDossierModal } from './components/Panels/VesselDossierModal';
 import { SatelliteSarModal } from './components/Panels/SatelliteSarModal';
 import { DataProvenanceModal } from './components/Panels/DataProvenanceModal';
 
-// Lower Page Deep-Dive Sections
-import { SatelliteSection } from './components/Sections/SatelliteSection';
-import { EnvironmentalSection } from './components/Sections/EnvironmentalSection';
-import { DriftOriginSection } from './components/Sections/DriftOriginSection';
-import { AisCorrelationSection } from './components/Sections/AisCorrelationSection';
-import { DataProvenanceSection } from './components/Sections/DataProvenanceSection';
-
 import { DEMO_CASES, getWorkflowStages } from './utils/envConstants';
-import { 
-  Satellite, 
-  Waves, 
-  Target, 
-  Ship, 
-  Radar, 
-  AlertCircle 
-} from 'lucide-react';
+import { Radar, AlertCircle } from 'lucide-react';
 import './App.css';
 
 export function App() {
@@ -44,34 +29,34 @@ export function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [dataError, setDataError] = useState(null);
 
-  // 3. Active Stage & Simulation Mode
+  // 3. Active Stage & Navigation Drawer
   const [currentStageId, setCurrentStageId] = useState('SATELLITE');
-  const [simulationMode, setSimulationMode] = useState('forward'); // 'forward' | 'backward'
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // 4. Playback & Scrubber States
+  // 4. Simulation Mode & Playback State
+  const [simulationMode, setSimulationMode] = useState('forward'); // 'forward' | 'backward'
   const [timeIndex, setTimeIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
 
-  // 5. Map Layer Visibility (Single Central Interactive Map)
+  // 5. Map Layer Visibility
   const [layers, setLayers] = useState({
     sarImage: true,
     satellite: true,
     spill: true,
     forward: true,
     backward: false,
-    origin: false,
+    origin: true,
     currents: true,
     wind: true,
     vessels: false,
   });
 
-  // 6. Candidate Vessel & Modals
+  // 6. Modals & Vessel Selection
   const [selectedVesselName, setSelectedVesselName] = useState(null);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
   const [isSarModalOpen, setIsSarModalOpen] = useState(false);
   const [isProvenanceOpen, setIsProvenanceOpen] = useState(false);
-  const [activeSidebarTab, setActiveSidebarTab] = useState('satellite');
 
   // 7. Dynamic Workflow Stages for active case
   const workflowStages = useMemo(() => {
@@ -93,12 +78,12 @@ export function App() {
       if (embeddedCase && embeddedCase.satellite) {
         Promise.resolve().then(() => {
           if (!isMounted) return;
-          setSatelliteData(embeddedCase.satellite);
-          setForcingData(embeddedCase.forcing);
-          setForwardData(embeddedCase.forward);
-          setBackwardData(embeddedCase.backward);
-          setOriginData(embeddedCase.origin);
-          setAisData(embeddedCase.ais);
+          setSatelliteData(embeddedCase.satellite || null);
+          setForcingData(embeddedCase.forcing || null);
+          setForwardData(embeddedCase.forward || null);
+          setBackwardData(embeddedCase.backward || null);
+          setOriginData(embeddedCase.origin || null);
+          setAisData(embeddedCase.ais || null);
           setIsLoading(false);
         });
         return;
@@ -108,30 +93,24 @@ export function App() {
     // Dynamic fetch from case data directory
     const dataPath = targetCase.dataPath;
     Promise.all([
-      fetch(`${dataPath}/satellite_detection.json`).then((r) => {
-        if (!r.ok) return fetch('/satellite_detection.json').then((res) => res.json());
-        return r.json();
-      }),
-      fetch(`${dataPath}/environmental_forcing.json`).then((r) => {
-        if (!r.ok) return fetch('/environmental_forcing.json').then((res) => res.json());
-        return r.json();
-      }),
-      fetch(`${dataPath}/trajectory.json`).then((r) => {
-        if (!r.ok) return fetch('/trajectory.json').then((res) => res.json());
-        return r.json();
-      }),
-      fetch(`${dataPath}/backward_trajectory.json`).then((r) => {
-        if (!r.ok) return fetch('/backward_trajectory.json').then((res) => res.json());
-        return r.json();
-      }),
-      fetch(`${dataPath}/origin.json`).then((r) => {
-        if (!r.ok) return fetch('/origin.json').then((res) => res.json());
-        return r.json();
-      }),
-      fetch(`${dataPath}/ais_web.json`).then((r) => {
-        if (!r.ok) return fetch('/ais_web.json').then((res) => res.json());
-        return r.json();
-      }),
+      fetch(`${dataPath}/satellite_detection.json`)
+        .then((r) => (r.ok ? r.json() : fetch('/satellite_detection.json').then((res) => res.json())))
+        .catch(() => null),
+      fetch(`${dataPath}/environmental_forcing.json`)
+        .then((r) => (r.ok ? r.json() : fetch('/environmental_forcing.json').then((res) => res.json())))
+        .catch(() => null),
+      fetch(`${dataPath}/trajectory.json`)
+        .then((r) => (r.ok ? r.json() : fetch('/trajectory.json').then((res) => res.json())))
+        .catch(() => null),
+      fetch(`${dataPath}/backward_trajectory.json`)
+        .then((r) => (r.ok ? r.json() : fetch('/backward_trajectory.json').then((res) => res.json())))
+        .catch(() => null),
+      fetch(`${dataPath}/origin.json`)
+        .then((r) => (r.ok ? r.json() : fetch('/origin.json').then((res) => res.json())))
+        .catch(() => null),
+      fetch(`${dataPath}/ais_web.json`)
+        .then((r) => (r.ok ? r.json() : fetch('/ais_web.json').then((res) => res.json())))
+        .catch(() => null),
     ])
       .then(([sat, forcing, fwd, bwd, orig, ais]) => {
         if (!isMounted) return;
@@ -146,7 +125,7 @@ export function App() {
       .catch((err) => {
         if (!isMounted) return;
         console.error(`Error loading dataset for ${activeCaseKey}:`, err);
-        setDataError(err.message);
+        setDataError(err?.message || 'Failed to load case data');
         setIsLoading(false);
       });
 
@@ -165,7 +144,6 @@ export function App() {
     setSimulationMode('forward');
     setTimeIndex(0);
     setIsPlaying(false);
-    setActiveSidebarTab('satellite');
     setMapCenter(targetCase.defaultCenter);
     setMapZoom(targetCase.defaultZoom);
     setLayers({
@@ -174,7 +152,7 @@ export function App() {
       spill: true,
       forward: true,
       backward: false,
-      origin: false,
+      origin: true,
       currents: true,
       wind: true,
       vessels: false,
@@ -196,15 +174,19 @@ export function App() {
     if (!stage) return;
 
     // Apply stage layers
-    setLayers((prev) => ({
-      ...prev,
-      ...stage.layers,
-    }));
+    if (stage.layers) {
+      setLayers((prev) => ({
+        ...prev,
+        ...stage.layers,
+      }));
+    }
 
     // Apply stage mode
-    setSimulationMode(stage.mode);
-    setTimeIndex(0);
-    setIsPlaying(false);
+    if (stage.mode) {
+      setSimulationMode(stage.mode);
+      setTimeIndex(0);
+      setIsPlaying(false);
+    }
 
     // Apply camera focus
     if (stage.center && stage.zoom) {
@@ -212,18 +194,9 @@ export function App() {
       setMapZoom(stage.zoom);
     }
 
-    // Auto-switch sidebar tab according to active stage
-    if (stageId === 'SATELLITE' || stageId === 'CHARACTERIZE') {
-      setActiveSidebarTab('satellite');
-    } else if (stageId === 'ENVIRONMENT') {
-      setActiveSidebarTab('environment');
-    } else if (stageId === 'FORECAST' || stageId === 'HINDCAST') {
-      setActiveSidebarTab('origin');
-    } else if (stageId === 'CORRELATE' || stageId === 'ATTRIBUTE') {
-      setActiveSidebarTab('vessels');
-      if (stage.highlightVessel) {
-        setSelectedVesselName(stage.highlightVessel);
-      }
+    // Auto-select candidate vessel for Stage 07
+    if (stageId === 'ATTRIBUTE' && stage.highlightVessel) {
+      setSelectedVesselName(stage.highlightVessel);
     }
   }, [workflowStages]);
 
@@ -234,10 +207,8 @@ export function App() {
     setIsPlaying(false);
     if (mode === 'forward') {
       setLayers((prev) => ({ ...prev, forward: true, backward: false }));
-      setActiveSidebarTab('satellite');
     } else {
       setLayers((prev) => ({ ...prev, forward: false, backward: true, origin: true }));
-      setActiveSidebarTab('origin');
     }
   }, []);
 
@@ -252,14 +223,17 @@ export function App() {
   // Vessel selection handler
   const handleSelectVessel = useCallback((vesselName) => {
     setSelectedVesselName(vesselName);
-    if (vesselName && aisData?.vessels) {
-      const vessel = aisData.vessels.find((v) => v.vessel === vesselName);
-      if (vessel && vessel.track && vessel.track.length > 0) {
-        const midPt = vessel.track[Math.floor(vessel.track.length / 2)];
-        setMapCenter([midPt.lat, midPt.lon]);
-        setMapZoom(10.2);
+    if (vesselName && Array.isArray(aisData?.vessels)) {
+      const vessel = aisData.vessels.find((v) => v && (v.vessel === vesselName || (typeof v.vessel === 'string' && (v.vessel.includes(vesselName) || vesselName.includes(v.vessel)))));
+      if (vessel && Array.isArray(vessel.track) && vessel.track.length > 0) {
+        const validTrack = vessel.track.filter((pt) => pt && pt.lat != null && pt.lon != null);
+        if (validTrack.length > 0) {
+          const midPt = validTrack[Math.floor(validTrack.length / 2)];
+          setMapCenter([midPt.lat, midPt.lon]);
+          setMapZoom(10.2);
+        }
       }
-      setActiveSidebarTab('vessels');
+      setLayers((prev) => ({ ...prev, vessels: true }));
     }
   }, [aisData]);
 
@@ -269,32 +243,13 @@ export function App() {
     setMapZoom(activeCase.defaultZoom);
   }, [activeCase]);
 
-  // Focus origin
-  const handleFocusOrigin = useCallback(() => {
-    if (originData?.probable_origin) {
-      setMapCenter([originData.probable_origin.lat, originData.probable_origin.lon]);
-      setMapZoom(11.2);
-    }
-  }, [originData]);
-
-  // Focus spill
-  const handleFocusSpill = useCallback(() => {
-    if (satelliteData?.slick_characterization?.centroid) {
-      const c = satelliteData.slick_characterization.centroid;
-      setMapCenter([c.lat, c.lon]);
-      setMapZoom(11.5);
-    } else {
-      setMapCenter(activeCase.spillCenter ? [activeCase.spillCenter.lat, activeCase.spillCenter.lon] : activeCase.defaultCenter);
-      setMapZoom(11.5);
-    }
-  }, [satelliteData, activeCase]);
-
   // Selected vessel object
   const selectedVesselObj = useMemo(() => {
-    if (!selectedVesselName || !aisData?.vessels) return null;
-    return aisData.vessels.find((v) => v.vessel === selectedVesselName) || null;
+    if (!selectedVesselName || !Array.isArray(aisData?.vessels)) return null;
+    return aisData.vessels.find((v) => v && v.vessel === selectedVesselName) || null;
   }, [selectedVesselName, aisData]);
 
+  // Fallback Loading Screen
   if (isLoading && !satelliteData) {
     return (
       <div className="sci-loading-screen">
@@ -304,22 +259,20 @@ export function App() {
           </div>
           <h2 className="text-lg font-bold text-slate-900 mt-4 mb-1">LOADING {activeCase.badgeText}</h2>
           <p className="text-sm text-slate-500 mb-4">Ingesting Sentinel-1 SAR observations, ERA5 atmospheric wind & CMEMS currents...</p>
-          <div className="sci-loading-bar-track">
-            <div className="sci-loading-bar-fill" />
-          </div>
         </div>
       </div>
     );
   }
 
-  if (dataError) {
+  // Fallback Error Screen
+  if (dataError && !satelliteData) {
     return (
       <div className="sci-loading-screen">
-        <div className="sci-loading-box">
+        <div className="sci-error-box">
           <AlertCircle size={40} className="text-rose-600 mb-2" />
           <h2 className="text-lg font-bold text-slate-900 mb-1">DATA INGESTION ERROR</h2>
           <p className="text-sm text-slate-500 mb-4">{dataError}</p>
-          <button className="sci-btn btn-primary" onClick={() => window.location.reload()}>
+          <button type="button" className="sci-btn btn-primary" onClick={() => window.location.reload()}>
             Retry Loading
           </button>
         </div>
@@ -329,27 +282,30 @@ export function App() {
 
   return (
     <div className="sci-app-viewport">
-      {/* 1. Clean Top Header with Case Selector */}
+      {/* 1. Header with Corner Hamburger, Case Tabs, and Telemetry */}
       <TopNav
         activeCaseKey={activeCaseKey}
         onSelectCase={handleSelectCase}
         onOpenSarModal={() => setIsSarModalOpen(true)}
+        onOpenDrawer={() => setIsDrawerOpen(true)}
         simulationMode={simulationMode}
         onToggleMode={() => handleModeChange(simulationMode === 'forward' ? 'backward' : 'forward')}
       />
 
-      {/* 2. Simplified 7-Stage Workflow Bar (Never Overlaps, Case-Adaptive) */}
-      <StageWorkflowBar
+      {/* 2. Side Navigation Drawer (Direct Stage Navigation) */}
+      <NavigationDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
         currentStageId={currentStageId}
         onSelectStage={handleStageSelect}
         stages={workflowStages}
       />
 
-      {/* Main Page Scroll Container (Natural Vertical Scrolling) */}
+      {/* Main Page Workspace */}
       <main className="sci-main-scroll-container">
-        {/* 3. Hero Main Workspace: 68% Central Map + 32% Information/Analysis Panel */}
+        {/* 3. Main Incident Dashboard: Map (64%) + Incident Overview Panel (36%) */}
         <div className="sci-hero-workspace-grid">
-          {/* Main Map Viewport (Hero: 680px height) */}
+          {/* Tactical Map Viewport (Hero: 540px height, Persistent) */}
           <section className="sci-map-container" aria-label="Primary Interactive Geospatial Canvas">
             <TacticalMap
               satelliteData={satelliteData}
@@ -368,136 +324,65 @@ export function App() {
               mapZoom={mapZoom}
               onResetView={handleResetView}
             />
-
-            {/* Simulation Timeline Scrubber HUD with RUN FORECAST & RUN BACKTRACK */}
-            <SimulationTimeline
-              mode={simulationMode}
-              timeIndex={timeIndex}
-              maxSteps={maxSteps}
-              isPlaying={isPlaying}
-              playbackSpeed={playbackSpeed}
-              originCoords={originData?.probable_origin}
-              onTimeChange={setTimeIndex}
-              onTogglePlay={setIsPlaying}
-              onReset={() => setTimeIndex(0)}
-              onSpeedChange={setPlaybackSpeed}
-              onModeChange={handleModeChange}
-            />
           </section>
 
-          {/* Right Information & Metrics Analysis Panel (Information Only, No Map) */}
-          <aside className="sci-sidebar-container" aria-label="Investigation Information Panel">
-            {/* Tab Navigation */}
-            <div className="sci-sidebar-tabs">
-              <button
-                className={`sci-tab-btn ${activeSidebarTab === 'satellite' ? 'active' : ''}`}
-                onClick={() => setActiveSidebarTab('satellite')}
-              >
-                <Satellite size={15} />
-                <span>SATELLITE</span>
-              </button>
-
-              <button
-                className={`sci-tab-btn ${activeSidebarTab === 'environment' ? 'active' : ''}`}
-                onClick={() => setActiveSidebarTab('environment')}
-              >
-                <Waves size={15} />
-                <span>ENVIRONMENT</span>
-              </button>
-
-              <button
-                className={`sci-tab-btn ${activeSidebarTab === 'origin' ? 'active' : ''}`}
-                onClick={() => setActiveSidebarTab('origin')}
-              >
-                <Target size={15} />
-                <span>ORIGIN</span>
-              </button>
-
-              <button
-                className={`sci-tab-btn ${activeSidebarTab === 'vessels' ? 'active' : ''}`}
-                onClick={() => setActiveSidebarTab('vessels')}
-              >
-                <Ship size={15} />
-                <span>AIS</span>
-              </button>
-            </div>
-
-            {/* Tab Body */}
-            <div className="sci-tab-body">
-              {activeSidebarTab === 'satellite' && (
-                <SatelliteAnalysisPanel
-                  satelliteData={satelliteData}
-                  onOpenSarModal={() => setIsSarModalOpen(true)}
-                  onFocusSpill={handleFocusSpill}
-                />
-              )}
-
-              {activeSidebarTab === 'environment' && (
-                <EnvironmentalHUD
-                  forcingData={forcingData}
-                />
-              )}
-
-              {activeSidebarTab === 'origin' && (
-                <OriginAnalysisPanel
-                  originData={originData}
-                  onFocusOrigin={handleFocusOrigin}
-                />
-              )}
-
-              {activeSidebarTab === 'vessels' && (
-                <VesselRankingPanel
-                  vessels={aisData?.vessels || []}
-                  filterFunnel={aisData?.filter_funnel}
-                  selectedVesselName={selectedVesselName}
-                  onSelectVessel={handleSelectVessel}
-                  onOpenDossier={(vessel) => {
-                    setSelectedVesselName(vessel.vessel);
-                    setIsDossierOpen(true);
-                  }}
-                />
-              )}
-            </div>
+          {/* Incident Overview Panel (Spill, Drift, Origin, Candidate Vessels) */}
+          <aside className="sci-sidebar-container" aria-label="Incident Summary Panel">
+            <IncidentOverviewPanel
+              satelliteData={satelliteData}
+              forcingData={forcingData}
+              originData={originData}
+              aisData={aisData}
+              simulationMode={simulationMode}
+              selectedVesselName={selectedVesselName}
+              onSelectVessel={handleSelectVessel}
+              onOpenSarModal={() => setIsSarModalOpen(true)}
+            />
           </aside>
         </div>
 
-        {/* 4. Deep-Dive Scrollable Analysis Sections Below the Map */}
-        <div className="sci-sections-wrapper">
-          {/* Section 1: Satellite SAR Remote Sensing */}
-          <SatelliteSection 
-            satelliteData={satelliteData} 
-            onOpenSarModal={() => setIsSarModalOpen(true)} 
+        {/* 4. Unified Simulation Toolbar (Directly Under Main Dashboard) */}
+        <div className="sci-simulation-timeline-wrapper">
+          <SimulationTimeline
+            mode={simulationMode}
+            timeIndex={timeIndex}
+            maxSteps={maxSteps}
+            isPlaying={isPlaying}
+            playbackSpeed={playbackSpeed}
+            originCoords={originData?.probable_origin}
+            onTimeChange={setTimeIndex}
+            onTogglePlay={setIsPlaying}
+            onReset={() => setTimeIndex(0)}
+            onSpeedChange={setPlaybackSpeed}
+            onModeChange={handleModeChange}
           />
+        </div>
 
-          {/* Section 2: Environmental Hydrodynamic & Atmospheric Forcing */}
-          <EnvironmentalSection 
-            forcingData={forcingData} 
-          />
-
-          {/* Section 3: Drift Simulation & Probable Spill Origin */}
-          <DriftOriginSection 
-            forwardData={forwardData} 
-            originData={originData}
-          />
-
-          {/* Section 4: AIS Spatio-Temporal Filtering & Candidate Attribution */}
-          <AisCorrelationSection 
-            vessels={aisData?.vessels || []}
-            filterFunnel={aisData?.filter_funnel}
-            selectedVesselName={selectedVesselName}
-            onSelectVessel={handleSelectVessel}
-            onOpenDossier={(vessel) => {
+        {/* 5. Investigation Stages Section (Single Stage Detailed Content + Next/Back) */}
+        <InvestigationStageSection
+          currentStageId={currentStageId}
+          onSelectStage={handleStageSelect}
+          stages={workflowStages}
+          satelliteData={satelliteData}
+          forcingData={forcingData}
+          originData={originData}
+          aisData={aisData}
+          selectedVesselName={selectedVesselName}
+          onSelectVessel={handleSelectVessel}
+          onOpenSarModal={() => setIsSarModalOpen(true)}
+          onOpenDossier={(vessel) => {
+            if (vessel) {
               setSelectedVesselName(vessel.vessel);
               setIsDossierOpen(true);
-            }}
-          />
+            }
+          }}
+        />
 
-          {/* Section 5: Data Sources & Technical Provenance */}
-          <DataProvenanceSection />
-        </div>
+        {/* 6. Data Sources & Technical Provenance */}
+        <DataProvenanceSection />
       </main>
 
-      {/* 5. Modals */}
+      {/* 7. Modals */}
       {isSarModalOpen && (
         <SatelliteSarModal
           satelliteData={satelliteData}
@@ -513,10 +398,12 @@ export function App() {
         />
       )}
 
-      <DataProvenanceModal
-        isOpen={isProvenanceOpen}
-        onClose={() => setIsProvenanceOpen(false)}
-      />
+      {isProvenanceOpen && (
+        <DataProvenanceModal
+          isOpen={isProvenanceOpen}
+          onClose={() => setIsProvenanceOpen(false)}
+        />
+      )}
     </div>
   );
 }

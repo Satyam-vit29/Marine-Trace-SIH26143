@@ -1,223 +1,105 @@
 {
-  "incident_id": "DEMO001",
+  "incident_id": "DEMO-BOB-001",
+  "data_mode": "SIMULATED AIS / DEMONSTRATION DATA",
   "satellite_metadata": {
-    "satellite_sensor": "Sentinel-1A C-SAR",
-    "acquisition_time": "2026-08-28 18:00:00 UTC",
-    "polarization": "VV + VH (Dual-Pol)",
+    "satellite_sensor": "Sentinel-1 C-SAR (Dual-Pol VV+VH)",
+    "sensor_profile": "C-Band Synthetic Aperture Radar (10m GRD)",
+    "acquisition_time": "2026-08-28 14:30:00 UTC",
+    "polarization": "VV + VH",
     "beam_mode": "Interferometric Wide (IW)",
     "pixel_spacing": "10 m x 10 m",
-    "incidence_angle_deg": 34.6,
-    "orbit_pass": "Descending (Relative Orbit 142)",
-    "backscatter_damping_db": -4.8,
-    "detection_confidence": 0.94,
-    "confidence_label": "HIGH CONFIDENCE (AUTOMATED SAR DETECTION)"
+    "incidence_angle_deg": 36.2,
+    "orbit_pass": "Descending (Relative Orbit 098)",
+    "backscatter_damping_db": -4.9,
+    "data_mode_label": "SIMULATED AIS / DEMONSTRATION DATA"
   },
   "sar_image_overlay": {
     "url": "/sentinel1_sar_scene.png",
     "bounds": [
       [
-        18.35,
-        69.8
+        16.35,
+        82.6
       ],
       [
-        18.65,
-        70.2
+        16.65,
+        83.0
       ]
     ],
     "center": [
-      18.5,
-      70.0
+      16.5,
+      82.8
     ],
-    "description": "Sentinel-1A C-Band SAR Level-1 GRD Radar Amplitude Scene",
+    "description": "Demonstration Sentinel-1 C-SAR Grayscale Radar Scene",
     "format": "Grayscale Radar Backscatter (\u03c3\u2080)"
   },
   "slick_characterization": {
     "centroid": {
-      "lat": 18.499893,
-      "lon": 69.999917
+      "lat": 16.5,
+      "lon": 82.8005
     },
-    "area_km2": 10.38,
-    "perimeter_km": 13.91,
-    "length_major_axis_km": 6.22,
-    "width_minor_axis_km": 2.12,
-    "aspect_ratio": 2.93,
-    "orientation_deg": 90.8,
-    "estimated_age_hours": 6.0,
-    "age_estimation_method": "Fay Viscous-Gravity Spreading & Weathering Inversion",
+    "area_km2": 22.59,
+    "perimeter_km": 19.11,
+    "length_major_axis_km": 13.41,
+    "width_minor_axis_km": 6.28,
+    "orientation_deg": 58.9,
+    "compactness": 0.778,
     "bounding_box": {
-      "min_lat": 18.487642,
-      "max_lat": 18.515394,
-      "min_lon": 69.951378,
-      "max_lon": 70.057793
+      "min_lat": 16.475,
+      "max_lat": 16.525,
+      "min_lon": 82.768,
+      "max_lon": 82.832
     },
     "polygon_outline": [
       [
-        18.52388992161974,
-        69.99956276446717
+        16.525,
+        82.815
       ],
       [
-        18.5244012683692,
-        69.999125238235
+        16.518,
+        82.832
       ],
       [
-        18.523962281251645,
-        69.9983926435515
+        16.495,
+        82.828
       ],
       [
-        18.522395339191196,
-        69.99719496362252
+        16.475,
+        82.785
       ],
       [
-        18.51975442132134,
-        69.99557661388631
+        16.482,
+        82.768
       ],
       [
-        18.516318335561213,
-        69.99378991828449
+        16.505,
+        82.775
       ],
       [
-        18.51249909932773,
-        69.99220417589522
-      ],
-      [
-        18.508701698658417,
-        69.99116652643872
-      ],
-      [
-        18.505190830249067,
-        69.99087019050397
-      ],
-      [
-        18.502017322154913,
-        69.99128274144361
-      ],
-      [
-        18.49903290269981,
-        69.99216303053622
-      ],
-      [
-        18.4959864830281,
-        69.99315987500476
-      ],
-      [
-        18.492662379649722,
-        69.99395287294182
-      ],
-      [
-        18.489004062499212,
-        69.99437886352042
-      ],
-      [
-        18.48517282702251,
-        69.99449336076175
-      ],
-      [
-        18.481516923763493,
-        69.99454242280486
-      ],
-      [
-        18.478462651904753,
-        69.99485639217716
-      ],
-      [
-        18.47637030348524,
-        69.99570832523897
-      ],
-      [
-        18.47541204344835,
-        69.99719413158985
-      ],
-      [
-        18.475520129493876,
-        69.999182768894
-      ],
-      [
-        18.476425794017167,
-        70.00135676425697
-      ],
-      [
-        18.477772888756537,
-        70.00332712031454
-      ],
-      [
-        18.479260556432987,
-        70.00477683764694
-      ],
-      [
-        18.48075770650332,
-        70.005575808605
-      ],
-      [
-        18.482343537785525,
-        70.00582131447892
-      ],
-      [
-        18.48425816608453,
-        70.0057881847977
-      ],
-      [
-        18.48678361674164,
-        70.00580889081122
-      ],
-      [
-        18.490103505468884,
-        70.00613191980207
-      ],
-      [
-        18.49419839584545,
-        70.00681545244247
-      ],
-      [
-        18.49881960976464,
-        70.00769916299915
-      ],
-      [
-        18.50355287605401,
-        70.00846557967355
-      ],
-      [
-        18.507947221851033,
-        70.00876646892448
-      ],
-      [
-        18.51165837203899,
-        70.00836357400958
-      ],
-      [
-        18.514550108185006,
-        70.00722722810312
-      ],
-      [
-        18.51671388185499,
-        70.0055532079803
-      ],
-      [
-        18.518399722272694,
-        70.00369093970825
-      ],
-      [
-        18.519886991657465,
-        70.0020116796576
-      ],
-      [
-        18.521347580046974,
-        70.00076932931512
-      ],
-      [
-        18.52275705512634,
-        70.0000094610593
-      ],
-      [
-        18.52388992161974,
-        69.99956276446717
+        16.525,
+        82.815
       ]
     ]
   },
-  "opendrift_pipeline_link": {
-    "seeding_method": "Lagrangian Particle Seeding along Detected SAR Slick Mask",
-    "initial_particles_seeded": 300,
-    "forward_prediction_horizon_h": 24,
-    "backward_hindcast_horizon_h": 12,
-    "status": "SEEDED FROM SAR DETECTION MASK"
+  "sar_screening": {
+    "screening_status": "PASSED",
+    "look_alike_risk": "LOW",
+    "slick_likelihood": "HIGH CONFIDENCE (MINERAL OIL SLICK)",
+    "screening_confidence": 0.94,
+    "features": {
+      "backscatter_damping_db": -4.9,
+      "local_contrast_ratio": 3.09,
+      "wind_speed_ms": 4.12,
+      "wind_regime_valid": true,
+      "distance_to_coast_km": 32.0,
+      "elongation_ratio": 2.14,
+      "compactness": 0.778
+    },
+    "screening_flags": [
+      "Optimal SAR wind detection regime (4.12 m/s in 3.0\u201312.0 m/s window).",
+      "Distinct radar damping anomaly (\u0394\u03c3\u2080 = -4.90 dB, strong surface tension damping).",
+      "Offshore deepwater setting (32.0 km from coastline): Low terrestrial surfactant interference.",
+      "Elongated feathering shape (Elongation = 2.1): Characteristic of advected mineral oil slick."
+    ],
+    "provenance_note": "Multi-feature SAR screening stage evaluates backscatter contrast, wind window, and coastal distance to screen against natural look-alikes."
   }
 }

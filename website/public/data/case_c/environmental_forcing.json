@@ -1,0 +1,36 @@
+{
+  "incident_id": "DEMO-GOA-003",
+  "data_mode": "SIMULATED AIS / DEMONSTRATION DATA",
+  "region": "Arabian Sea (Offshore Goa Corridor)",
+  "timestamp": "2026-08-28 18:00:00 UTC",
+  "atmospheric_forcing": {
+    "source": "Copernicus CDS ERA5 Hourly Single Levels",
+    "grid_resolution": "0.25\u00b0 x 0.25\u00b0 Reanalysis",
+    "speed_mean_ms": 3.8,
+    "speed_knots": 7.39,
+    "direction_deg": 45.0,
+    "cardinal_direction": "NE",
+    "u10_mean_ms": 2.69,
+    "v10_mean_ms": 2.69
+  },
+  "hydrodynamic_forcing": {
+    "source": "Copernicus Marine Service (CMEMS) Global Physics",
+    "grid_resolution": "0.083\u00b0 x 0.083\u00b0 (~9 km resolution)",
+    "speed_mean_ms": 0.24,
+    "speed_knots": 0.47,
+    "direction_deg": 40.0,
+    "cardinal_direction": "NE",
+    "u_mean_ms": 0.154,
+    "v_mean_ms": 0.184
+  },
+  "drift_coupling": {
+    "formula": "V_drift = 1.00 * U_current + 0.03 * U_wind",
+    "current_advection_factor": 1.0,
+    "windage_drag_factor": 0.03,
+    "turbulent_diffusivity_m2s": 1.0,
+    "net_drift_speed_ms": 0.35,
+    "net_drift_knots": 0.69,
+    "net_drift_bearing_deg": 41.6,
+    "net_cardinal": "NE"
+  }
+}

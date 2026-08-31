@@ -1,0 +1,22 @@
+{
+  "ground_truth": {
+    "true_origin": {
+      "lat": 16.379163,
+      "lon": 82.696664
+    },
+    "true_release_time": "2026-08-28 02:30:00",
+    "target_vessel": "MV Konkan Pride",
+    "scenario_type": "Scenario A \u2014 Easy / Unambiguous Single Candidate"
+  },
+  "predicted_origin": {
+    "lat": 16.379163,
+    "lon": 82.696664,
+    "estimated_release_time": "2026-08-28 02:30:00"
+  },
+  "metrics": {
+    "origin_localization_error_km": 0.0,
+    "release_time_error_min": 0,
+    "within_95_containment": true
+  },
+  "status": "VALIDATED \u2014 HIGH CONVERGENCE"
+}

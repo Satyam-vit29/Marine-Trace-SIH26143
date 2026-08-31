@@ -1,0 +1,26 @@
+{
+  "active_scenario_id": "SCENARIO_A",
+  "scenarios": [
+    {
+      "id": "SCENARIO_A",
+      "code": "CASE_A",
+      "label": "SCENARIO A \u2014 EASY (BAY OF BENGAL)",
+      "region": "Bay of Bengal (Godavari Coast)",
+      "description": "Unambiguous single candidate test case where MV Konkan Pride aligns with release time, origin envelope, and fairway heading."
+    },
+    {
+      "id": "SCENARIO_B",
+      "code": "CASE_B",
+      "label": "SCENARIO B \u2014 AMBIGUOUS (ARABIAN SEA)",
+      "region": "Arabian Sea (Mumbai High)",
+      "description": "Ambiguous multi-candidate scenario in dense shipping corridor where multi-attribute weighting isolates top vessel."
+    },
+    {
+      "id": "SCENARIO_C",
+      "code": "CASE_C",
+      "label": "SCENARIO C \u2014 DECOY / WRONG NEAREST VESSEL",
+      "region": "Arabian Sea (Offshore Goa Corridor)",
+      "description": "Critical test case demonstrating why Marine Trace does NOT naively choose the nearest vessel: Decoy MV Coastal Runner (nearest in distance, but 8.5h late, opposing course) ranks #3, while True Source MT Sagar Ratna (synchronous time, aligned course) ranks #1."
+    }
+  ]
+}
