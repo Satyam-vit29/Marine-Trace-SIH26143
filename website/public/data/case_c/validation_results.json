@@ -1,0 +1,22 @@
+{
+  "ground_truth": {
+    "true_origin": {
+      "lat": 15.295306,
+      "lon": 73.105403
+    },
+    "true_release_time": "2026-08-28 06:00:00",
+    "target_vessel": "MT Sagar Ratna (True Source)",
+    "scenario_type": "Scenario C \u2014 Decoy / Wrong Nearest Vessel Test Case"
+  },
+  "predicted_origin": {
+    "lat": 15.295306,
+    "lon": 73.105403,
+    "estimated_release_time": "2026-08-28 06:00:00"
+  },
+  "metrics": {
+    "origin_localization_error_km": 0.0,
+    "release_time_error_min": 0,
+    "within_95_containment": true
+  },
+  "status": "VALIDATED \u2014 HIGH CONVERGENCE"
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "vessel": "Vessel Alpha",
+    "mmsi": "123456789",
+    "minimum_distance_km": 1.18,
+    "association_score": 95.3
+  },
+  {
+    "vessel": "Vessel Bravo",
+    "mmsi": "234567890",
+    "minimum_distance_km": 6.9,
+    "association_score": 72.4
+  },
+  {
+    "vessel": "Vessel Charlie",
+    "mmsi": "345678901",
+    "minimum_distance_km": 21.52,
+    "association_score": 13.9
+  },
+  {
+    "vessel": "Vessel Delta",
+    "mmsi": "456789012",
+    "minimum_distance_km": 43.03,
+    "association_score": 0
+  },
+  {
+    "vessel": "Vessel Echo",
+    "mmsi": "567890123",
+    "minimum_distance_km": 52.63,
+    "association_score": 0
+  }
+]

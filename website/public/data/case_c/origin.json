@@ -1,0 +1,21 @@
+{
+  "incident_id": "DEMO-GOA-003",
+  "data_mode": "SIMULATED AIS / DEMONSTRATION DATA",
+  "probable_origin": {
+    "lat": 15.295306,
+    "lon": 73.105403
+  },
+  "uncertainty": {
+    "containment_radius_95_km": 1.43,
+    "semi_major_km": 1.43,
+    "semi_minor_km": 1.42,
+    "orientation_deg": 4.9,
+    "particles_used": 500,
+    "method": "OpenDrift 500-particle Lagrangian backward ensemble (empirical 95% covariance containment)",
+    "diffusivity_m2s": 1.0,
+    "windage_factor": 0.03,
+    "current_factor": 1.0
+  },
+  "estimated_release_time": "2026-08-28 06:00:00 UTC",
+  "hindcast_window_hours": 12.0
+}

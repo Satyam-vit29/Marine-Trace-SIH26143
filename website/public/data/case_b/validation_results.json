@@ -1,0 +1,22 @@
+{
+  "ground_truth": {
+    "true_origin": {
+      "lat": 18.466298,
+      "lon": 69.878086
+    },
+    "true_release_time": "2026-08-28 06:00:00",
+    "target_vessel": "MT Sagar Samrat",
+    "scenario_type": "Scenario B \u2014 Ambiguous / Multi-Candidate High Traffic Corridor"
+  },
+  "predicted_origin": {
+    "lat": 18.466298,
+    "lon": 69.878086,
+    "estimated_release_time": "2026-08-28 06:00:00"
+  },
+  "metrics": {
+    "origin_localization_error_km": 0.0,
+    "release_time_error_min": 0,
+    "within_95_containment": true
+  },
+  "status": "VALIDATED \u2014 HIGH CONVERGENCE"
+}

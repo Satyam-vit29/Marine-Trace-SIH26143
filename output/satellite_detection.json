@@ -1,0 +1,105 @@
+{
+  "incident_id": "DEMO-BOB-001",
+  "data_mode": "SIMULATED AIS / DEMONSTRATION DATA",
+  "satellite_metadata": {
+    "satellite_sensor": "Sentinel-1 C-SAR (Dual-Pol VV+VH)",
+    "sensor_profile": "C-Band Synthetic Aperture Radar (10m GRD)",
+    "acquisition_time": "2026-08-28 14:30:00 UTC",
+    "polarization": "VV + VH",
+    "beam_mode": "Interferometric Wide (IW)",
+    "pixel_spacing": "10 m x 10 m",
+    "incidence_angle_deg": 36.2,
+    "orbit_pass": "Descending (Relative Orbit 098)",
+    "backscatter_damping_db": -4.9,
+    "data_mode_label": "SIMULATED AIS / DEMONSTRATION DATA"
+  },
+  "sar_image_overlay": {
+    "url": "/sentinel1_sar_scene.png",
+    "bounds": [
+      [
+        16.35,
+        82.6
+      ],
+      [
+        16.65,
+        83.0
+      ]
+    ],
+    "center": [
+      16.5,
+      82.8
+    ],
+    "description": "Demonstration Sentinel-1 C-SAR Grayscale Radar Scene",
+    "format": "Grayscale Radar Backscatter (\u03c3\u2080)"
+  },
+  "slick_characterization": {
+    "centroid": {
+      "lat": 16.5,
+      "lon": 82.8005
+    },
+    "area_km2": 22.59,
+    "perimeter_km": 19.11,
+    "length_major_axis_km": 13.41,
+    "width_minor_axis_km": 6.28,
+    "orientation_deg": 58.9,
+    "compactness": 0.778,
+    "bounding_box": {
+      "min_lat": 16.475,
+      "max_lat": 16.525,
+      "min_lon": 82.768,
+      "max_lon": 82.832
+    },
+    "polygon_outline": [
+      [
+        16.525,
+        82.815
+      ],
+      [
+        16.518,
+        82.832
+      ],
+      [
+        16.495,
+        82.828
+      ],
+      [
+        16.475,
+        82.785
+      ],
+      [
+        16.482,
+        82.768
+      ],
+      [
+        16.505,
+        82.775
+      ],
+      [
+        16.525,
+        82.815
+      ]
+    ]
+  },
+  "sar_screening": {
+    "screening_status": "PASSED",
+    "look_alike_risk": "LOW",
+    "slick_likelihood": "HIGH CONFIDENCE (MINERAL OIL SLICK)",
+    "screening_confidence": 0.94,
+    "features": {
+      "backscatter_damping_db": -4.9,
+      "local_contrast_ratio": 3.09,
+      "wind_speed_ms": 4.12,
+      "wind_regime_valid": true,
+      "distance_to_coast_km": 32.0,
+      "elongation_ratio": 2.14,
+      "compactness": 0.778
+    },
+    "screening_flags": [
+      "Optimal SAR wind detection regime (4.12 m/s in 3.0\u201312.0 m/s window).",
+      "Distinct radar damping anomaly (\u0394\u03c3\u2080 = -4.90 dB, strong surface tension damping).",
+      "Offshore deepwater setting (32.0 km from coastline): Low terrestrial surfactant interference.",
+      "Elongated feathering shape (Elongation = 2.1): Characteristic of advected mineral oil slick."
+    ],
+    "provenance_note": "Multi-feature SAR screening stage evaluates backscatter contrast, wind window, and coastal distance to screen against natural look-alikes."
+  }
+}
