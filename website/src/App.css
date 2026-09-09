@@ -20,10 +20,10 @@
   width: 100%;
   max-width: 1620px;
   margin: 0 auto;
-  padding: 18px 24px 70px;
+  padding: 20px 26px 72px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 /* --------------------------------------------------------------------------
@@ -32,18 +32,18 @@
 .sci-top-nav {
   position: sticky;
   top: 0;
-  min-height: 64px;
-  padding: 8px 24px;
+  min-height: 60px;
+  padding: 6px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  background: var(--bg-surface-glass-solid);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-light);
   z-index: 1000;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 12px rgba(0, 0, 0, 0.015);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.025);
   flex-wrap: wrap;
   transition: all var(--duration-normal) var(--ease-smooth);
 }
@@ -56,8 +56,8 @@
 }
 
 .sci-hamburger-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,16 +83,16 @@
 }
 
 .sci-logo-circle {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
   border: 1.5px solid var(--blue-border);
-  border-radius: 10px;
+  border-radius: 9px;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.12);
+  box-shadow: 0 2px 5px rgba(2, 132, 199, 0.1);
   transition: transform var(--duration-normal) var(--ease-spring);
 }
 
@@ -105,7 +105,7 @@
 }
 
 .sci-brand-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #0f172a;
@@ -115,10 +115,10 @@
 }
 
 .sci-brand-subtitle {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
   color: var(--text-muted);
-  margin-top: 1.5px;
+  margin-top: 1px;
   white-space: nowrap;
 }
 
@@ -126,27 +126,27 @@
 .sci-case-selector-group {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: #f1f5f9;
-  padding: 4px;
-  border-radius: var(--radius-lg);
+  gap: 3px;
+  background: #f8fafc;
+  padding: 3px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
   flex-shrink: 0;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: none;
 }
 
 .sci-case-tab-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px 14px;
-  font-size: 11.5px;
-  font-weight: 700;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--text-secondary);
+  color: #64748b;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
@@ -154,20 +154,19 @@
 
 .sci-case-tab-btn:hover {
   color: #0f172a;
-  background: rgba(255, 255, 255, 0.75);
+  background: #ffffff;
 }
 
 .sci-case-tab-btn.active {
   color: #0284c7;
   background: #ffffff;
-  border-color: #cbd5e1;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(2, 132, 199, 0.15);
-  transform: translateY(-0.5px);
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  font-weight: 700;
 }
 
 .case-tab-text {
   font-family: var(--font-mono);
-  font-weight: 800;
 }
 
 /* Telemetry Badges */
@@ -182,24 +181,23 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   background: #ffffff;
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  font-size: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: var(--shadow-xs);
+  box-shadow: none;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .sci-badge-pill:hover {
   border-color: var(--border-mid);
-  box-shadow: var(--shadow-sm);
 }
 
 .incident-pill {
-  min-width: 165px;
+  background: #f8fafc;
 }
 
 .status-pill {
@@ -208,8 +206,8 @@
 }
 
 .sci-live-beacon {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #10b981;
   display: inline-block;
@@ -218,15 +216,15 @@
 
 .sci-pill-lbl {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 800;
+  font-size: 9.5px;
+  font-weight: 600;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 .sci-pill-val {
-  font-size: 12.5px;
-  font-weight: 700;
+  font-size: 11.5px;
+  font-weight: 650;
 }
 
 .mode-toggle-pill {
@@ -357,7 +355,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 64%) minmax(360px, 36%);
-  gap: 16px;
+  gap: 18px;
 }
 
 .sci-map-container {
@@ -366,10 +364,10 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid var(--border-mid);
+  border: 1px solid #cbd5e1;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 3px 8px rgba(15, 23, 42, 0.02);
   transition: border-color var(--duration-fast) var(--ease-smooth);
 }
 
@@ -382,15 +380,15 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid var(--border-mid);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.025);
   transition: border-color var(--duration-fast) var(--ease-smooth);
 }
 
 .sci-sidebar-container:hover {
-  border-color: #94a3b8;
+  border-color: #cbd5e1;
 }
 
 /* --------------------------------------------------------------------------
@@ -406,7 +404,7 @@
 
 .overview-panel-header {
   padding: 12px 16px;
-  background: #ffffff;
+  background: #fafbfc;
   border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
@@ -415,9 +413,9 @@
 }
 
 .overview-panel-title {
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-size: 13.5px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
   color: #0f172a;
   margin: 0;
 }
@@ -425,17 +423,17 @@
 .overview-panel-body {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 14px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 11px;
 }
 
 .overview-section-box {
   background: #ffffff;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-  padding: 10px 12px;
+  padding: 11px 13px;
   box-shadow: var(--shadow-xs);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -449,22 +447,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 6px;
+  padding-bottom: 7px;
   border-bottom: 1px solid #f1f5f9;
 }
 
 .overview-heading-text {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #0f172a;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #1e293b;
   text-transform: uppercase;
   margin: 0;
 }
 
 .overview-metric-footer {
-  margin-top: 8px;
-  padding-top: 6px;
+  margin-top: 9px;
+  padding-top: 7px;
   border-top: 1px solid #f1f5f9;
   display: flex;
   align-items: center;
@@ -486,23 +484,25 @@
 }
 
 .sci-metric-label {
-  font-size: 10.5px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
 .sci-metric-val-lg {
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 1.2;
+  font-size: 15.5px;
+  font-weight: 750;
+  line-height: 1.25;
+  color: #0f172a;
 }
 
 .sci-metric-val-md {
   font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 650;
+  line-height: 1.25;
+  color: #1e293b;
 }
 
 .sci-metric-val-danger {
@@ -514,20 +514,23 @@
 .drift-datasets-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 9px;
 }
 
 .drift-dataset-card {
   background: #f8fafc;
-  border: 1px solid var(--border-light);
+  border: 1px solid #f1f5f9;
   border-radius: var(--radius-sm);
-  padding: 6px 8px;
+  padding: 7px 9px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .drift-dataset-title {
+  font-size: 11px;
+  font-weight: 650;
+  color: #334155;
   margin-bottom: 2px;
 }
 
@@ -540,18 +543,19 @@
 
 .drift-data-label {
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .drift-data-value {
-  color: var(--text-dark);
+  color: #1e293b;
+  font-weight: 600;
 }
 
 /* Origin Data Table */
 .origin-data-table {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .origin-data-row {
@@ -559,35 +563,35 @@
   justify-content: space-between;
   align-items: center;
   font-size: 11.5px;
-  padding: 2px 0;
+  padding: 3px 0;
 }
 
 .origin-data-label {
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Candidate Vessel List in Overview */
 .overview-vessel-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .overview-vessel-item {
-  background: #ffffff;
-  border: 1px solid var(--border-light);
+  background: #fafbfc;
+  border: 1px solid #f1f5f9;
   border-radius: var(--radius-sm);
-  padding: 8px 10px;
+  padding: 9px 11px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .overview-vessel-item:hover {
-  background: #f8fafc;
+  background: #ffffff;
   border-color: #cbd5e1;
   transform: translateY(-1px);
   box-shadow: var(--shadow-xs);
@@ -614,7 +618,7 @@
 .overview-vessel-rank {
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 2px 5px;
   background: #f1f5f9;
   border-radius: 4px;
@@ -627,8 +631,8 @@
 }
 
 .overview-vessel-name {
-  font-size: 12.5px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 650;
   color: #0f172a;
   margin: 0;
 }
@@ -1266,14 +1270,14 @@
 }
 
 .sci-timeline-hud {
-  padding: 14px 20px;
+  padding: 13px 18px;
   background: #ffffff;
   border: 1px solid var(--border-mid);
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
 .sci-timeline-meta-bar {
@@ -1287,23 +1291,27 @@
 .sci-timeline-mode-toggle {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: #f1f5f9;
+  gap: 3px;
+  background: #f8fafc;
   padding: 3px;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
+  box-shadow: none;
 }
 
 .sci-mode-tab {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 650;
   color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
@@ -1313,19 +1321,23 @@
 
 .sci-mode-tab.active-forward {
   background: #ffffff;
-  color: var(--blue-primary);
-  box-shadow: var(--shadow-sm);
+  color: #0284c7;
+  border-color: #bae6fd;
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.1);
+  font-weight: 700;
 }
 
 .sci-mode-tab.active-hindcast {
   background: #ffffff;
-  color: var(--orange-primary);
-  box-shadow: var(--shadow-sm);
+  color: #ea580c;
+  border-color: #fed7aa;
+  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.1);
+  font-weight: 700;
 }
 
 .mode-dot {
-  width: 7px;
-  height: 7px;
+  width: 6.5px;
+  height: 6.5px;
   border-radius: 50%;
 }
 
@@ -1336,18 +1348,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 12px;
-  background: #f8fafc;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-xs);
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .sci-offset-tag {
-  font-size: 10.5px;
-  padding: 2px 7px;
+  font-size: 10px;
+  padding: 2px 6px;
   border-radius: 4px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .tag-blue-offset {
@@ -1361,7 +1372,9 @@
 }
 
 .sci-step-counter {
-  font-size: 11.5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
 .sci-timeline-scrubber-row {
@@ -1373,7 +1386,7 @@
 .sci-scrubber-container {
   position: relative;
   flex: 1;
-  height: 24px;
+  height: 20px;
   display: flex;
   align-items: center;
 }
@@ -1381,10 +1394,10 @@
 .sci-timeline-range-input {
   position: relative;
   width: 100%;
-  height: 8px;
+  height: 6px;
   -webkit-appearance: none;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 3px;
   outline: none;
   z-index: 2;
   cursor: pointer;
@@ -1392,13 +1405,13 @@
 
 .sci-timeline-range-input::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: #0284c7;
-  border: 2.5px solid #ffffff;
+  border: 2px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
   transition: transform var(--duration-fast) var(--ease-spring);
 }
 
@@ -1409,9 +1422,9 @@
 .sci-scrubber-fill {
   position: absolute;
   left: 0;
-  top: 8px;
-  height: 8px;
-  border-radius: 4px;
+  top: 7px;
+  height: 6px;
+  border-radius: 3px;
   pointer-events: none;
   z-index: 1;
   transition: width 0.05s linear;
@@ -1424,7 +1437,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
@@ -1438,12 +1451,12 @@
 .sci-play-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 16px;
+  gap: 6px;
+  padding: 6px 14px;
   border-radius: var(--radius-md);
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 700;
   color: #ffffff;
   cursor: pointer;
   border: 1px solid transparent;
@@ -1483,14 +1496,14 @@
 }
 
 .sci-ctrl-btn {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f8fafc;
-  border: 1px solid var(--border-mid);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
   color: var(--text-body);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -1505,43 +1518,44 @@
 .sci-origin-estimated-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 5px;
+  padding: 4px 10px;
   background: #ecfdf5;
   border: 1px solid #a7f3d0;
-  border-radius: var(--radius-md);
-  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.15);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
   white-space: nowrap;
 }
 
 .sci-speed-selector-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   margin-left: auto;
 }
 
 .sci-speed-label {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 600;
   color: var(--text-muted);
   margin-right: 2px;
 }
 
 .sci-speed-chip {
-  padding: 4px 9px;
-  background: #f1f5f9;
+  padding: 3px 8px;
+  background: #f8fafc;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10.5px;
+  font-weight: 600;
   color: var(--text-secondary);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .sci-speed-chip:hover {
   background: #ffffff;
+  border-color: var(--border-mid);
   color: var(--text-dark);
 }
 
@@ -1560,7 +1574,7 @@
   background: #ffffff;
   border: 1px solid var(--border-mid);
   border-radius: var(--radius-lg);
-  padding: 24px 28px;
+  padding: 26px 30px;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
@@ -1570,8 +1584,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -1593,33 +1607,33 @@
 .sci-section-tag {
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--blue-primary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .sci-section-title {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 750;
   color: #0f172a;
   letter-spacing: -0.02em;
   margin: 2px 0 0;
 }
 
 .sci-section-subtitle {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   color: var(--text-muted);
   margin-top: 2px;
 }
 
 .sci-section-intro {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.55;
   max-width: 1000px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 /* Interactive Inline Stepper Bar */
@@ -1687,13 +1701,13 @@
 
 .step-chip-num {
   font-size: 9.5px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--blue-primary);
 }
 
 .step-chip-name {
   font-size: 11.5px;
-  font-weight: 700;
+  font-weight: 650;
   color: #0f172a;
   white-space: nowrap;
 }
@@ -1712,54 +1726,56 @@
 /* Stage Metric & Evidence Cards */
 .stage-metric-card {
   background: #f8fafc;
-  border: 1px solid var(--border-light);
+  border: 1px solid #f1f5f9;
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 12px 15px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  box-shadow: var(--shadow-xs);
+  gap: 3px;
+  box-shadow: none;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .stage-metric-card:hover {
   background: #ffffff;
-  border-color: var(--border-mid);
+  border-color: #cbd5e1;
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
 .stage-metric-card.highlight-blue {
   background: #f0f9ff;
-  border-color: var(--blue-border);
+  border-color: rgba(186, 230, 253, 0.7);
 }
 
 .stage-metric-card.highlight-orange {
   background: #fff7ed;
-  border-color: var(--orange-border);
+  border-color: rgba(254, 215, 170, 0.7);
 }
 
 .stage-evidence-card {
   background: #ffffff;
-  border: 1px solid var(--border-light);
+  border: 1px solid #f1f5f9;
   border-radius: var(--radius-md);
-  padding: 14px 16px;
-  box-shadow: var(--shadow-xs);
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .stage-evidence-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  font-size: 11.5px;
 }
 
 .stage-evidence-label {
-  color: var(--text-secondary);
+  color: #64748b;
+  font-weight: 500;
 }
 
 .stage-evidence-value {
-  color: var(--text-dark);
+  color: #1e293b;
+  font-weight: 600;
 }
 
 /* SAR Preview Card in Stage 01 */
@@ -1820,10 +1836,10 @@
 /* Mathematical Formula Card */
 .sci-formula-container {
   background: #ffffff;
-  border: 1px solid var(--border-mid);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 16px 20px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1833,29 +1849,29 @@
 .sci-formula-badge-label {
   font-family: var(--font-mono);
   font-size: 10.5px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--blue-primary);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
 
 .sci-formula-math-box {
   background: #f8fafc;
-  border: 1px solid var(--border-light);
+  border: 1px solid #f1f5f9;
   border-radius: var(--radius-md);
   padding: 8px 20px;
   color: #0f172a;
   margin-bottom: 6px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: none;
 }
 
 /* Vessel Candidate Rows in Stage 06 & 07 */
 .vessel-candidate-row {
   background: #ffffff;
-  border: 1px solid var(--border-light);
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 13px 15px;
   box-shadow: var(--shadow-xs);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -1887,7 +1903,7 @@
 
 .vessel-rank-tag {
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 3px 6px;
   background: #f1f5f9;
   border-radius: 4px;
@@ -1904,7 +1920,7 @@
 }
 
 .vessel-assessment-badge {
-  font-weight: 800;
+  font-weight: 750;
   padding: 2px 6px;
   border-radius: 4px;
   text-transform: uppercase;
@@ -1912,8 +1928,8 @@
 
 /* Stage Navigation Footer */
 .sci-stage-footer-nav {
-  margin-top: 20px;
-  padding-top: 16px;
+  margin-top: 22px;
+  padding-top: 18px;
   border-top: 1px solid var(--border-light);
   display: flex;
   align-items: center;

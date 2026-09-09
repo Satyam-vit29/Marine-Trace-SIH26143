@@ -10,9 +10,7 @@ export function TopNav({
   activeCaseKey = 'CASE_A',
   onSelectCase,
   onOpenSarModal,
-  onOpenDrawer,
-  simulationMode,
-  onToggleMode
+  onOpenDrawer
 }) {
   const activeCase = DEMO_CASES[activeCaseKey] || DEMO_CASES.CASE_A;
 
@@ -87,18 +85,6 @@ export function TopNav({
             <span>ONLINE</span>
           </span>
         </div>
-
-        <button 
-          type="button"
-          className={`sci-badge-pill mode-toggle-pill ${simulationMode === 'forward' ? 'mode-forward' : 'mode-hindcast'}`}
-          onClick={onToggleMode}
-          title="Click to Switch Simulation Mode (Forward Forecast vs Backward Hindcast)"
-        >
-          <span className="sci-pill-lbl">MODE:</span>
-          <span className={`sci-pill-val font-mono font-bold ${simulationMode === 'forward' ? 'text-blue-700' : 'text-orange-700'}`}>
-            {simulationMode === 'forward' ? 'FORWARD (+24H)' : 'HINDCAST (-12H)'}
-          </span>
-        </button>
       </div>
 
       {/* 4. Action Controls */}

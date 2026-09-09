@@ -289,8 +289,6 @@ export function App() {
         onSelectCase={handleSelectCase}
         onOpenSarModal={() => setIsSarModalOpen(true)}
         onOpenDrawer={() => setIsDrawerOpen(true)}
-        simulationMode={simulationMode}
-        onToggleMode={() => handleModeChange(simulationMode === 'forward' ? 'backward' : 'forward')}
       />
 
       {/* 2. Side Navigation Drawer (Direct Stage Navigation) */}
