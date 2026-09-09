@@ -331,8 +331,11 @@ export function App() {
         activeCaseKey={activeCaseKey}
         onSelectCase={handleSelectCase}
         onOpenSarModal={() => setIsSarModalOpen(true)}
+<<<<<<< HEAD
+=======
         simulationMode={simulationMode}
         onToggleMode={() => handleModeChange(simulationMode === 'forward' ? 'backward' : 'forward')}
+>>>>>>> origin/main
       />
 
       {/* 2. Simplified 7-Stage Workflow Bar (Never Overlaps, Case-Adaptive) */}

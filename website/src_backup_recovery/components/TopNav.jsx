@@ -8,9 +8,13 @@ import { DEMO_CASES } from '../utils/envConstants';
 export function TopNav({ 
   activeCaseKey = 'CASE_A',
   onSelectCase,
+<<<<<<< HEAD
+  onOpenSarModal
+=======
   onOpenSarModal,
   simulationMode,
   onToggleMode
+>>>>>>> origin/main
 }) {
   const activeCase = DEMO_CASES[activeCaseKey] || DEMO_CASES.CASE_A;
 
@@ -84,6 +88,8 @@ export function TopNav({
             <span>ONLINE</span>
           </span>
         </div>
+<<<<<<< HEAD
+=======
 
         <button 
           className="sci-badge-pill mode-toggle-pill"
@@ -95,6 +101,7 @@ export function TopNav({
             {simulationMode === 'forward' ? 'FORWARD (+24H)' : 'HINDCAST (-12H)'}
           </span>
         </button>
+>>>>>>> origin/main
       </div>
 
       {/* Action Controls - SAR Scene only */}
