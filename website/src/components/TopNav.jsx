@@ -10,7 +10,13 @@ export function TopNav({
   activeCaseKey = 'CASE_A',
   onSelectCase,
   onOpenSarModal,
+<<<<<<< HEAD
   onOpenDrawer
+=======
+  onOpenDrawer,
+  simulationMode,
+  onToggleMode
+>>>>>>> origin/main
 }) {
   const activeCase = DEMO_CASES[activeCaseKey] || DEMO_CASES.CASE_A;
 
@@ -71,7 +77,11 @@ export function TopNav({
         </button>
       </div>
 
+<<<<<<< HEAD
       {/* 3. Incident Telemetry */}
+=======
+      {/* 3. Incident Telemetry & Mode Controls */}
+>>>>>>> origin/main
       <div className="sci-telemetry-row">
         <div className="sci-badge-pill incident-pill" title="Operational Incident Identifier">
           <span className="sci-pill-lbl">INCIDENT:</span>
@@ -85,6 +95,21 @@ export function TopNav({
             <span>ONLINE</span>
           </span>
         </div>
+<<<<<<< HEAD
+=======
+
+        <button 
+          type="button"
+          className={`sci-badge-pill mode-toggle-pill ${simulationMode === 'forward' ? 'mode-forward' : 'mode-hindcast'}`}
+          onClick={onToggleMode}
+          title="Click to Switch Simulation Mode (Forward Forecast vs Backward Hindcast)"
+        >
+          <span className="sci-pill-lbl">MODE:</span>
+          <span className={`sci-pill-val font-mono font-bold ${simulationMode === 'forward' ? 'text-blue-700' : 'text-orange-700'}`}>
+            {simulationMode === 'forward' ? 'FORWARD (+24H)' : 'HINDCAST (-12H)'}
+          </span>
+        </button>
+>>>>>>> origin/main
       </div>
 
       {/* 4. Action Controls */}

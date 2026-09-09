@@ -8,7 +8,13 @@ import { DEMO_CASES } from '../utils/envConstants';
 export function TopNav({ 
   activeCaseKey = 'CASE_A',
   onSelectCase,
+<<<<<<< HEAD
   onOpenSarModal
+=======
+  onOpenSarModal,
+  simulationMode,
+  onToggleMode
+>>>>>>> origin/main
 }) {
   const activeCase = DEMO_CASES[activeCaseKey] || DEMO_CASES.CASE_A;
 
@@ -82,6 +88,20 @@ export function TopNav({
             <span>ONLINE</span>
           </span>
         </div>
+<<<<<<< HEAD
+=======
+
+        <button 
+          className="sci-badge-pill mode-toggle-pill"
+          onClick={onToggleMode}
+          title="Click to Switch Simulation Mode (Forward vs Hindcast)"
+        >
+          <span className="sci-pill-lbl">MODE:</span>
+          <span className={`sci-pill-val font-mono font-bold ${simulationMode === 'forward' ? 'text-blue-700' : 'text-orange-700'}`}>
+            {simulationMode === 'forward' ? 'FORWARD (+24H)' : 'HINDCAST (-12H)'}
+          </span>
+        </button>
+>>>>>>> origin/main
       </div>
 
       {/* Action Controls - SAR Scene only */}
