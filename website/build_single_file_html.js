@@ -38,18 +38,6 @@ if (fs.existsSync(sarImagePath)) {
   console.log(`Embedded SAR image as Base64 (${(sarBase64Uri.length / 1024).toFixed(1)} KB)`);
 }
 
-<<<<<<< HEAD
-// 2b. Read Favicon SVG and encode as Data URI
-const faviconPath = path.resolve(publicDir, 'favicon.svg');
-let faviconDataUri = '';
-if (fs.existsSync(faviconPath)) {
-  const faviconBuffer = fs.readFileSync(faviconPath);
-  faviconDataUri = `data:image/svg+xml;base64,${faviconBuffer.toString('base64')}`;
-  console.log('Embedded Marine Trace favicon as Data URI');
-}
-
-=======
->>>>>>> origin/main
 // 3. Read JSON datasets for Case A (Bay of Bengal) and Case B (Arabian Sea)
 const caseADir = path.resolve(publicDir, 'data', 'case_a');
 const caseBDir = path.resolve(publicDir, 'data', 'case_b');
@@ -94,12 +82,6 @@ const standaloneHtml = `<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Marine Trace — Satellite Oil Spill Detection & Vessel Attribution</title>
   
-<<<<<<< HEAD
-  <!-- Marine Trace Favicon -->
-  ${faviconDataUri ? `<link rel="icon" type="image/svg+xml" href="${faviconDataUri}" />\n  <link rel="apple-touch-icon" href="${faviconDataUri}" />` : ''}
-
-=======
->>>>>>> origin/main
   <!-- Preconnected Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
