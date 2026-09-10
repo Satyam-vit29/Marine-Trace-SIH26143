@@ -14,6 +14,12 @@
   background-color: var(--bg-page);
   color: var(--text-dark);
   position: relative;
+  font-family: var(--font-sans);
+}
+
+.sci-app-viewport .font-extrabold,
+.sci-app-viewport .font-black {
+  font-weight: var(--type-weight-bold);
 }
 
 .sci-main-scroll-container {
@@ -106,8 +112,8 @@
 
 .sci-brand-title {
   font-size: 19px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: var(--type-weight-bold);
+  letter-spacing: var(--type-tracking-tight);
   color: #0f172a;
   margin: 0;
   line-height: 1.1;
@@ -116,7 +122,7 @@
 
 .sci-brand-subtitle {
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: var(--type-weight-label);
   color: var(--text-muted);
   margin-top: 1px;
   white-space: nowrap;
@@ -141,7 +147,7 @@
   gap: 6px;
   padding: 5px 12px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--type-weight-medium);
   letter-spacing: 0.02em;
   color: #64748b;
   background: transparent;
@@ -162,11 +168,11 @@
   background: #ffffff;
   border-color: #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
 }
 
 .case-tab-text {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 
 /* Telemetry Badges */
@@ -215,16 +221,16 @@
 }
 
 .sci-pill-lbl {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9.5px;
-  font-weight: 600;
+  font-weight: var(--type-weight-medium);
   color: var(--text-muted);
-  letter-spacing: 0.03em;
+  letter-spacing: var(--type-tracking-ui);
 }
 
 .sci-pill-val {
   font-size: 11.5px;
-  font-weight: 650;
+  font-weight: var(--type-weight-medium);
 }
 
 .mode-toggle-pill {
@@ -268,7 +274,7 @@
   gap: 7px;
   padding: 8px 16px;
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   border-radius: var(--radius-md);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -329,16 +335,25 @@
 
 /* Tags & Badges */
 .sci-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9.5px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   padding: 2px 7px;
   border-radius: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: var(--type-tracking-ui);
   display: inline-flex;
   align-items: center;
   gap: 4px;
+}
+
+.sci-badge {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--type-weight-medium);
+  letter-spacing: var(--type-tracking-ui);
+  text-transform: uppercase;
+  color: var(--blue-primary);
 }
 
 .tag-blue { background: var(--blue-light); color: var(--blue-primary); border: 1px solid var(--blue-border); }
@@ -414,8 +429,8 @@
 
 .overview-panel-title {
   font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.015em;
+  font-weight: var(--type-weight-bold);
+  letter-spacing: var(--type-tracking-topic);
   color: #0f172a;
   text-transform: uppercase;
   margin: 0;
@@ -456,8 +471,8 @@
 
 .overview-heading-text {
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: var(--type-weight-bold);
+  letter-spacing: var(--type-tracking-topic);
   color: #0f172a;
   text-transform: uppercase;
   margin: 0;
@@ -471,8 +486,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11.5px;
+  font-size: 12px;
   color: #64748b;
+  font-weight: var(--type-weight-regular);
 }
 
 .overview-quick-link {
@@ -492,10 +508,10 @@
 
 .sci-metric-label {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--type-weight-label);
   color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.025em;
+  letter-spacing: var(--type-tracking-ui);
   line-height: 1.3;
   margin-bottom: 4px;
   display: block;
@@ -503,23 +519,25 @@
 
 .sci-metric-val-lg {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   line-height: 1.25;
   color: #0f172a;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 .sci-metric-val-md {
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: var(--type-weight-medium);
   line-height: 1.25;
   color: #1e293b;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 .sci-metric-val-danger {
   color: var(--rose-primary);
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
 }
 
 /* Drift Datasets Grid in Overview */
@@ -541,8 +559,8 @@
 }
 
 .drift-dataset-title {
-  font-size: 12px;
-  font-weight: 650;
+  font-size: 12.5px;
+  font-weight: var(--type-weight-medium);
   color: #1e293b;
   margin-bottom: 3px;
 }
@@ -556,13 +574,16 @@
 
 .drift-data-label {
   color: #64748b;
-  font-weight: 500;
+  font-weight: var(--type-weight-label);
+  font-size: 11px;
 }
 
 .drift-data-value {
   color: #0f172a;
-  font-weight: 600;
-  font-family: var(--font-mono);
+  font-weight: var(--type-weight-medium);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
 }
 
 /* Origin Data Table */
@@ -583,13 +604,16 @@
 
 .origin-data-label {
   color: #64748b;
-  font-weight: 500;
+  font-weight: var(--type-weight-label);
+  font-size: 11px;
 }
 
 .origin-data-value {
   color: #0f172a;
-  font-weight: 600;
-  font-family: var(--font-mono);
+  font-weight: var(--type-weight-medium);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
 }
 
 /* Candidate Vessel List in Overview */
@@ -638,9 +662,9 @@
 }
 
 .overview-vessel-rank {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   padding: 2px 5px;
   background: #f1f5f9;
   border-radius: 4px;
@@ -654,7 +678,7 @@
 
 .overview-vessel-name {
   font-size: 13px;
-  font-weight: 650;
+  font-weight: var(--type-weight-medium);
   color: #0f172a;
   margin: 0;
 }
@@ -684,7 +708,7 @@
 }
 
 .overview-vessel-mid-row strong {
-  font-weight: 600;
+  font-weight: var(--type-weight-medium);
   color: #334155;
 }
 
@@ -695,9 +719,9 @@
 }
 
 .overview-vessel-badge {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9.5px;
-  font-weight: 750;
+  font-weight: var(--type-weight-bold);
   padding: 2px 7px;
   border-radius: 4px;
   text-transform: uppercase;
@@ -727,6 +751,7 @@
   height: 100% !important;
   overflow: hidden !important;
   outline: none !important;
+  font-family: var(--font-sans);
 }
 
 /* --------------------------------------------------------------------------
@@ -786,15 +811,15 @@
   margin-top: 4px;
   background: rgba(15, 23, 42, 0.9);
   color: #ffffff;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   padding: 2px 6px;
   border-radius: 4px;
   white-space: nowrap;
   pointer-events: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--type-tracking-ui);
   z-index: 3;
 }
 
@@ -848,15 +873,15 @@
   margin-top: 4px;
   background: rgba(15, 23, 42, 0.9);
   color: #ffffff;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   padding: 2px 6px;
   border-radius: 4px;
   white-space: nowrap;
   pointer-events: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--type-tracking-ui);
   z-index: 3;
 }
 
@@ -883,11 +908,11 @@
 }
 
 .sar-tag-text {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   color: #38bdf8;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--type-tracking-ui);
   white-space: nowrap;
 }
 
@@ -945,18 +970,18 @@
 }
 
 .cpa-badge-label-light {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 8px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   color: #e11d48;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--type-tracking-ui);
   line-height: 1.1;
 }
 
 .cpa-badge-val-light {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
   line-height: 1.1;
 }
@@ -973,7 +998,8 @@
 
 .tactical-leaflet-popup .leaflet-popup-content {
   margin: 0 !important;
-  line-height: 1.4 !important;
+  line-height: 1.45 !important;
+  font-family: var(--font-sans);
 }
 
 .tactical-leaflet-popup .leaflet-popup-tip {
@@ -991,6 +1017,7 @@
   background: #ffffff !important;
   color: var(--text-dark) !important;
   border-bottom: 1px solid var(--border-light) !important;
+  font-family: var(--font-sans) !important;
   transition: background var(--duration-fast) var(--ease-smooth);
 }
 
@@ -1016,6 +1043,11 @@
   border: 1px solid var(--border-mid);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--type-weight-medium);
+  letter-spacing: var(--type-tracking-ui);
+  text-transform: uppercase;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
@@ -1028,11 +1060,13 @@
 
 .layer-active-badge {
   font-size: 10.5px;
-  font-weight: 800;
+  font-weight: var(--type-weight-bold);
   padding: 1px 6px;
   background: var(--blue-light);
   color: var(--blue-primary);
   border-radius: 999px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .layer-dropdown-popover {
@@ -1058,6 +1092,12 @@
   justify-content: space-between;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--border-light);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--type-weight-medium);
+  letter-spacing: var(--type-tracking-ui);
+  text-transform: uppercase;
+  color: #0f172a;
 }
 
 .layer-popover-list {
@@ -1075,6 +1115,7 @@
   background: transparent;
   border: 1px solid transparent;
   font-size: 12px;
+  font-weight: var(--type-weight-regular);
   color: var(--text-body);
   text-align: left;
   transition: all var(--duration-fast) var(--ease-smooth);
@@ -1087,7 +1128,7 @@
 .layer-popover-row.active {
   background: #ffffff;
   border-color: var(--border-light);
-  font-weight: 700;
+  font-weight: var(--type-weight-medium);
   color: var(--text-dark);
   box-shadow: var(--shadow-xs);
 }
@@ -1164,8 +1205,8 @@
 .symbology-pill-label {
   font-family: var(--font-sans);
   font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  font-weight: var(--type-weight-bold);
+  letter-spacing: var(--type-tracking-ui);
   color: var(--text-dark);
   text-transform: uppercase;
 }
@@ -1230,13 +1271,13 @@
   border-radius: 2.5px;
   border: 1px solid;
   font-size: 9.5px;
-  font-weight: 900;
+  font-weight: var(--type-weight-bold);
   line-height: 1;
 }
 
 .symbology-chip-name {
   font-size: 9.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-medium);
   color: #334155;
   white-space: nowrap;
 }
@@ -1254,7 +1295,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-mid);
   border-radius: var(--radius-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   color: var(--blue-primary);
@@ -1283,9 +1324,9 @@
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-mid);
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-medium);
   color: var(--text-secondary);
   z-index: 500;
   box-shadow: var(--shadow-xs);
@@ -1335,9 +1376,9 @@
   gap: 6px;
   padding: 5px 12px;
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 650;
+  font-weight: var(--type-weight-medium);
   color: var(--text-secondary);
   background: transparent;
   border: 1px solid transparent;
@@ -1354,7 +1395,7 @@
   color: #0284c7;
   border-color: #bae6fd;
   box-shadow: 0 1px 3px rgba(2, 132, 199, 0.1);
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
 }
 
 .sci-mode-tab.active-hindcast {
@@ -1362,7 +1403,7 @@
   color: #ea580c;
   border-color: #fed7aa;
   box-shadow: 0 1px 3px rgba(234, 88, 12, 0.1);
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
 }
 
 .mode-dot {
@@ -1403,7 +1444,7 @@
 
 .sci-step-counter {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--type-weight-medium);
   color: var(--text-muted);
 }
 
@@ -1484,7 +1525,7 @@
   gap: 6px;
   padding: 6px 14px;
   border-radius: var(--radius-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   color: #ffffff;
@@ -1555,6 +1596,8 @@
   border-radius: var(--radius-sm);
   box-shadow: none;
   white-space: nowrap;
+  font-size: 11.5px;
+  font-weight: var(--type-weight-medium);
 }
 
 .sci-speed-selector-group {
@@ -1566,9 +1609,10 @@
 
 .sci-speed-label {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: var(--type-weight-medium);
   color: var(--text-muted);
   margin-right: 2px;
+  letter-spacing: var(--type-tracking-ui);
 }
 
 .sci-speed-chip {
@@ -1576,9 +1620,9 @@
   background: #f8fafc;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10.5px;
-  font-weight: 600;
+  font-weight: var(--type-weight-medium);
   color: var(--text-secondary);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -1635,35 +1679,35 @@
 }
 
 .sci-section-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: var(--blue-primary);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--type-tracking-ui);
   text-transform: uppercase;
 }
 
 .sci-section-title {
   font-size: 19px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--type-tracking-tight);
   margin: 2px 0 0;
   line-height: 1.25;
 }
 
 .sci-section-subtitle {
   font-size: 13px;
-  font-weight: 400;
+  font-weight: var(--type-weight-regular);
   color: #64748b;
   margin-top: 2px;
 }
 
 .sci-section-intro {
-  font-size: 13.5px;
-  font-weight: 400;
+  font-size: var(--type-body-size);
+  font-weight: var(--type-weight-regular);
   color: #475569;
-  line-height: 1.55;
+  line-height: var(--type-body-leading);
   max-width: 1000px;
   margin-bottom: 18px;
 }
@@ -1739,7 +1783,7 @@
 
 .step-chip-name {
   font-size: 11.5px;
-  font-weight: 650;
+  font-weight: var(--type-weight-medium);
   color: #0f172a;
   white-space: nowrap;
 }
@@ -1756,14 +1800,31 @@
 }
 
 .stage-content-transition-container .font-extrabold.text-xs,
+.stage-content-transition-container .text-xs.uppercase.tracking-wide,
+.stage-content-transition-container .text-xs.uppercase.tracking-wider,
+.stage-subsection-title,
+.stage-evidence-title,
+.overview-heading-text {
+  font-size: 14px !important;
+  font-weight: var(--type-weight-bold) !important;
+  text-transform: uppercase !important;
+  letter-spacing: var(--type-tracking-topic) !important;
+}
+
+.stage-content-transition-container .font-extrabold.text-xs,
 .stage-subsection-title,
 .stage-evidence-title {
-  font-size: 14px !important;
-  font-weight: 700 !important;
   color: #0f172a !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.02em !important;
   margin-bottom: 8px;
+}
+
+.stage-content-transition-container p,
+.sci-formula-explanation {
+  font-size: var(--type-body-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-body-leading);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* Stage Metric & Evidence Cards */
@@ -1814,15 +1875,16 @@
 
 .stage-evidence-label {
   color: #64748b;
-  font-weight: 500;
+  font-weight: var(--type-weight-label);
   font-size: 11px;
 }
 
 .stage-evidence-value {
   color: #0f172a;
-  font-weight: 600;
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-weight: var(--type-weight-medium);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* SAR Preview Card in Stage 01 */
@@ -1894,11 +1956,11 @@
 }
 
 .sci-formula-badge-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: var(--blue-primary);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--type-tracking-ui);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -1949,7 +2011,7 @@
 }
 
 .vessel-rank-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10.5px;
   font-weight: 700;
   padding: 2px 6px;
@@ -1965,7 +2027,7 @@
 
 .vessel-name-title {
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
   margin: 0;
 }
@@ -1979,16 +2041,17 @@
 .vessel-score-number {
   font-size: 13px;
   font-weight: 700;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 
 .vessel-assessment-badge {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9.5px;
-  font-weight: 750;
+  font-weight: var(--type-weight-bold);
   padding: 2px 6px;
   border-radius: 4px;
   text-transform: uppercase;
+  letter-spacing: var(--type-tracking-ui);
 }
 
 /* Stage Navigation Footer */
@@ -2070,19 +2133,19 @@
 .modal-icon-wrap.rose { background: var(--rose-light); color: var(--rose-primary); }
 
 .modal-pre-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-medium);
   color: var(--blue-primary);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--type-tracking-ui);
   text-transform: uppercase;
 }
 
 .modal-title {
   font-size: 17px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--type-tracking-tight);
   margin: 0;
 }
 
@@ -2115,6 +2178,19 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.modal-body > p {
+  font-size: var(--type-body-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-body-leading);
+  color: #475569;
+}
+
+.provenance-modal-light .font-bold.text-xs {
+  font-size: 14px;
+  font-weight: var(--type-weight-bold);
+  color: #0f172a;
 }
 
 .modal-footer {
@@ -2155,7 +2231,7 @@
   color: #ffffff;
   padding: 3px 8px;
   border-radius: 4px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
 }
 
@@ -2166,10 +2242,10 @@
 }
 
 .sidebar-sub-title {
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
-  letter-spacing: 0.02em;
+  letter-spacing: var(--type-tracking-topic);
   text-transform: uppercase;
   margin: 0 0 8px;
 }
@@ -2186,23 +2262,24 @@
 
 .tile-lbl {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--type-weight-label);
   color: #64748b;
-  letter-spacing: 0.025em;
+  letter-spacing: var(--type-tracking-ui);
   text-transform: uppercase;
   display: block;
 }
 
 .tile-val {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 .tile-sub {
   font-size: 11px;
-  font-weight: 400;
+  font-weight: var(--type-weight-regular);
   color: #64748b;
 }
 
@@ -2214,6 +2291,10 @@
   background: #f0f9ff;
   border: 1px solid var(--blue-border);
   border-radius: var(--radius-md);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-body-leading);
+  color: #475569;
 }
 
 /* Dossier Grid in Modal */
@@ -2235,23 +2316,24 @@
 
 .stat-lbl {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--type-weight-label);
   color: #64748b;
-  letter-spacing: 0.025em;
+  letter-spacing: var(--type-tracking-ui);
   text-transform: uppercase;
   display: block;
 }
 
 .stat-num {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: #0f172a;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-sub {
   font-size: 11px;
-  font-weight: 400;
+  font-weight: var(--type-weight-regular);
   color: #64748b;
 }
 
@@ -2262,13 +2344,14 @@
 }
 
 .sci-pill {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 9.5px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   padding: 2px 7px;
   border: 1px solid;
   border-radius: 4px;
   text-transform: uppercase;
+  letter-spacing: var(--type-tracking-ui);
 }
 
 /* Navigation Drawer */
@@ -2356,6 +2439,27 @@
   flex-direction: column;
 }
 
+.sci-drawer-header h2 {
+  font-size: 16px;
+  font-weight: var(--type-weight-bold);
+  letter-spacing: var(--type-tracking-tight);
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.sci-drawer-item-text .font-bold {
+  font-size: 13px;
+  font-weight: var(--type-weight-medium);
+}
+
+.dossier-forensic-section-light h4,
+.modal-body h3 {
+  font-size: 14px;
+  font-weight: var(--type-weight-bold);
+  letter-spacing: 0.01em;
+  color: #0f172a;
+}
+
 .sci-drawer-footer {
   padding: 14px 18px;
   border-top: 1px solid var(--border-light);
@@ -2376,26 +2480,42 @@
 
 .sci-content-card .font-bold.text-xs,
 .provenance-card-title {
-  font-size: 14.5px !important;
-  font-weight: 700 !important;
+  font-size: 14px !important;
+  font-weight: var(--type-weight-bold) !important;
   color: #0f172a !important;
-  letter-spacing: -0.005em !important;
+  letter-spacing: 0 !important;
 }
 
 .sci-content-card .text-xs.font-semibold,
 .provenance-card-source {
-  font-size: 12px !important;
-  font-weight: 600 !important;
+  font-size: 11.5px !important;
+  font-weight: var(--type-weight-label) !important;
   color: #0284c7 !important;
   margin-bottom: 4px !important;
 }
 
 .sci-content-card p,
 .provenance-card-desc {
-  font-size: 13px !important;
-  font-weight: 400 !important;
+  font-size: var(--type-body-size) !important;
+  font-weight: var(--type-weight-regular) !important;
   color: #475569 !important;
-  line-height: 1.5 !important;
+  line-height: var(--type-body-leading) !important;
+}
+
+#section-provenance .sci-content-card .border-b {
+  margin-bottom: 12px;
+}
+
+#section-provenance .sci-content-card .text-xs.font-semibold,
+#section-provenance .provenance-card-source {
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 12px !important;
+}
+
+#section-provenance .sci-content-card p,
+#section-provenance .provenance-card-desc {
+  margin-top: 0;
 }
 
 .sci-content-card:hover {

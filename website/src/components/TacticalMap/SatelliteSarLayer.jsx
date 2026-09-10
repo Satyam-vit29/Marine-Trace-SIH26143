@@ -45,6 +45,7 @@ export function SatelliteSarLayer({
       {/* 1. Real Sentinel-1 Grayscale SAR Radar Image Overlay */}
       {showSarImage && sarOverlay.bounds && (
         <ImageOverlay
+          key={sarOverlay.url || 'sar-default'}
           url={sarOverlay.url || '/sentinel1_sar_scene.png'}
           bounds={sarOverlay.bounds}
           opacity={sarOpacity}
