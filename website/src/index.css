@@ -83,6 +83,17 @@
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
+  /* Controlled type scale (weights + tracking; sizes applied in App.css) */
+  --type-weight-regular: 400;
+  --type-weight-label: 500;
+  --type-weight-medium: 600;
+  --type-weight-bold: 700;
+  --type-tracking-tight: -0.015em;
+  --type-tracking-topic: 0.02em;
+  --type-tracking-ui: 0.03em;
+  --type-body-size: 13.5px;
+  --type-body-leading: 1.5;
+
   /* Elevation Shadows */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -123,9 +134,10 @@ html, body {
   width: 100%;
   min-height: 100%;
   font-family: var(--font-sans);
+  font-weight: var(--type-weight-regular);
   background-color: var(--bg-page);
   color: var(--text-dark);
-  line-height: 1.5;
+  line-height: var(--type-body-leading);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

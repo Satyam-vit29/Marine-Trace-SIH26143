@@ -13,7 +13,7 @@ import {
   Filter, 
   ExternalLink 
 } from 'lucide-react';
-import { getVesselColor, getVesselAssessment } from '../../utils/geoUtils';
+import { getVesselColor, getVesselAssessment, getSarSlickSvgModel } from '../../utils/geoUtils';
 
 export function InvestigationStageSection({
   currentStageId = 'SATELLITE',
@@ -61,6 +61,7 @@ export function InvestigationStageSection({
 
   const originLat = originData?.probable_origin?.lat ?? 16.3820;
   const originLon = originData?.probable_origin?.lon ?? 82.6180;
+  const slickSvg = getSarSlickSvgModel(satelliteData);
 
   const toggleExpandVessel = (vesselName) => {
     if (onSelectVessel) {
@@ -123,10 +124,22 @@ export function InvestigationStageSection({
                     className="sar-preview-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="sar-preview-mask-overlay">
-                    <svg viewBox="0 0 400 250" className="w-full h-full">
-                      <ellipse cx="200" cy="125" rx="75" ry="28" fill="rgba(234, 88, 12, 0.35)" stroke="#ea580c" strokeWidth="2.2" />
-                      <circle cx="200" cy="125" r="3.5" fill="#ffffff" />
-                    </svg>
+                    {slickSvg ? (
+                      <svg viewBox={slickSvg.viewBox} preserveAspectRatio="xMidYMid slice" className="w-full h-full">
+                        <polygon
+                          points={slickSvg.points}
+                          fill="rgba(234, 88, 12, 0.35)"
+                          stroke="#ea580c"
+                          strokeWidth="5"
+                        />
+                        <circle cx={slickSvg.centroid.x} cy={slickSvg.centroid.y} r="7" fill="#ffffff" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 400 250" className="w-full h-full">
+                        <ellipse cx="200" cy="125" rx="75" ry="28" fill="rgba(234, 88, 12, 0.35)" stroke="#ea580c" strokeWidth="2.2" />
+                        <circle cx="200" cy="125" r="3.5" fill="#ffffff" />
+                      </svg>
+                    )}
                   </div>
                   <div className="sar-preview-badge font-mono text-[10px]">
                     <span>CLICK FOR FULL-SCREEN RADAR SCENE ↗</span>

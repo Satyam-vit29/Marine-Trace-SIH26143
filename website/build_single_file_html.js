@@ -29,13 +29,22 @@ console.log(`Found CSS bundle: ${cssFile}`);
 const jsCode = fs.readFileSync(path.resolve(assetsDir, jsFile), 'utf-8');
 const cssCode = fs.readFileSync(path.resolve(assetsDir, cssFile), 'utf-8');
 
-// 2. Read SAR Radar Image and encode as Base64 Data URI
+// 2. Read SAR Radar Images and encode as Base64 Data URIs
+function encodeSarImage(relUrl) {
+  if (!relUrl || typeof relUrl !== 'string') return '';
+  const rel = relUrl.replace(/^\//, '').split('?')[0];
+  const abs = path.resolve(publicDir, rel);
+  if (!fs.existsSync(abs)) return '';
+  const buf = fs.readFileSync(abs);
+  return `data:image/png;base64,${buf.toString('base64')}`;
+}
+
 const sarImagePath = path.resolve(publicDir, 'sentinel1_sar_scene.png');
 let sarBase64Uri = '';
 if (fs.existsSync(sarImagePath)) {
   const sarBuffer = fs.readFileSync(sarImagePath);
   sarBase64Uri = `data:image/png;base64,${sarBuffer.toString('base64')}`;
-  console.log(`Embedded SAR image as Base64 (${(sarBase64Uri.length / 1024).toFixed(1)} KB)`);
+  console.log(`Embedded Case A SAR image as Base64 (${(sarBase64Uri.length / 1024).toFixed(1)} KB)`);
 }
 
 // 3. Read JSON datasets for Case A (Bay of Bengal) and Case B (Arabian Sea)
@@ -60,15 +69,19 @@ const caseB = {
   ais: JSON.parse(fs.readFileSync(path.resolve(caseBDir, 'ais_web.json'), 'utf-8')),
 };
 
-// Inject Base64 data URI into satellite metadata overlay
-if (sarBase64Uri) {
+// Inject Base64 data URIs without replacing case-specific overlay geometry
+const caseASarUri = encodeSarImage(caseA.satellite?.sar_image_overlay?.url) || sarBase64Uri;
+const caseBSarUri = encodeSarImage(caseB.satellite?.sar_image_overlay?.url) || sarBase64Uri;
+if (caseASarUri && caseA.satellite?.sar_image_overlay) {
   caseA.satellite.sar_image_overlay = {
-    url: sarBase64Uri,
-    bounds: [[16.35, 82.60], [16.65, 83.00]],
+    ...caseA.satellite.sar_image_overlay,
+    url: caseASarUri,
   };
+}
+if (caseBSarUri && caseB.satellite?.sar_image_overlay) {
   caseB.satellite.sar_image_overlay = {
-    url: sarBase64Uri,
-    bounds: [[18.35, 69.80], [18.65, 70.20]],
+    ...caseB.satellite.sar_image_overlay,
+    url: caseBSarUri,
   };
 }
 
@@ -98,6 +111,7 @@ ${cssCode}
   <!-- Inlined Prototype Data & Offline Interceptor for Both Demonstration Cases -->
   <script>
     window.__EMBEDDED_SAR_IMAGE__ = ${JSON.stringify(sarBase64Uri)};
+    window.__EMBEDDED_SAR_IMAGE_B__ = ${JSON.stringify(caseBSarUri)};
     window.__EMBEDDED_DATA__ = {
       CASE_A: ${JSON.stringify(caseA)},
       CASE_B: ${JSON.stringify(caseB)},
@@ -137,7 +151,8 @@ ${cssCode}
             return Promise.resolve(new Response(JSON.stringify(caseData.ais), { status: 200, headers: { 'Content-Type': 'application/json' } }));
           }
           if (url.includes('sentinel1_sar_scene.png')) {
-            return Promise.resolve(new Response(window.__EMBEDDED_SAR_IMAGE__, { status: 200 }));
+            const embeddedSar = url.includes('case_b') ? window.__EMBEDDED_SAR_IMAGE_B__ : window.__EMBEDDED_SAR_IMAGE__;
+            return Promise.resolve(new Response(embeddedSar, { status: 200 }));
           }
         }
         if (originalFetch) {

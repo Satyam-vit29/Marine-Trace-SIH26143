@@ -3,6 +3,7 @@ import {
   Satellite, 
   Info
 } from 'lucide-react';
+import { getSarSlickSvgModel } from '../../utils/geoUtils';
 
 export function SatelliteSarModal({ 
   satelliteData, 
@@ -11,6 +12,7 @@ export function SatelliteSarModal({
   const char = satelliteData?.slick_characterization || {};
   const centroid = char.centroid || { lat: 18.5000, lon: 70.0000 };
   const sarOverlay = satelliteData?.sar_image_overlay || {};
+  const slickSvg = getSarSlickSvgModel(satelliteData);
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -49,31 +51,60 @@ export function SatelliteSarModal({
 
                 {/* SVG Vector Frame showing Detected Oil Slick Damping Zone on top of SAR */}
                 <div className="absolute inset-0 pointer-events-none">
-                  <svg viewBox="0 0 400 260" className="w-full h-full">
-                    {/* Bounding Box Frame */}
-                    <rect x="90" y="80" width="220" height="96" fill="none" stroke="#0284c7" strokeWidth="1.5" strokeDasharray="5, 5" />
-
-                    {/* Detected Slick Mask Polygon */}
-                    <ellipse 
-                      cx="200" 
-                      cy="128" 
-                      rx="85" 
-                      ry="32" 
-                      fill="rgba(234, 88, 12, 0.35)" 
-                      stroke="#ea580c" 
-                      strokeWidth="2.5" 
-                    />
-
-                    {/* Centroid Reticle */}
-                    <circle cx="200" cy="128" r="4" fill="#ffffff" stroke="#ea580c" strokeWidth="2" />
-                    <line x1="200" y1="112" x2="200" y2="144" stroke="#ffffff" strokeWidth="1.2" />
-                    <line x1="184" y1="128" x2="216" y2="128" stroke="#ffffff" strokeWidth="1.2" />
-
-                    {/* Dimension Tag */}
-                    <text x="200" y="195" fill="#ffffff" fontSize="11" textAnchor="middle" fontFamily="monospace" fontWeight="bold" filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.9))">
-                      Major Axis: {char.length_major_axis_km || '6.22'} km @ {char.orientation_deg || '90.8'}°
-                    </text>
-                  </svg>
+                  {slickSvg ? (
+                    <svg viewBox={slickSvg.viewBox} preserveAspectRatio="xMidYMid slice" className="w-full h-full">
+                      <rect
+                        x={slickSvg.bbox.x}
+                        y={slickSvg.bbox.y}
+                        width={slickSvg.bbox.width}
+                        height={slickSvg.bbox.height}
+                        fill="none"
+                        stroke="#0284c7"
+                        strokeWidth="3"
+                        strokeDasharray="10, 8"
+                      />
+                      <polygon
+                        points={slickSvg.points}
+                        fill="rgba(234, 88, 12, 0.35)"
+                        stroke="#ea580c"
+                        strokeWidth="5"
+                      />
+                      <line
+                        x1={slickSvg.axis.x1}
+                        y1={slickSvg.axis.y1}
+                        x2={slickSvg.axis.x2}
+                        y2={slickSvg.axis.y2}
+                        stroke="#ffffff"
+                        strokeWidth="2.4"
+                        strokeDasharray="8, 6"
+                      />
+                      <circle cx={slickSvg.centroid.x} cy={slickSvg.centroid.y} r="7" fill="#ffffff" stroke="#ea580c" strokeWidth="3" />
+                      <line x1={slickSvg.centroid.x} y1={slickSvg.centroid.y - 16} x2={slickSvg.centroid.x} y2={slickSvg.centroid.y + 16} stroke="#ffffff" strokeWidth="1.8" />
+                      <line x1={slickSvg.centroid.x - 16} y1={slickSvg.centroid.y} x2={slickSvg.centroid.x + 16} y2={slickSvg.centroid.y} stroke="#ffffff" strokeWidth="1.8" />
+                      <text x={slickSvg.centroid.x} y={slickSvg.labelY} fill="#ffffff" fontSize="22" textAnchor="middle" fontFamily="monospace" fontWeight="bold" filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.9))">
+                        Major Axis: {char.length_major_axis_km || '6.22'} km @ {char.orientation_deg || '90.8'}°
+                      </text>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 400 260" className="w-full h-full">
+                      <rect x="90" y="80" width="220" height="96" fill="none" stroke="#0284c7" strokeWidth="1.5" strokeDasharray="5, 5" />
+                      <ellipse 
+                        cx="200" 
+                        cy="128" 
+                        rx="85" 
+                        ry="32" 
+                        fill="rgba(234, 88, 12, 0.35)" 
+                        stroke="#ea580c" 
+                        strokeWidth="2.5" 
+                      />
+                      <circle cx="200" cy="128" r="4" fill="#ffffff" stroke="#ea580c" strokeWidth="2" />
+                      <line x1="200" y1="112" x2="200" y2="144" stroke="#ffffff" strokeWidth="1.2" />
+                      <line x1="184" y1="128" x2="216" y2="128" stroke="#ffffff" strokeWidth="1.2" />
+                      <text x="200" y="195" fill="#ffffff" fontSize="11" textAnchor="middle" fontFamily="monospace" fontWeight="bold" filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.9))">
+                        Major Axis: {char.length_major_axis_km || '6.22'} km @ {char.orientation_deg || '90.8'}°
+                      </text>
+                    </svg>
+                  )}
                 </div>
 
                 <div className="sar-canvas-badge">
@@ -119,7 +150,7 @@ export function SatelliteSarModal({
           <div className="sar-honesty-banner">
             <Info size={18} className="text-blue flex-shrink-0" />
             <div className="text-xs text-slate-700 leading-relaxed">
-              <strong>Satellite-to-Model Pipeline:</strong> Sentinel-1 C-SAR radar passes over the Arabian Sea and captures the dark low-backscatter oil slick anomaly. The segmented polygon geometry is immediately passed to the OpenDrift particle generation engine for forward forecast (+24h) and backward hindcast (-12h).
+              <strong>Satellite-to-Model Pipeline:</strong> Sentinel-1 C-SAR radar passes over the {satelliteData?.incident_id === 'DEMO-BOB-001' ? 'Bay of Bengal' : 'Arabian Sea'} and captures the dark low-backscatter oil slick anomaly. The segmented polygon geometry is immediately passed to the OpenDrift particle generation engine for forward forecast (+24h) and backward hindcast (-12h).
             </div>
           </div>
         </div>

@@ -143,3 +143,42 @@ export function getVesselAssessment(score) {
   if (score > 0) return { label: 'LOW ASSOCIATION', tier: 'low', color: '#0284c7' };
   return { label: 'OUT OF CORRIDOR', tier: 'none', color: '#64748b' };
 }
+
+/**
+ * Project Case SAR slick geometry into SVG space using the same
+ * image_outline / bounds stored on satellite_detection.json.
+ * Returns null when a case has no image-space outline (keeps Case A ellipses).
+ */
+export function getSarSlickSvgModel(satelliteData) {
+  const overlay = satelliteData?.sar_image_overlay || {};
+  const char = satelliteData?.slick_characterization || {};
+  const outline = char.image_outline;
+  if (!Array.isArray(outline) || outline.length < 3) return null;
+
+  const vw = overlay.pixel_width || 1;
+  const vh = overlay.pixel_height || 1;
+  const points = outline.map(([x, y]) => `${(x * vw).toFixed(2)},${(y * vh).toFixed(2)}`).join(' ');
+  const xs = outline.map((p) => p[0] * vw);
+  const ys = outline.map((p) => p[1] * vh);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+
+  const cx = (char.image_centroid?.[0] ?? (minX + maxX) / (2 * vw)) * vw;
+  const cy = (char.image_centroid?.[1] ?? (minY + maxY) / (2 * vh)) * vh;
+
+  const theta = ((char.orientation_deg ?? 0) * Math.PI) / 180;
+  const axisLen = Math.max(maxX - minX, maxY - minY) * 0.52;
+  const dx = Math.sin(theta) * axisLen;
+  const dy = -Math.cos(theta) * axisLen;
+
+  return {
+    viewBox: `0 0 ${vw} ${vh}`,
+    points,
+    bbox: { x: minX, y: minY, width: maxX - minX, height: maxY - minY },
+    centroid: { x: cx, y: cy },
+    axis: { x1: cx - dx, y1: cy - dy, x2: cx + dx, y2: cy + dy },
+    labelY: Math.min(vh - 18, maxY + 28),
+  };
+}
