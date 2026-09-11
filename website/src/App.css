@@ -916,25 +916,10 @@
   white-space: nowrap;
 }
 
-/* 4. Vector Field Arrows */
-.sci-vector-icon {
-  background: transparent !important;
-  border: none !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.vector-arrow-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-origin: center center;
-}
-
-.vector-arrow-svg {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+/* 4. Vector Field Canvas Streamflow Overlay */
+.vector-field-flow-canvas {
+  pointer-events: none !important;
+  user-select: none;
 }
 
 /* 5. AIS Vessel Dot Markers & CPA Distance Badge */
