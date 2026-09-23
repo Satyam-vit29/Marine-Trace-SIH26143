@@ -916,10 +916,60 @@
   white-space: nowrap;
 }
 
-/* 4. Vector Field Canvas Streamflow Overlay */
-.vector-field-flow-canvas {
-  pointer-events: none !important;
-  user-select: none;
+/* 4. Vector Field Arrows */
+.sci-vector-icon {
+  background: transparent !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.vector-arrow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+}
+
+.vector-arrow-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+  animation-name: vectorFlowGlide;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.vector-arrow-flow.flow-current {
+  animation-duration: 2.8s;
+}
+
+.vector-arrow-flow.flow-wind {
+  animation-duration: 2.0s;
+}
+
+@keyframes vectorFlowGlide {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  88% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+
+.vector-arrow-svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
 }
 
 /* 5. AIS Vessel Dot Markers & CPA Distance Badge */

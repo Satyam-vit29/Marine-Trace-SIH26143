@@ -1,53 +1,32 @@
-import { useEffect, useMemo } from 'react';
-import { useMap } from 'react-leaflet';
+import { useMemo } from 'react';
+import { Marker } from 'react-leaflet';
+import L from 'leaflet';
 
-// Draw the original scientific vector arrow icon
-function drawGridArrow(ctx, x, y, angleDeg, isCurrent, opacity) {
-  if (opacity <= 0.02) return;
-
-  const rad = (angleDeg * Math.PI) / 180;
-  const color = isCurrent ? '#0d9488' : '#2563eb';
+// Create high-visibility scientific vector arrow icon with continuous flowing animation
+const createVectorArrowIcon = (type, angleDeg, speedMs, animDelay = 0) => {
+  const isCurrent = type === 'current';
+  const color = isCurrent ? '#0d9488' : '#2563eb'; // Teal for ocean current, Blue for wind
   const strokeColor = isCurrent ? '#0f766e' : '#1d4ed8';
+  const lengthPx = isCurrent ? Math.min(32, Math.max(18, speedMs * 80)) : Math.min(36, Math.max(20, speedMs * 7));
 
-  ctx.save();
-  ctx.globalAlpha = opacity;
-  ctx.translate(x, y);
-  ctx.rotate(rad);
-
-  const lengthPx = isCurrent ? 22 : 26;
-  const halfLen = lengthPx / 2;
-  const headLen = isCurrent ? 6.5 : 7.0;
-  const headWidth = isCurrent ? 8.2 : 8.6;
-
-  // Vector line (shaft)
-  ctx.beginPath();
-  if (!isCurrent) {
-    ctx.setLineDash([3, 2]); // Original dashed line for ERA5 wind
-  } else {
-    ctx.setLineDash([]);    // Original solid line for CMEMS current
-  }
-  ctx.moveTo(0, halfLen);
-  ctx.lineTo(0, -halfLen + headLen * 0.7);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = isCurrent ? 2.0 : 1.8;
-  ctx.lineCap = 'round';
-  ctx.stroke();
-
-  // Arrow Head
-  ctx.beginPath();
-  ctx.setLineDash([]);
-  ctx.moveTo(0, -halfLen - 1.5); // Arrow tip
-  ctx.lineTo(-headWidth / 2, -halfLen + headLen);
-  ctx.lineTo(headWidth / 2, -halfLen + headLen);
-  ctx.closePath();
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.strokeStyle = strokeColor;
-  ctx.lineWidth = 0.8;
-  ctx.stroke();
-
-  ctx.restore();
-}
+  return L.divIcon({
+    className: `sci-vector-icon vector-${type}`,
+    html: `
+      <div class="vector-arrow-container" style="transform: rotate(${angleDeg}deg);">
+        <div class="vector-arrow-flow ${isCurrent ? 'flow-current' : 'flow-wind'}" style="animation-delay: ${animDelay}s;">
+          <svg viewBox="0 0 40 40" width="${lengthPx}" height="${lengthPx}" class="vector-arrow-svg">
+            <!-- Vector line -->
+            <line x1="20" y1="36" x2="20" y2="8" stroke="${color}" stroke-width="${isCurrent ? 2.2 : 1.8}" stroke-dasharray="${isCurrent ? 'none' : '3, 2'}" opacity="0.95" />
+            <!-- Arrow head -->
+            <polygon points="20,3 13,14 27,14" fill="${color}" stroke="${strokeColor}" stroke-width="0.8" />
+          </svg>
+        </div>
+      </div>
+    `,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+};
 
 export function VectorFieldLayer({ 
   forcingData,
@@ -55,8 +34,6 @@ export function VectorFieldLayer({
   showCurrent = true, 
   showWind = true 
 }) {
-  const map = useMap();
-
   const atmo = forcingData?.atmospheric_forcing || {};
   const hydro = forcingData?.hydrodynamic_forcing || {};
 
@@ -69,7 +46,7 @@ export function VectorFieldLayer({
   const centerLat = center?.[0] || 16.50;
   const centerLon = center?.[1] || 82.80;
 
-  // Original regular 5x6 spatial grid covering the AOI
+  // Spatial hydrodynamic vector grid covering the active case AOI (exact original 5x6 grid)
   const gridCells = useMemo(() => {
     const cells = [];
     const minLat = centerLat - 0.22;
@@ -92,135 +69,50 @@ export function VectorFieldLayer({
         const localWindBearing = windBearing + (lonOffset * 2.0);
         const localWindSpeed = windSpeed + (latOffset * 0.1);
 
-        // Staggered phase offset for each grid cell so arrows flow smoothly without unison jumps
-        const phase = ((i * 0.38 + j * 0.24) % 1.0);
+        // Desynchronized phase delay per grid cell for organic, continuous streaming across the grid
+        const currentDelay = -((i * 0.55 + j * 0.38) % 2.8).toFixed(2);
+        const windDelay = -((i * 0.42 + j * 0.28) % 2.0).toFixed(2);
 
         cells.push({
           lat,
           lon,
-          phase,
           currentAngle: localCurrentBearing,
           currentSpd: localCurrentSpeed,
+          currentDelay,
           windAngle: localWindBearing,
           windSpd: localWindSpeed,
+          windDelay,
         });
       }
     }
     return cells;
   }, [centerLat, centerLon, currentBearing, currentSpeed, windBearing, windSpeed]);
 
-  // Continuous Canvas animation loop
-  useEffect(() => {
-    if (!map) return;
-    const container = map.getContainer();
-    if (!container) return;
+  return (
+    <>
+      {/* Copernicus Marine Ocean Current Vector Field (Exact original 30 grid points) */}
+      {showCurrent && (
+        gridCells.map((cell, idx) => (
+          <Marker
+            key={`curr-${idx}`}
+            position={[cell.lat + 0.012, cell.lon - 0.01]}
+            icon={createVectorArrowIcon('current', cell.currentAngle, cell.currentSpd, cell.currentDelay)}
+            interactive={false}
+          />
+        ))
+      )}
 
-    const canvas = document.createElement('canvas');
-    canvas.className = 'vector-field-flow-canvas';
-    canvas.style.position = 'absolute';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '400';
-    container.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
-    let lastTime = performance.now();
-    let windProgress = 0;
-    let currentProgress = 0;
-
-    const updateCanvasSize = () => {
-      const rect = container.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(dpr, dpr);
-    };
-
-    updateCanvasSize();
-
-    const resizeObserver = new ResizeObserver(() => {
-      updateCanvasSize();
-    });
-    resizeObserver.observe(container);
-
-    const render = (time) => {
-      const dt = Math.min((time - lastTime) / 1000, 0.1);
-      lastTime = time;
-
-      // Continuous flowing progression
-      windProgress = (windProgress + dt * 0.40) % 1.0;
-      currentProgress = (currentProgress + dt * 0.26) % 1.0;
-
-      const rect = container.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
-
-      ctx.clearRect(0, 0, width, height);
-
-      // 1. CMEMS Current Arrows (Exactly 30 fixed grid points, continuous flow)
-      if (showCurrent) {
-        const travelDist = 16; // Smooth continuous movement distance along vector
-        gridCells.forEach((cell) => {
-          const basePt = map.latLngToContainerPoint([cell.lat + 0.012, cell.lon - 0.01]);
-          if (basePt.x < -40 || basePt.x > width + 40 || basePt.y < -40 || basePt.y > height + 40) return;
-
-          const rad = (cell.currentAngle * Math.PI) / 180;
-          const ux = Math.sin(rad);
-          const uy = -Math.cos(rad);
-
-          // Continuous motion with staggered cell phase
-          const progress = (currentProgress + cell.phase) % 1.0;
-          const disp = (progress - 0.5) * travelDist;
-          const x = basePt.x + disp * ux;
-          const y = basePt.y + disp * uy;
-
-          // Smooth opacity envelope to prevent blinking or snapping
-          const opacity = Math.sin(progress * Math.PI) ** 0.4 * 0.95;
-          drawGridArrow(ctx, x, y, cell.currentAngle, true, opacity);
-        });
-      }
-
-      // 2. ERA5 Wind Arrows (Exactly 30 fixed grid points, continuous flow)
-      if (showWind) {
-        const travelDist = 18; // Smooth continuous movement distance along vector
-        gridCells.forEach((cell) => {
-          const basePt = map.latLngToContainerPoint([cell.lat - 0.015, cell.lon + 0.018]);
-          if (basePt.x < -40 || basePt.x > width + 40 || basePt.y < -40 || basePt.y > height + 40) return;
-
-          const rad = (cell.windAngle * Math.PI) / 180;
-          const ux = Math.sin(rad);
-          const uy = -Math.cos(rad);
-
-          // Continuous motion with staggered cell phase
-          const progress = (windProgress + cell.phase) % 1.0;
-          const disp = (progress - 0.5) * travelDist;
-          const x = basePt.x + disp * ux;
-          const y = basePt.y + disp * uy;
-
-          // Smooth opacity envelope to prevent blinking or snapping
-          const opacity = Math.sin(progress * Math.PI) ** 0.4 * 0.95;
-          drawGridArrow(ctx, x, y, cell.windAngle, false, opacity);
-        });
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    animationFrameId = requestAnimationFrame(render);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      resizeObserver.disconnect();
-      if (canvas.parentNode) {
-        canvas.parentNode.removeChild(canvas);
-      }
-    };
-  }, [map, gridCells, showCurrent, showWind]);
-
-  return null;
+      {/* ERA5 Surface Wind Vector Field (Exact original 30 grid points) */}
+      {showWind && (
+        gridCells.map((cell, idx) => (
+          <Marker
+            key={`wind-${idx}`}
+            position={[cell.lat - 0.015, cell.lon + 0.018]}
+            icon={createVectorArrowIcon('wind', cell.windAngle, cell.windSpd, cell.windDelay)}
+            interactive={false}
+          />
+        ))
+      )}
+    </>
+  );
 }
