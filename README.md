@@ -1,8 +1,8 @@
-## 🌊 Marine Trace
+## 🌊 Sagar Netra
 
 Satellite Oil Spill Detection & Vessel Attribution
 
-Marine Trace is an oil-spill investigation platform combining satellite imagery, environmental data, drift modelling, and AIS vessel tracking into one workflow.
+Sagar Netra is an oil-spill investigation platform combining satellite imagery, environmental data, drift modelling, and AIS vessel tracking into one workflow.
 
 ## 🔎 Investigation Pipeline
 
@@ -22,7 +22,7 @@ React, JavaScript, Vite, Leaflet, OpenDrift/OpenOil, ERA5, CMEMS, AIS
 
 ## 🚀 Live Demo
 
-https://marine-trace-sih-26143.vercel.app/
+https://sagar-netra-sih-26143.vercel.app/
 
 ## 👥 Team
 
@@ -37,4 +37,4 @@ Vinit
 
 Developed for Smart India Hackathon (SIH-26143).
 
-Marine Trace is a decision-support tool that identifies potentially associated vessels based on available evidence. It does not independently establish legal responsibility.
+Sagar Netra is a decision-support tool that identifies potentially associated vessels based on available evidence. It does not independently establish legal responsibility.
