@@ -24,7 +24,7 @@ export function TopNav({
           </div>
           <div>
             <div className="flex items-center gap-2.5">
-              <h1 className="sci-brand-title">Marine Trace</h1>
+              <h1 className="sci-brand-title">SAGAR NETRA</h1>
               <span className="sci-tag tag-blue">SIH-26143</span>
             </div>
             <p className="sci-brand-subtitle">Satellite Oil Spill Detection & Vessel Attribution</p>

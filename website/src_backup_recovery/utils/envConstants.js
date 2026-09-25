@@ -1,5 +1,5 @@
 /**
- * Scientific & Environmental Constants for Marine Trace Platform
+ * Scientific & Environmental Constants for SAGAR NETRA Platform
  * Supporting Two Distinct Demonstration Cases:
  * Case A — Bay of Bengal (Eastern Coastline)
  * Case B — Arabian Sea (Western Coastline)

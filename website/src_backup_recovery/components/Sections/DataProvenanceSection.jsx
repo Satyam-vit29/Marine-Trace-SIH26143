@@ -69,7 +69,7 @@ export function DataProvenanceSection() {
       </div>
 
       <p className="sci-section-intro">
-        In compliance with Smart India Hackathon technical integrity standards, the exact status and provenance of each data layer and simulation engine in this Marine Trace prototype is disclosed below.
+        In compliance with Smart India Hackathon technical integrity standards, the exact status and provenance of each data layer and simulation engine in this SAGAR NETRA prototype is disclosed below.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">

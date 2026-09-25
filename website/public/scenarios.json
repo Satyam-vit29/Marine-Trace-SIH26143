@@ -20,7 +20,7 @@
       "code": "CASE_C",
       "label": "SCENARIO C \u2014 DECOY / WRONG NEAREST VESSEL",
       "region": "Arabian Sea (Offshore Goa Corridor)",
-      "description": "Critical test case demonstrating why Marine Trace does NOT naively choose the nearest vessel: Decoy MV Coastal Runner (nearest in distance, but 8.5h late, opposing course) ranks #3, while True Source MT Sagar Ratna (synchronous time, aligned course) ranks #1."
+      "description": "Critical test case demonstrating why SAGAR NETRA does NOT naively choose the nearest vessel: Decoy MV Coastal Runner (nearest in distance, but 8.5h late, opposing course) ranks #3, while True Source MT Sagar Ratna (synchronous time, aligned course) ranks #1."
     }
   ]
 }
