@@ -31,12 +31,12 @@ export function TopNav({
         )}
 
         <div className="sci-brand-group">
-          <div className="sci-logo-circle" title="Marine Trace Intelligence System">
+          <div className="sci-logo-circle" title="SAGAR NETRA Intelligence System">
             <Radar className="text-blue-600 sci-logo-radar" size={22} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="sci-brand-title">Marine Trace</h1>
+              <h1 className="sci-brand-title">SAGAR NETRA</h1>
               <span className="sci-tag tag-blue font-mono font-bold text-[10px] tracking-wider">SIH-26143</span>
             </div>
             <p className="sci-brand-subtitle">Satellite Oil Spill Detection & Vessel Attribution</p>

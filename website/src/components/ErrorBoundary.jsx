@@ -12,7 +12,7 @@ export class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Captured in Marine Trace ErrorBoundary:', error, errorInfo);
+    console.error('Captured in SAGAR NETRA ErrorBoundary:', error, errorInfo);
   }
 
   handleReset = () => {
@@ -45,7 +45,7 @@ export class ErrorBoundary extends React.Component {
               <AlertCircle size={32} />
             </div>
             <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
-              MARINE TRACE RECOVERY
+              SAGAR NETRA RECOVERY
             </h2>
             <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px', lineHeight: 1.5 }}>
               A display error occurred. You can safely restore the application by reloading.
@@ -67,7 +67,7 @@ export class ErrorBoundary extends React.Component {
               }}
             >
               <RotateCcw size={15} />
-              <span>Reload Marine Trace</span>
+              <span>Reload SAGAR NETRA</span>
             </button>
           </div>
         </div>
